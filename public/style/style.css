@@ -7,13 +7,37 @@
     object-fit: cover;
     filter: brightness(0.6);
 }
+.carousel-caption{
+    word-wrap: break-word
+}
 .mostview{
     padding-top: 50px;
 }
 
 .item{
-    margin-left: 55px;
+    margin-left: 45px;
 }
 .card{
-    width: 350px;
+    height: 300px;
+    width: 400px;
 }
+.owl-prev {
+    width: 25px;
+    height: 80px;
+    position: absolute;
+    top: 40%;
+    margin-left: 15px;
+    display: block !important;
+    border:0 solid black;
+}
+
+.owl-next {
+    width: 25px;
+    height: 80px;
+    position: absolute;
+    top: 40%;
+    right: 15px;
+    display: block !important;
+    border:0px solid black;
+}
+.owl-prev i, .owl-next i {transform : scale(1,6); color: #ccc;}
