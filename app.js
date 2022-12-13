@@ -1,9 +1,6 @@
 import express from 'express';
 import { engine } from 'express-handlebars';
 import hbs_sections from 'express-handlebars-sections'
-import { dirname } from 'path';
-
-import accountRoute from "./routes/account.route.js";
 import coursesService from "./services/courses.service.js";
 const app = express();
 
@@ -29,9 +26,6 @@ app.get('/',async function (req, res){
         newest: list
     });
 });
-
-app.use('/account/', accountRoute);
-
 const PORT = 3000;
 app.listen(PORT, function () {
     console.log(`E-commerce application listening at http://localhost:${PORT}`);
