@@ -12,84 +12,79 @@
         * {
             font-size: 14px;
         }
-
-
     </style>
-    {{{_sections.css}}}
 </head>
 <body>
-<!--    <div class="p-3 bg-dark text-white">-->
-<!--        <div class="flexMain">-->
-<!--            <div class="flex1">-->
-
-<!--            </div>-->
-<!--            <div class="flex2 text-center">-->
-<!--                <div><strong>WHERE KNOWLEDGE BEGIN</strong></div>-->
-<!--            </div>-->
-<!--            <div class="flex1">-->
-
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-    <div id="menuHolder">
-        <div role="navigation" class="sticky-top border-bottom border-top" id="mainNavigation">
-            <div class="flexMain">
-                <div class="flex2">
-                    <button class="whiteLink siteLink" style="border-right:1px solid #eaeaea" onclick="menuToggle()"><i class="fas fa-bars me-2"></i> MENU</button>
+    <div class="superNav border-bottom py-2 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 centerOnMobile">
+                    <select  class="me-3 border-0 bg-light">
+                        <option value="en-us">EN-US</option>
+                    </select>
+                    <span class="d-none d-lg-inline-block d-md-inline-block d-sm-inline-block d-xs-none me-3">
+                        <strong>onlineacademygroup6@gmail.com</strong></span>
                 </div>
-                <div class="flex3 text-center" id="siteBrand">
-                    ONLINE ACADEMY GROUP 6
-                </div>
-
-                <div class="flex2 text-end d-block d-md-none">
-                    <button class="whiteLink siteLink"><i class="fas fa-search"></i></button>
-                </div>
-
-                <div class="flex2 text-end d-none d-md-block">
-                    <button class="whiteLink siteLink">REGISTER</button>
-                    <button class="blackLink siteLink">Login</button>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 d-none d-lg-block d-md-block-d-sm-block d-xs-none text-end">
                 </div>
             </div>
-        </div>
-
-        <div id="menuDrawer">
-            <div class="p-4 border-bottom">
-                    <div class="col text-end ">
-                        <i class="fas fa-times" role="btn" onclick="menuToggle()"></i>
-                    </div>
-            </div>
-
-            <nav>
-                <ul>
-                    <li><a href="#" class="nav-menu-item"><i class="fas fa-home me-3"></i>Home</a></li>
-                    <li><a href="#" class="nav-menu-item"><i class="fab fa-product-hunt me-3"></i>Products</a></li>
-                    <li>
-                        <a href="#" class="feat-btn nav-menu-item">
-                            <i class="fas fa-search me-3"></i>Explore
-                            <span class="fas fa-caret-down"></span>
-                        </a>
-                        <ul class="feat-show">
-                            <li><a class="nav-menu-item" href="#">Pages</a></li>
-                            <li><a class="nav-menu-item" href="#">Elements</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#" class="nav-menu-item"><i class="fas fa-wrench me-3"></i>Services</a></li>
-                    <li><a href="#" class="nav-menu-item"><i class="fas fa-dollar-sign me-3"></i>Pricing</a></li>
-                    <li><a href="#" class="nav-menu-item"><i class="fas fa-file-alt me-3"></i>Blog</a></li>
-                    <li><a href="#" class="nav-menu-item"><i class="fas fa-building me-3"></i>About Us</a></li>
-                </ul>
-            </nav>
-            <div>
-                <a href="#" class="dropdown nav-menu-item">
-
-                </a>
-            </div>
-        </div>
-        <div class="flexBody">
-            {{{body}}}
         </div>
     </div>
-<!--        {{{body}}}-->
+    <nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fa-solid fa-shop me-2"></i> <strong>ONLINE ACADEMY GROUP 6</strong></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
+                <div class="input-group">
+                    <span class="border-warning input-group-text bg-warning text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <input type="text" class="form-control border-warning" style="color:#7a7a7a">
+                    <button class="btn btn-warning text-white">Search</button>
+                </div>
+            </div>
+            <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+                <div class="ms-auto d-none d-lg-block">
+                    <div class="input-group">
+                        <span class="border-warning input-group-text bg-warning text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        <input type="text" class="form-control border-warning" style="color:#7a7a7a">
+                        <button class="btn btn-warning text-white">Search</button>
+                    </div>
+                </div>
+                <ul class="navbar-nav ms-auto ">
+                    <li class="nav-item">
+                        <a class="nav-link mx-2 text-uppercase active" aria-current="page" href="#">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2 text-uppercase" href="#">Catalog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2 text-uppercase" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2 text-uppercase" href="#">About</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto ">
+                    <li class="nav-item">
+                        <a class="nav-link  mx-2 text-uppercase" href="#">Sign in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  mx-2 text-uppercase" href="#">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2 text-uppercase" href="#"><i class="fa-solid fa-circle-user me-1"></i> Account</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="boddy">
+        {{{body}}}
+    </div>
+
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
