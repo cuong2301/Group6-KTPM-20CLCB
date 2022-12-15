@@ -34,6 +34,14 @@ app.get('/',async function (req, res){
     });
 });
 
+app.post('/',async function(req,res){
+    const a = req.body.rate;
+    const b = req.body.comment;
+    console.log(a);
+    console.log(b);
+    res.redirect('/');
+})
+
 const PORT = 3000;
 app.listen(PORT, function () {
     console.log(`E-commerce application listening at http://localhost:${PORT}`);
