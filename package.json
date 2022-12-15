@@ -3,7 +3,6 @@
   "name": "group6-finalproject",
   "version": "1.0.0",
   "main": "app.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app"
@@ -15,10 +14,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.18.2",
     "express-handlebars": "^6.0.6",
+    "express-handlebars-sections": "^1.0.1",
     "knex": "^2.3.0",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "numeral": "^2.0.6"
   },
   "bugs": {
     "url": "https://github.com/suyoung02/Group6-KTPM-20CLCB/issues"

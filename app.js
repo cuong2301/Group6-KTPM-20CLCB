@@ -1,7 +1,13 @@
 import express from 'express';
 import { engine } from 'express-handlebars';
+import hbs_sections from 'express-handlebars-sections'
+import numeral from 'numeral';
+
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 import coursesService from "./services/courses.service.js";
+import accountRoute from './routes/account.route.js';
 const app = express();
 app.use(express.urlencoded({
     extended: true
@@ -13,6 +19,12 @@ app.engine('hbs', engine({
     // defaultLayout: 'main.hbs'
     extname: 'hbs',
     defaultLayout: 'bs4',
+    helpers: {
+        section: hbs_sections(),
+        format_number(val) {
+            return numeral(val).format('0,0');
+        }
+    }
 }));
 app.set('view engine', 'hbs');
 app.set('views', './views');
@@ -23,6 +35,8 @@ app.get('/',async function (req, res){
         newest: list
     });
 });
+
+app.use('/account', accountRoute);
 
 const PORT = 3000;
 app.listen(PORT, function () {

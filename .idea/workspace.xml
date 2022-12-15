@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6861ace-dfa6-45d4-85b7-d28575459d1f" name="Changes" comment="1.2 Trang chủ (1)">
+    <list default="true" id="f6861ace-dfa6-45d4-85b7-d28575459d1f" name="Changes" comment="First setup for project">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group6-FinalProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Group6-FinalProject.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/home.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/home.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/db.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/layouts/bs4.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/bs4.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,16 +35,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/suyoung/Desktop/Courses-Group6/Group6-FinalProject",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;16.18.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;16.18.0&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/vinhh/Downloads/123.sql&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\suyoung\Desktop\Courses-Group6\Group6-FinalProject\public\img" />
@@ -75,11 +78,11 @@
       <option name="presentableId" value="Default" />
       <updated>1670818779133</updated>
       <workItem from="1670818780146" duration="1143000" />
-      <workItem from="1670827097475" duration="3748000" />
-      <workItem from="1670833315004" duration="1061000" />
-      <workItem from="1670842381577" duration="1059000" />
-      <workItem from="1670854658005" duration="6617000" />
-      <workItem from="1670898450807" duration="7014000" />
+      <workItem from="1670827097475" duration="3691000" />
+      <workItem from="1670948485278" duration="2644000" />
+      <workItem from="1670985598347" duration="127000" />
+      <workItem from="1670986269728" duration="203000" />
+      <workItem from="1671076377072" duration="21000" />
     </task>
     <task id="LOCAL-00001" summary="First setup for project">
       <created>1670819844717</created>
@@ -88,14 +91,7 @@
       <option name="project" value="LOCAL" />
       <updated>1670819844717</updated>
     </task>
-    <task id="LOCAL-00002" summary="1.2 Trang chủ (1)">
-      <created>1670830882194</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1670830882194</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -114,7 +110,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First setup for project" />
-    <MESSAGE value="1.2 Trang chủ (1)" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.2 Trang chủ (1)" />
+    <option name="LAST_COMMIT_MESSAGE" value="First setup for project" />
   </component>
 </project>
