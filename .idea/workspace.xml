@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6861ace-dfa6-45d4-85b7-d28575459d1f" name="Changes" comment="1.2 Trang chủ (3): Update css and JS, add image" />
+    <list default="true" id="f6861ace-dfa6-45d4-85b7-d28575459d1f" name="Changes" comment="Change SQL script">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/JS/nav.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/JS/nav.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/style/layouts.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/layouts.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/style/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/home.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/home.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layouts/bs4.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/bs4.hbs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,6 +48,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\suyoung\Desktop\Courses-Group6\Group6-FinalProject\utils" />
       <recent name="C:\Users\suyoung\Desktop\Courses-Group6\Group6-FinalProject\views\vwAccount" />
       <recent name="C:\Users\suyoung\Desktop\Courses-Group6\Group6-FinalProject\public\img" />
       <recent name="C:\Users\suyoung\Desktop\Courses-Group6\Group6-FinalProject" />
@@ -76,7 +86,11 @@
       <workItem from="1670854658005" duration="6617000" />
       <workItem from="1670898450807" duration="8335000" />
       <workItem from="1670920651729" duration="3662000" />
-      <workItem from="1670936908201" duration="9221000" />
+      <workItem from="1670936908201" duration="9309000" />
+      <workItem from="1670984608585" duration="1054000" />
+      <workItem from="1671002302680" duration="3968000" />
+      <workItem from="1671026959900" duration="5224000" />
+      <workItem from="1671070460342" duration="5822000" />
     </task>
     <task id="LOCAL-00001" summary="First setup for project">
       <created>1670819844717</created>
@@ -106,7 +120,28 @@
       <option name="project" value="LOCAL" />
       <updated>1670946577522</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="1.2 Trang chủ (3): Update css and JS, add image">
+      <created>1670946673646</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1670946673646</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add SQL script">
+      <created>1671027106398</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1671027106398</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Change SQL script">
+      <created>1671075278903</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1671075278903</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -128,6 +163,8 @@
     <MESSAGE value="1.2 Trang chủ (1)" />
     <MESSAGE value="1.2 Trang chủ (2): Update with css and JS" />
     <MESSAGE value="1.2 Trang chủ (3): Update css and JS, add image" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.2 Trang chủ (3): Update css and JS, add image" />
+    <MESSAGE value="Add SQL script" />
+    <MESSAGE value="Change SQL script" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change SQL script" />
   </component>
 </project>
