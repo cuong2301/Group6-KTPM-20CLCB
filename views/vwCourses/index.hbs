@@ -1,0 +1,56 @@
+<div class="card">
+  <h4 class="card-header d-flex justify-content-between">
+    Products
+    <a
+      class="btn btn-sm btn-outline-primary"
+      href="/admin/courses/add"
+      role="button"
+    >
+      <i class="fa fa-plus" aria-hidden="true"></i>
+      Add Courses
+    </a>
+  </h4>
+  {{#if this.empty}}
+    <div class="card-body">
+      Không có dữ liệu!
+    </div>
+  {{else}}
+    <div class="card-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Courses</th>
+            <th>Price</th>
+
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each this.courses}}
+            <tr>
+              <td scope="row">{{CourID}}</td>
+              <td>{{CourName}}</td>
+              <td>{{format_number Price}}</td>
+
+              <td class="text-right">
+                <a
+                  class="btn btn-primary btn-sm"
+                  href="/admin/products/edit?id={{CoursesID}}"
+                  role="button"
+                  title="Edit
+                Product"
+                >
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  {{/if}}
+  <div class="card-footer text-muted">
+    2 days ago
+  </div>
+</div>
