@@ -40,4 +40,18 @@ router.get("/byCat/:id", async function (req, res) {
     pageNumbers: pageNumbers,
   });
 });
+router.get('/detail/:id', async function (req, res) {
+  const proId = req.params.id || 0;
+  const product = await coursesService.findById(proId);
+  const listMost=await coursesService.findCourMostBuy(proId);
+  
+  if (product === null) {
+    return res.redirect('/');
+  }
+
+  res.render('vwCourses/detail', {
+    product: product,
+    listMost
+  });
+});
 export default router;

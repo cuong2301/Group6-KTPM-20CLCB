@@ -25,6 +25,15 @@ export default {
 
     return list[0];
   },
+  async findCourMostBuy(id)
+  {
+    const Id=await db('courses').select('CatID').where('CourID',id);
+    
+    const list=await db('courses').where('CatID',+Id[0].CatID).whereNot('CourID',id).limit(5).orderBy('Views');
+    if (list.length === 0) return null;
+
+    return list;
+  },
 
   findPageByCatId(catId, limit, offset) {
     return db("courses").where("CatID", catId).limit(limit).offset(offset);
