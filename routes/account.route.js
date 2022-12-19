@@ -10,6 +10,7 @@ router.get('/register', async function (req, res) {
     res.render('vwAccount/register');
 });
 
+
 router.post('/register', async function (req, res) {
     const rawPassword = req.body.password;
     const salt = bcrypt.genSaltSync(10);
@@ -39,6 +40,33 @@ router.get('/is-available', async function (req, res) {
     }
 
     res.json(false);
+});
+
+router.get('/login', function (req, res) {
+    res.render('vwAccount/login');
+});
+
+router.post('/login', async function (req, res) {
+    const user = await userService.findByEmail(req.body.email);
+    if (user === null) {
+        return res.render('vwAccount/login', {
+            err_message: 'Invalid email or password.'
+        });
+    }
+
+    const ret = bcrypt.compareSync(req.body.password, user.password);
+    if (ret === false) {
+        return res.render('vwAccount/login', {
+            err_message: 'Invalid email or password.'
+        });
+    }
+    delete user.password;
+
+    req.session.auth = true;
+    req.session.authUser = user;
+
+    const url = req.session.retUrl || '/';
+    res.redirect(url);
 });
 
 export default router;
