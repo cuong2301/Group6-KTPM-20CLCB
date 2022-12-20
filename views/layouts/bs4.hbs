@@ -5,9 +5,9 @@
     <title>E-Commerce Application (20KTPMB)</title>
     <link rel="stylesheet" href="/public/style/layouts.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://kit.fontawesome.com/7e82bd001e.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <style>
         * {
             font-size: 14px;
@@ -32,7 +32,7 @@
     </div>
     <nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="#"><i class="fa-solid fa-shop me-2"></i> <strong>ONLINE ACADEMY GROUP 6</strong></a>
+            <a class="navbar-brand" href="/"><i class="fa-solid fa-shop me-2"></i> <strong>ONLINE ACADEMY GROUP 6</strong></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                     aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -54,8 +54,14 @@
                     </div>
                 </div>
                 <ul class="navbar-nav ms-auto ">
-                    <li class="nav-item">
-                        <a class="nav-link mx-2 text-uppercase active" aria-current="page" href="/courses">Categories</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle mx-2 text-uppercase" href="#"
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                        <ul class="dropdown-menu" >
+                            <li><a href="#" class="nav-link mx-2 text-uppercase">Pages</a></li>
+                            <li><a href="#" class="nav-link mx-2 text-uppercase">Elements</a></li>
+                            <li><a href="#" class="nav-link mx-2 text-uppercase">Icons</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link mx-2 text-uppercase" href="#">Catalog</a>
@@ -69,10 +75,10 @@
                 </ul>
                 <ul class="navbar-nav ms-auto ">
                     <li class="nav-item">
-                        <a class="nav-link  mx-2 text-uppercase" href="#">Sign in</a>
+                        <a class="nav-link  mx-2 text-uppercase" href="/account/login">Sign in</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  mx-2 text-uppercase" href="#">Register</a>
+                        <a class="nav-link  mx-2 text-uppercase" href="/account/register">Register</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link mx-2 text-uppercase" href="#"><i class="fa-solid fa-circle-user me-1"></i> Account</a>
@@ -81,14 +87,10 @@
             </div>
         </div>
     </nav>
+
     <div class="boddy">
         {{{body}}}
     </div>
-
-
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="/public/JS/nav.js"></script>
     {{{_sections.js}}}
 </body>

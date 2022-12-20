@@ -2,6 +2,9 @@ a {
     font-size:14px;
     font-weight:700
 }
+.dropdown-menu{
+    border: none;
+}
 .superNav {
     font-size:13px;
 }

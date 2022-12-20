@@ -1,7 +1,9 @@
 .c-item {
     height: 480px;
 }
-
+.row{
+    width: 100%;
+}
 .c-img {
     height: 100%;
     object-fit: cover;
@@ -9,6 +11,11 @@
 }
 .carousel-caption{
     word-wrap: break-word
+}
+.owl-carousel{
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 30px;
 }
 .mostview{
     padding-top: 50px;
@@ -18,8 +25,7 @@
     margin-left: 45px;
 }
 .card{
-    height: 300px;
-    width: 400px;
+    margin: 20px 0;
 }
 .owl-prev {
     width: 25px;
