@@ -43,8 +43,8 @@ router.get("/byCat/:id", async function (req, res) {
 router.get('/detail/:id', async function (req, res) {
   const proId = req.params.id || 0;
   const product = await coursesService.findById(proId);
-  const listMost=await coursesService.findCourMostBuy(proId);
-  
+  const listMost=await coursesService.findCourMostViews(proId);
+  await coursesService.increaseView(proId);
   if (product === null) {
     return res.redirect('/');
   }

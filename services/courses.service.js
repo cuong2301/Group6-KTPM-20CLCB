@@ -4,14 +4,6 @@ export default {
   findAll() {
     return db("courses");
   },
-
-  async countByCatId(catId) {
-    const list = await db("courses")
-      .where("CatID", catId)
-      .count({ amount: "CourID" });
-
-    return list[0].amount;
-  },
   async countByCatId(catId) {
     const list = await db("courses")
       .where("CatID", catId)
@@ -25,7 +17,7 @@ export default {
 
     return list[0];
   },
-  async findCourMostBuy(id)
+  async findCourMostViews(id)
   {
     const Id=await db('courses').select('CatID').where('CourID',id);
     
@@ -42,4 +34,19 @@ export default {
   async findNewestCourses() {
     return db("courses").limit(10).orderBy("dob", "desc");
   },
+
+  async findPopularCourses(){
+    const sql = `SELECT rated.CourID, courses.CourName, CONVERT(AVG(rated.Rating), float) as score
+                 FROM coursesrating rated, courses
+                 WHERE rated.CourID = courses.CourID
+                 GROUP BY rated.CourID
+                 ORDER BY score DESC
+                 LIMIT 3`
+    const ret = await db.raw(sql);
+    return ret[0];
+  },
+  async increaseView(id){
+    const list = await db("courses").where("CourID", id);
+    return db("courses").where("CourID", id).update({Views: list[0].Views+1})
+  }
 };
