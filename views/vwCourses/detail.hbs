@@ -11,7 +11,7 @@
 </div>
 
 <div class="position-fixed border " style="right:50px;top:150px;width:25%;">
-        <img src="/public/img/3.jpg" alt=""class="align-center" style="height: 250px;width:100%;margin-bottom:20px">
+        <img src="/public/img/{{this.product.CourID}}/main.jpg" alt=""class="align-center" style="height: 250px;width:100%;margin-bottom:20px">
         <br>
         <h1 class="text-danger text-center">{{format_number this.product.Price}}đ
 </h1>
@@ -53,7 +53,7 @@
                     {{#each this.listMost}}
                         <div style="margin-right: 5px;" class="item mb-4">
                             <div class="card text-center border-0 shadow">
-                                <img src="/public/img/123.png" alt="" class="card-img-top" style="width: 50%px;height:50%px">
+                                <img src="/public/img/123.jpg" alt="" class="card-img-top" style="width: 50%px;height:50%px">
                                 <div class="card-body">
                                     <div class="card-title text-center">
                                         <h4>{{CourName}}</h4>
