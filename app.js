@@ -48,9 +48,12 @@ app.use(async function (req, res, next) {
 });
 
 app.get("/", async function (req, res) {
-  const list = await coursesService.findNewestCourses();
+  const newest = await coursesService.findNewestCourses();
+  const popula = await coursesService.findPopularCourses();
+  console.log(popula);
   res.render("home", {
-    newest: list,
+      newest: newest,
+      popular: popula
   });
 });
 

@@ -8,6 +8,7 @@ router.get("/", async function (req, res) {
   res.render("vwCategory/index", {
     categories: list,
     empty: list.length === 0,
+    layout: 'bs5.hbs'
   });
 });
 export default router;
