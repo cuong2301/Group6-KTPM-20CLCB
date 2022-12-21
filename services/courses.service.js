@@ -12,13 +12,7 @@ export default {
 
     return list[0].amount;
   },
-  async countByCatId(catId) {
-    const list = await db("courses")
-      .where("CatID", catId)
-      .count({ amount: "CourID" });
 
-    return list[0].amount;
-  },
   async findById(id) {
     const list = await db("courses").where("CourID", id);
     if (list.length === 0) return null;
