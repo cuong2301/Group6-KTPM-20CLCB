@@ -50,20 +50,24 @@ app.use(async function (req, res, next) {
 app.get("/", async function (req, res) {
   const newest = await coursesService.findNewestCourses();
   const popula = await coursesService.findPopularCourses();
-  console.log(popula);
   res.render("home", {
       newest: newest,
       popular: popula
   });
 });
 
-app.post("/", async function (req, res) {
-  const a = req.body.rate;
-  const b = req.body.comment;
-  console.log(a);
-  console.log(b);
-  res.redirect("/");
+app.post('/', function(req, res) { //your ajax should also post to url: '/'
+    let score = req.body.score;
+    console.log(score);
+    res.end('{"success" : "Updated Successfully", "status" : 200}');
+    // ...
 });
+
+// app.post("/", async function (req, res) {
+//   const a = req.body.rate;
+//   const b = req.body.comment;
+//   res.redirect("/");
+// });
 
 app.use("/admin/categories", categoryRoute);
 app.use("/admin/Courses", coursesRoute);
