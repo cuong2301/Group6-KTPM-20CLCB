@@ -57,28 +57,6 @@ const CourCount= await coursesService.countsearch(ret);
   if (product === null) {
     return res.redirect('/');
   }
-  const catId = res.locals.CourCount.CatName;
-console.log(catId);
-  for (let c of res.locals.lcCategories) {
-    if (c.CatID === +catId) c.isActive = true;
-  }
-
-  const curPage = req.query.page || 1;
-  const limit = 6;
-  const offset = (curPage - 1) * limit;
-
-  const total = await coursesService.countByCatId(catId);
-  const nPages = Math.ceil(total / limit);
-
-  const pageNumbers = [];
-  for (let i = 1; i <= nPages; i++) {
-    pageNumbers.push({
-      value: i,
-      isCurrent: i === +curPage,
-    });
-  }
-
-  const list = await coursesService.findPageByCatId(catId, limit, offset);
   res.render('vwCourses/search', {
     product: product,
     CourCount:CourCount
