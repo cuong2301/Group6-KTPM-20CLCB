@@ -1,6 +1,7 @@
 import express from "express";
 import hbs_sections from "express-handlebars-sections";
 import { engine } from "express-handlebars";
+import session from 'express-session';
 
 import { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -25,20 +26,17 @@ app.use(
 app.use("/public", express.static("public"));
 
 app.use("/account", accountRoute);
-app.engine(
-  "hbs",
-  engine({
+app.engine('hbs', engine({
     // defaultLayout: 'main.hbs'
-    extname: "hbs",
-    defaultLayout: "bs4",
+    extname: 'hbs',
+    defaultLayout: 'bs4',
     helpers: {
-      section: hbs_sections(),
-      format_number(val) {
-        return numeral(val).format("0,0");
-      },
-    },
-  })
-);
+        section: hbs_sections(),
+        format_number(val) {
+            return numeral(val).format('0,0');
+        }
+    }
+}));
 app.set("view engine", "hbs");
 app.set("views", "./views");
 
