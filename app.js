@@ -36,6 +36,19 @@ app.engine(
       format_number(val) {
         return numeral(val).format("0,0");
       },
+      eq(arg1, arg2)
+      {
+        return +arg1 === +arg2
+      },
+      minus(a,b)
+      {
+
+        return a-b;
+      },
+      add(a,b)
+      {
+        return +a+b;
+      }
     },
   })
 );
