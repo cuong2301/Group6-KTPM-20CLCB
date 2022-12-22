@@ -45,6 +45,18 @@ export default {
     const ret = await db.raw(sql);
     return ret[0];
   },
+  async searchByName(name){
+    const ret =await db.raw( 'select  linhvuc.CatName , khoahoc.*  from categories as linhvuc, courses as khoahoc where linhvuc.CatID=khoahoc.CatID and match(linhvuc.CatName,khoahoc.CourName) against(? IN BOOLEAN MODE )',name);
+    console.log(ret[0]);
+    return ret[0];
+  },
+
+  async countsearch(name){
+    const ret = await db.raw('select linhvuc.CatName,count(khoahoc.CourID) as CourCount from categories as linhvuc, courses as khoahoc where linhvuc.CatID=khoahoc.CatID and match(linhvuc.CatName,khoahoc.CourName) against(? IN BOOLEAN MODE ) group by linhvuc.CatName',name);
+    console.log(ret[0]);
+    return ret[0];
+  },
+
   async increaseView(id){
     const list = await db("courses").where("CourID", id);
     return db("courses").where("CourID", id).update({Views: list[0].Views+1})

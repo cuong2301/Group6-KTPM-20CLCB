@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c9a9cdb6-0928-4361-802a-4edde72deaad" name="Changes" comment="Login form" />
+    <list default="true" id="c9a9cdb6-0928-4361-802a-4edde72deaad" name="Changes" comment="add search function and fix">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/courses-user.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/courses-user.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layouts/bs4.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/bs4.hbs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,24 +37,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;database.data.extractors.current.export.id&quot;: &quot;SQL Inserts&quot;,
-    &quot;database.data.extractors.current.id&quot;: &quot;SQL Inserts&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/vinhh/IdeaProjects/Group6-KTPM-20CLCB&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editing.templates&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/tranm/OneDrive/Máy tính/Group6-KTPM-20CLCB",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editing.templates"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\suyoung\Desktop\Courses-Group6\Group6-FinalProject\utils" />
-      <recent name="C:\Users\suyoung\Desktop\Courses-Group6\Group6-FinalProject\views\vwAccount" />
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\suyoung\Desktop\Courses-Group6\Group6-FinalProject\public\img" />
-      <recent name="C:\Users\suyoung\Desktop\Courses-Group6\Group6-FinalProject" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\suyoung\Desktop\Courses-Group6\Group6-FinalProject\public\img\5" />
+      <recent name="C:\Users\suyoung\Desktop\Courses-Group6\Group6-FinalProject\public\img\4" />
+      <recent name="C:\Users\suyoung\Desktop\Courses-Group6\Group6-FinalProject\public\img\3" />
+      <recent name="C:\Users\suyoung\Desktop\Courses-Group6\Group6-FinalProject\public\img\2" />
+      <recent name="C:\Users\suyoung\Desktop\Courses-Group6\Group6-FinalProject\public\img\1" />
     </key>
   </component>
   <component name="RunManager">
@@ -73,7 +85,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c9a9cdb6-0928-4361-802a-4edde72deaad" name="Changes" comment="Login form" />
+      <changelist id="c9a9cdb6-0928-4361-802a-4edde72deaad" name="Changes" comment="Delete the duplicate file" />
       <created>1670818779133</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -90,12 +102,11 @@
       <workItem from="1671002302680" duration="3968000" />
       <workItem from="1671026959900" duration="5224000" />
       <workItem from="1671070460342" duration="5822000" />
-      <workItem from="1671636123364" duration="2234000" />
-      <workItem from="1671640073408" duration="761000" />
-      <workItem from="1671676186654" duration="7547000" />
-      <workItem from="1671692229420" duration="3967000" />
-      <workItem from="1671713182429" duration="8105000" />
-      <workItem from="1671726329793" duration="3671000" />
+      <workItem from="1671412153528" duration="8789000" />
+      <workItem from="1671437213506" duration="4620000" />
+      <workItem from="1671507474954" duration="6317000" />
+      <workItem from="1671631376070" duration="12175000" />
+      <workItem from="1671677097635" duration="4214000" />
     </task>
     <task id="LOCAL-00001" summary="First setup for project">
       <created>1670819844717</created>
@@ -146,14 +157,42 @@
       <option name="project" value="LOCAL" />
       <updated>1671075278903</updated>
     </task>
-    <task id="LOCAL-00008" summary="Login form">
-      <created>1671729740081</created>
+    <task id="LOCAL-00008" summary="Delete the duplicate file">
+      <created>1671352641607</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1671729740081</updated>
+      <updated>1671352641607</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="4: Administrator: adding layout uin backend">
+      <created>1671422744599</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1671422744599</updated>
+    </task>
+    <task id="LOCAL-00010" summary="editing search bar">
+      <created>1671680281992</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1671680281992</updated>
+    </task>
+    <task id="LOCAL-00011" summary="add search">
+      <created>1671680339098</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1671680339098</updated>
+    </task>
+    <task id="LOCAL-00012" summary="add search function and fix">
+      <created>1671680351136</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1671680351136</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -177,7 +216,23 @@
     <MESSAGE value="1.2 Trang chủ (3): Update css and JS, add image" />
     <MESSAGE value="Add SQL script" />
     <MESSAGE value="Change SQL script" />
-    <MESSAGE value="Login form" />
-    <option name="LAST_COMMIT_MESSAGE" value="Login form" />
+    <MESSAGE value="Delete the duplicate file" />
+    <MESSAGE value="4: Administrator: adding layout uin backend" />
+    <MESSAGE value="editing search bar" />
+    <MESSAGE value="add search" />
+    <MESSAGE value="add search function and fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="add search function and fix" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/routes/courses.route.js</url>
+          <line>29</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

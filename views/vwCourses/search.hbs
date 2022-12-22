@@ -1,0 +1,87 @@
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="card mb-3">
+                <h4 class="card-header ">
+                    Lĩnh vực
+                </h4>
+                <div class="list-group list-group-flush">
+                    {{#each this.CourCount}}
+                        <a href="/courses/byCat/{{this.CatID}}" class = "list-group-item list-group-item-action list-group-item list-group-item-action {{#if isActive }} active {{/if}}">
+                            <i class="fa fa-caret-right" aria-hidden="true"></i>
+                            {{this.CatName}}
+                            {{#if this.CourCount}}
+                                <span class="badge badge-pill badge-primary text-danger float-right">{{this.CourCount}}</span>
+                            {{/if}}
+                        </a>
+                    {{/each}}
+                </div>
+                <ul class="list-group list-group-flush">
+
+                </ul>
+            </div>
+        </div>
+        <div class ="col-sm-7" >
+            <div class="card text-white bg-warning">
+                <h4 class="card-header">
+                    Khóa học
+                </h4>
+                {{#if this.product.empty}}
+                    <div class="card-body">
+                        Không có dữ liệu!
+                    </div>
+                {{else}}
+                    <div class="card-body text-black">
+                        <div class="row">
+                            {{#each this.product}}
+                                <div class="col-sm-4 mb-3">
+                                    <div class="card h-100">
+                                        <img src="/public/img/5/main.jpg" alt="{{this.CourName}}" title="{{this.CourName}}">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{this.CourName}}</h5>
+                                            <h5 class="card-title">{{this.CatName}}</h5>
+                                            <h5 class="text-danger">{{format_number this.Price}}</h5>
+                                        </div>
+                                        <div class="card-footer">
+                                            <a
+                                                    class="btn btn-outline-primary"
+                                                    href="/courses/detail/{{this.CourID}}"
+                                                    role="button"
+                                            >
+                                                <i class="fa fa-eye" aria-hidden="true" ></i>
+                                                Xem chi tiết
+                                            </a>
+                                            <a class="btn btn-outline-success" href="#" role="button">
+                                                <i class="fa fa-cart-plus " aria-hidden="true"></i>
+                                                Mua khóa học
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div>
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{value}}">Previous</a>
+                            </li>
+                            {{#each this.pageNumbers}}
+                                {{#if isCurrent}}
+                                    <li class="page-item active" aria-current="page">
+                                        <span class="page-link">{{value}}</span>
+                                    </li>
+                                {{else}}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{value}}">{{value}}</a>
+                                    </li>
+                                {{/if}}
+                            {{/each}}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{value}}">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>

@@ -13,7 +13,6 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
           integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
           crossorigin="anonymous" />
-    <script src="https://kit.fontawesome.com/7e82bd001e.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
@@ -26,6 +25,29 @@
             width: 200px;
         }
     </style>
+    <script>
+        function hiding(){
+            $("#fgh").css("display","none");
+        }
+        function myFunction() {
+            let score = 0;
+            if( document.getElementById('rate-5').checked) score = 5
+            else if( document.getElementById('rate-4').checked) score = 4
+            else if( document.getElementById('rate-3').checked) score = 3
+            else if( document.getElementById('rate-2').checked) score = 2
+            else if( document.getElementById('rate-1').checked) score = 1
+            $.ajax({
+                url: "http://localhost:3000",
+                type: "POST",
+                data :{score: JSON.stringify(score)},
+                dataType: "json",
+                success: function (result) {
+                    alert("123");
+                    $('#fgh').hide();
+                }
+            });
+        }
+    </script>
 </head>
 <body>
     <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
@@ -41,7 +63,7 @@
                 <div class="carousel-caption top-0 mt-4">
                     <p class="mt-5 fs-3 text-uppercase"></p>
                     <h1 class="display-1 fw-bolder text-capitalize">{{CourName}}</h1>
-                    <button class="btn btn-primary px-4 py-2 fs-5 mt-5">See Detail</button>
+                    <a class="btn btn-primary px-4 py-2 fs-5 mt-5" href="/courses/detail/{{CourID}}">See Detail</a>
                 </div>
             </div>
             {{/each}}
@@ -70,7 +92,7 @@
                                     <h4>{{CourName}}</h4>
                                 </div>
                                 <p class="card-text text-center">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Check Detail</a>
+                                <a href="/courses/detail/{{CourID}}" class="btn btn-primary">Check Detail</a>
                             </div>
                         </div>
                     </div>
@@ -94,7 +116,7 @@
                                         <h4>{{CourName}}</h4>
                                     </div>
                                     <p class="card-text text-center">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-primary">Check detail</a>
+                                    <a href="/courses/detail/{{CourID}}" class="btn btn-primary">Check detail</a>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +126,27 @@
         </div>
     </div>
 
-    <form method="post" id="fgh">
+    <div class="mostCat">
+        <div class="row" style="display:inline; text-align: center">
+            <h2>Top </h2>
+            <ul>
+                <li>
+                    <a>1</a>
+                </li>
+                <li>
+                    <a>1</a>
+                </li>
+                <li>
+                    <a>1</a>
+                </li>
+                <li>
+                    <a>1</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <form id="fgh">
     <div class="rating">
         <div class="post">
             <div class="text">Thanks for rating us!</div>
@@ -126,7 +168,7 @@
                         <textarea name="comment" cols="30" placeholder="Describe your experience.."></textarea>
                     </div>
                     <div class="btn">
-                        <button onclick="$('input:radio').attr('checked', false);" type="submit">Post</button>
+                        <button onclick="myFunction()" type="button">Post</button>
                     </div>
             </div>
     </div>
