@@ -19,17 +19,19 @@ router.get("/byCat/:id", async function (req, res) {
   }
 
   const curPage = req.query.page || 1;
-  const limit = 6;
+  const limit = 2;
   const offset = (curPage - 1) * limit;
 
   const total = await coursesService.countByCatId(catId);
   const nPages = Math.ceil(total / limit);
-
+  
   const pageNumbers = [];
   for (let i = 1; i <= nPages; i++) {
     pageNumbers.push({
       value: i,
       isCurrent: i === +curPage,
+      isCurPage:curPage,
+      nPages,
     });
   }
 

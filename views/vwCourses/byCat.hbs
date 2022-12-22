@@ -61,11 +61,35 @@
         {{/each}}
       </div>
       <ul class="pagination">
-          <li class="page-item">
+        {{!-- {{#if (eq value 1)  }}
+
+            {{else}}
+            <li class="page-item">
               <a class="page-link" href="?page={{value}}">Previous</a>
           </li>
+        {{/if}} --}}
+        {{!-- <li>{{this.pageNumbers.[0].isCurrent}}</li>
+       
+            {{#if (eq value 2)  }}
+
+            {{else}}
+            <li class="page-item">
+              <a class="page-link" href="?page={{value}}">Previous</a>
+          </li>
+        {{/if}} --}}
+       {{#if (eq this.pageNumbers.[0].isCurPage 1)  }}
+              
+            {{else}}
+            <li class="page-item">
+              <a class="page-link" href="?page={{minus this.pageNumbers.[0].isCurPage 1}}">Previous</a>
+          </li>
+        {{/if}}
+         
         {{#each this.pageNumbers}}
+          
+
           {{#if isCurrent}}
+            
             <li class="page-item active" aria-current="page">
               <span class="page-link">{{value}}</span>
             </li>
@@ -75,9 +99,14 @@
             </li>
           {{/if}}
         {{/each}}
-          <li class="page-item">
-              <a class="page-link" href="?page={{value}}">Next</a>
+
+        {{#if (eq this.pageNumbers.[0].isCurPage this.pageNumbers.[0].nPages)  }}
+              
+            {{else}}
+            <li class="page-item">
+              <a class="page-link" href="?page={{add this.pageNumbers.[0].isCurPage 1}}">Next</a>
           </li>
+        {{/if}}
       </ul>
     </div>
   {{/if}}
