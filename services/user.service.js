@@ -41,5 +41,6 @@ export default {
         delete user.id;
 
         return db('users').where('id', id).update(user);
-    }
+    },
+
 }

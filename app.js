@@ -1,6 +1,7 @@
 import express from "express";
 import hbs_sections from "express-handlebars-sections";
 import { engine } from "express-handlebars";
+import session from 'express-session';
 
 import { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -25,12 +26,10 @@ app.use(
 app.use("/public", express.static("public"));
 
 app.use("/account", accountRoute);
-app.engine(
-  "hbs",
-  engine({
+app.engine('hbs', engine({
     // defaultLayout: 'main.hbs'
-    extname: "hbs",
-    defaultLayout: "bs4",
+    extname: 'hbs',
+    defaultLayout: 'bs4',
     helpers: {
       section: hbs_sections(),
       format_number(val) {
@@ -42,7 +41,6 @@ app.engine(
       },
       minus(a,b)
       {
-
         return a-b;
       },
       add(a,b)
@@ -63,24 +61,20 @@ app.use(async function (req, res, next) {
 app.get("/", async function (req, res) {
   const newest = await coursesService.findNewestCourses();
   const popula = await coursesService.findPopularCourses();
+  console.log(popula);
   res.render("home", {
       newest: newest,
       popular: popula
   });
 });
 
-app.post('/', function(req, res) { //your ajax should also post to url: '/'
-    let score = req.body.score;
-    console.log(score);
-    res.end('{"success" : "Updated Successfully", "status" : 200}');
-    // ...
+app.post("/", async function (req, res) {
+  const a = req.body.rate;
+  const b = req.body.comment;
+  console.log(a);
+  console.log(b);
+  res.redirect("/");
 });
-
-// app.post("/", async function (req, res) {
-//   const a = req.body.rate;
-//   const b = req.body.comment;
-//   res.redirect("/");
-// });
 
 app.use("/admin/categories", categoryRoute);
 app.use("/admin/Courses", coursesRoute);
