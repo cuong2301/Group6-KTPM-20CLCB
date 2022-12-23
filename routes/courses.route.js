@@ -1,6 +1,6 @@
 import express from "express";
 import coursesService from "../services/courses.service.js";
-
+import productService from "../services/courses.service.js"
 const router = express.Router();
 
 router.get("/byCat/:id", async function (req, res) {

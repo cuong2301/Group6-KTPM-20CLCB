@@ -1,5 +1,6 @@
 import express from "express";
 import coursesService from "../services/courses.service.js";
+import * as bodyParser from "express";
 
 const router = express.Router();
 
@@ -42,6 +43,27 @@ router.get("/byCat/:id", async function (req, res) {
     pageNumbers: pageNumbers,
   });
 });
+
+router.get('/search',async function (req,res){
+  res.render('vwCourses/search');
+});
+
+router.post('/search', async function (req, res) {
+  const ret=req.body.Search;
+  console.log(ret);
+  console.log(req.body);
+  const product = await coursesService.searchByName(ret);
+const CourCount= await coursesService.countsearch(ret);
+  if (product === null) {
+    return res.redirect('/');
+  }
+  res.render('vwCourses/search', {
+    product: product,
+    CourCount:CourCount
+  });
+
+});
+
 router.get('/detail/:id', async function (req, res) {
   const proId = req.params.id || 0;
   const product = await coursesService.findById(proId);
