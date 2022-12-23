@@ -35,6 +35,7 @@ router.post('/register', async function (req, res) {
         email: req.body.email,
         permission: 0
     };
+    //console.log(userOtp.email);
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -42,12 +43,12 @@ router.post('/register', async function (req, res) {
             pass: 'pmotugbxlmwowbjp'
         }
     });
-    const string = req.body.email;
+    const string = userOtp.email;
     const mailOptions = {
         from: 'tvqhuy20@clc.fitus.edu.vn',
         to: string,
-        subject: 'Sending Email using Node.js',
-        text: 'That was easy!'
+        subject: 'Your OTP to verify your account',
+        text: otp
     };
 
     transporter.sendMail(mailOptions, function(error, info){
@@ -108,7 +109,7 @@ router.get('/register/verify', function (req, res){
     res.render('vwAccount/otp');
 })
 
-router.post('/register/verify', function (req, res){
+router.post('/register/verify',  async function (req, res){
     const otpIn = [req.body.otp1,req.body.otp2,req.body.otp3,req.body.otp4,req.body.otp5,req.body.otp6];
     let stringOtp = "";
     for(let i = 0; i < otpIn.length; i++){
@@ -117,7 +118,15 @@ router.post('/register/verify', function (req, res){
     console.log(userOtp);
     console.log(otp);
     console.log(stringOtp);
-    res.redirect('/account/login')
+    if(otp.toString() === stringOtp.toString()){
+        await userService.add(userOtp);
+        //window.alert("Successful register!");
+        res.redirect('/account/login')
+    }
+    else{
+        //window.alert("Wrong otp");
+    }
+
 });
 
 
