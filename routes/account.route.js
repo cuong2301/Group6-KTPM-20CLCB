@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import nodemailer from 'nodemailer';
 
 import userService from '../services/user.service.js';
-
+import coursesService from "../services/courses.service.js";
 const router = express.Router();
 
 router.get('/register', async function (req, res) {
@@ -63,8 +63,24 @@ router.post('/register', async function (req, res) {
 });
 
 router.get('/profile', async function (req, res) {
+    const user_id= 1;
+    const user = await userService.findById(user_id);
+    console.log(user);
+    if (user === null) {
+        return res.redirect('/');
+    }
+    res.render('vwAccount/profile',{
+        user:user
+    });
+});
+
+router.post('/profile', async function (req, res) {
+    const ret=req.body.Search;
+    console.log(ret);
+    console.log(req.body);
     res.render('vwAccount/profile');
 });
+
 
 // eg: /is-available?user=ryu
 router.get('/is-available', async function (req, res) {
