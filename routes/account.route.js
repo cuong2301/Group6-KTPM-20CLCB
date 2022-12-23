@@ -1,10 +1,13 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import nodemailer from 'nodemailer';
+import session from "express-session";
 
 import userService from '../services/user.service.js';
+import auth from "../middlewares/auth.mdw.js";
 
 const router = express.Router();
+
 
 router.get('/register', async function (req, res) {
     res.render('vwAccount/register');
@@ -28,7 +31,7 @@ router.post('/register', async function (req, res) {
     const rawPassword = req.body.password;
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(rawPassword, salt);
-    console.log(otp);
+    console.log( req.session.auth);
     userOtp = {
         username: req.body.username,
         password: hash,
@@ -86,22 +89,37 @@ router.post('/login', async function (req, res) {
     const user = await userService.findByEmail(req.body.email);
     if (user === null) {
         return res.render('vwAccount/login', {
-            err_message: 'Invalid email or password.'
+            layout: false,
+            err_message: 'Invalid username or password.'
         });
     }
 
     const ret = bcrypt.compareSync(req.body.password, user.password);
     if (ret === false) {
         return res.render('vwAccount/login', {
-            err_message: 'Invalid email or password.'
+            layout: false,
+            err_message: 'Invalid username or password.'
         });
     }
+
     delete user.password;
+
+    console.log( req.session.auth);
 
     req.session.auth = true;
     req.session.authUser = user;
 
     const url = req.session.retUrl || '/';
+    res.redirect(url);
+});
+
+
+
+router.post('/logout', async function (req, res) {
+    req.session.auth = false;
+    req.session.authUser = null;
+
+    const url = req.headers.referer || '/';
     res.redirect(url);
 });
 
