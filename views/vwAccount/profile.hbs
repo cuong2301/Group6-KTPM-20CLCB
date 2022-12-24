@@ -1,0 +1,147 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+    <link rel="stylesheet" href="/public/style/profile.css">
+{{/section}}
+
+{{#section 'js'}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+    <script>
+        $('#frmRegister').on('submit', function (e) {
+            e.preventDefault();
+            const username = $('#txtUsername').val();
+            if (username.length === 0) {
+                alert('Please input a valid username.');
+                return;
+            }
+            const email = $('#txtEmail').val();
+            $.getJSON(`/account/is-available?email=${email}`, function (data) {
+                if (data === false) {
+                    alert('Not available for registration!');
+                } else {
+                    $('#frmRegister').off('submit').submit();
+                }
+            });
+        });
+
+
+
+        function checkEmptyName(e){
+            const name = document.querySelector('#txtUsername').value;
+            if(name == ""){
+                alert('Please input a valid username.');
+                e.preventDefault();
+            }
+        }
+
+        function checkRegexMail(e){
+            const re = /^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$/
+            const mail = document.querySelector('#txtEmail').value;
+            if(re.test(mail) === false){
+                const str ='Please fill correct mail';
+                document.getElementById('required').innerHTML = str;
+                e.preventDefault();
+            }
+            if(mail === ''){
+                const str ='Please fill out a valid email format';
+                document.getElementById('required').innerHTML = str;
+                e.preventDefault();
+            }
+        }
+
+        function checkConfirmPass(e){
+            const pass = document.querySelector("#txtPassword").value;
+            const confirmPass = document.querySelector("#txtConfirm").value;
+            if(pass !== confirmPass){
+                document.getElementById('confirmNotice').innerHTML = "Confirm was wrong";
+                e.preventDefault();
+            }
+        }
+        //document.querySelector('#submit').addEventListener('click', checkEmptyName);
+        document.querySelector('#submit').addEventListener('click', checkRegexMail);
+        document.querySelector('#txtConfirm').addEventListener('mouseleave', checkConfirmPass);
+
+        // $('#txtDOB').datetimepicker({
+        //     timepicker: false,
+        //     format: 'd/m/Y',
+        //     mask: true
+        // });
+    </script>
+{{/section}}
+
+<div class="container-xl px-4 mt-4">
+    <!-- Account page navigation-->
+    <nav class="nav nav-borders">
+        <a class="nav-link active ms-0" href="https://www.bootdey.com/snippets/view/bs5-edit-profile-account-details" target="__blank">Profile</a>
+        <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-profile-billing-page" target="__blank">Billing</a>
+        <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-profile-security-page" target="__blank">Security</a>
+        <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-edit-notifications-page"  target="__blank">Notifications</a>
+    </nav>
+    <hr class="mt-0 mb-4">
+    <div class="row">
+        <div class="col-xl-4">
+            <!-- Profile picture card-->
+            <div class="card mb-4 mb-xl-0">
+                <div class="card-header">Profile Picture</div>
+                <div class="card-body text-center">
+                    <!-- Profile picture image-->
+                    <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                    <!-- Profile picture help block-->
+                    <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                    <!-- Profile picture upload button-->
+                    <button class="btn btn-primary" type="button">Upload new image</button>
+                </div>
+            </div>
+        </div>
+
+        <form class="col-xl-8" method="post" action="/account/profile">
+            <!-- Account details card-->
+            <div class="card mb-4">
+                <div class="card-header">Account Details</div>
+                <div class="card-body">
+                    <form>
+                        <!-- Form Group (username)-->
+                        <div class="mb-3">
+                            <label for="txtUsername">Username</label>
+                            <input name="username" type="text" class="form-control" id="txtUsername" autofocus placeholder={{this.user.username}}>
+                        </div>
+
+                        <!-- Form Group (email address)-->
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <label for="txtEmail">Email</label>
+                                <label id="required" style="color: red; font-weight: bolder"></label>
+                            </div>
+                            <input name="email" type="text" class="form-control" id="txtEmail" autofocus placeholder={{this.user.email}}>
+                        </div>
+                        <!-- Form Row-->
+
+                        <div class="mb-3">
+                            <label for="oldpassword">Password</label>
+                            <input name="oldpassword" type="text" class="form-control" id="oldpassword" autofocus placeholder="*********************">
+                        </div>
+
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (phone number)-->
+                            <div class="col-md-6">
+                                <label for="txtPassword">New Password</label>
+                                <input name="password" type="password" class="form-control" id="txtPassword" autofocus placeholder="*********************">
+                            </div>
+                            <!-- Form Group (birthday)-->
+                            <div class="col-md-6">
+                                <div class="d-flex justify-content-between">
+                                    <label for="txtConfirm">Confirm New Password</label>
+                                    <label id="confirmNotice" style="color: red; font-weight: bolder"></label>
+                                </div>
+                                <input type="password" class="form-control" id="txtConfirm" autofocus placeholder="*********************">
+                            </div>
+                        </div>
+                        <!-- Save changes button-->
+                        <button class="btn btn-primary" type="button" id="submit">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

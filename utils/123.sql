@@ -1,6 +1,6 @@
-use cp;
+use sus;
 drop table if exists users;
-create table cp.users
+create table sus.users
 (
     id int auto_increment primary key,
     username   varchar(50)  not null,
