@@ -1,6 +1,6 @@
 import express from "express";
 import coursesService from "../services/courses.service.js";
-import productService from "../services/courses.service.js"
+import productService from "../services/courses.service.js";
 const router = express.Router();
 
 router.get("/byCat/:id", async function (req, res) {
@@ -38,6 +38,7 @@ router.get("/", async function (req, res) {
   res.render("vwCourses/index", {
     courses: list,
     empty: list.length === 0,
+    layout: "bs5.hbs",
   });
 });
 export default router;

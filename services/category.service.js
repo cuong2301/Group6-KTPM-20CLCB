@@ -28,4 +28,18 @@ export default {
     const ret = await db.raw(sql);
     return ret[0];
   },
+  add(newCategory) {
+    return db("categories").insert(newCategory);
+  },
+
+  del(id) {
+    return db("categories").where("CatID", id).del();
+  },
+
+  patch(category) {
+    const id = category.CatID;
+    delete category.CatID;
+
+    return db("categories").where("CatID", id).update(category);
+  },
 };

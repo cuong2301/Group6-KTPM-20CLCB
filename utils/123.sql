@@ -14,7 +14,7 @@ CREATE TABLE `categories` (
                               `CatID` int(11) unsigned NOT NULL AUTO_INCREMENT,
                               `CatName` varchar(50) COLLATE utf8_general_ci NOT NULL,
                               PRIMARY KEY (`CatID`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=MyISAM ;
 
 BEGIN;
 INSERT INTO `categories` VALUES (1, 'Lập trình web');
