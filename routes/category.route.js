@@ -34,7 +34,8 @@ router.get("/edit", async function (req, res) {
 });
 
 router.post("/del", async function (req, res) {
-  const affected_rows = await categoryService.del(req.body.CatID);
+  const id = req.query.id || 0;
+  const affected_rows = await categoryService.del(id);
   res.redirect("/admin/categories");
 });
 

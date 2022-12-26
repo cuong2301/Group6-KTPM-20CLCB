@@ -1,7 +1,7 @@
 import express from "express";
 import hbs_sections from "express-handlebars-sections";
 import { engine } from "express-handlebars";
-import session from 'express-session';
+import session from "express-session";
 
 import { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -15,8 +15,8 @@ import coursesUserService from "./routes/courses-user.route.js";
 import categoryService from "./services/category.service.js";
 
 import coursesRoute from "./routes/courses.route.js";
-import activate_session from './middlewares/session.mdw.js';
-import activate_locals from './middlewares/locals.mdw.js';
+import activate_session from "./middlewares/session.mdw.js";
+import activate_locals from "./middlewares/locals.mdw.js";
 
 const app = express();
 
@@ -28,18 +28,29 @@ app.use(
 
 app.use("/public", express.static("public"));
 
-
-app.engine('hbs', engine({
+app.engine(
+  "hbs",
+  engine({
     // defaultLayout: 'main.hbs'
-    extname: 'hbs',
-    defaultLayout: 'bs4',
+    extname: "hbs",
+    defaultLayout: "bs4",
     helpers: {
-        section: hbs_sections(),
-        format_number(val) {
-            return numeral(val).format('0,0');
-        }
-    }
-}));
+      section: hbs_sections(),
+      format_number(val) {
+        return numeral(val).format("0,0");
+      },
+      eq(arg1, arg2) {
+        return +arg1 === +arg2;
+      },
+      minus(a, b) {
+        return a - b;
+      },
+      add(a, b) {
+        return a + b;
+      },
+    },
+  })
+);
 app.set("view engine", "hbs");
 app.set("views", "./views");
 
@@ -52,23 +63,22 @@ activate_session(app);
 activate_locals(app);
 
 app.get("/", async function (req, res) {
-    const newest = await coursesService.findNewestCourses();
-    const popula = await coursesService.findPopularCourses();
-    console.log(popula);
-    //console.log(req.session.auth);
-    res.render("home", {
-        newest: newest,
-        popular: popula
-    });
-
+  const newest = await coursesService.findNewestCourses();
+  const popula = await coursesService.findPopularCourses();
+  console.log(popula);
+  //console.log(req.session.auth);
+  res.render("home", {
+    newest: newest,
+    popular: popula,
+  });
 });
 
 app.post("/", async function (req, res) {
-    const a = req.body.rate;
-    const b = req.body.comment;
-    console.log(a);
-    console.log(b);
-    res.redirect("/");
+  const a = req.body.rate;
+  const b = req.body.comment;
+  console.log(a);
+  console.log(b);
+  res.redirect("/");
 });
 
 app.use("/admin/categories", categoryRoute);

@@ -13,12 +13,13 @@ DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
                               `CatID` int(11) unsigned NOT NULL AUTO_INCREMENT,
                               `CatName` varchar(50) COLLATE utf8_general_ci NOT NULL,
-                              PRIMARY KEY (`CatID`)
+							  `CatParent` int(11),
+                              primary key(`CatID`)
 ) ENGINE=MyISAM ;
 
 BEGIN;
-INSERT INTO `categories` VALUES (1, 'Lập trình web');
-INSERT INTO `categories` VALUES (2, 'Lập trình thiết bị di động');
+INSERT INTO `categories` VALUES (1, 'Lập trình web',0);
+INSERT INTO `categories` VALUES (2, 'Lập trình thiết bị di động',0);
 COMMIT;
 
 DROP TABLE IF EXISTS `courses`;

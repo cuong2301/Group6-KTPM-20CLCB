@@ -73,17 +73,17 @@ export default {
       .update({ Views: list[0].Views + 1 });
   },
   add(courses) {
-    return db("coursess").insert(courses);
+    return db("courses").insert(courses);
   },
 
   del(id) {
-    return db("coursess").where("CourID", id).del();
+    return db("courses").where("CourID", id).del();
   },
 
   patch(courses) {
     const id = courses.CourID;
     delete courses.CourID;
 
-    return db("coursess").where("CourID", id).update(courses);
+    return db("courses").where("CourID", id).update(courses);
   },
 };

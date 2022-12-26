@@ -41,4 +41,9 @@ router.get("/", async function (req, res) {
     layout: "bs5.hbs",
   });
 });
+router.post("/del", async function (req, res) {
+  const id = req.query.id || 0;
+  const affected_rows = await coursesService.del(id);
+  res.redirect("/admin/Courses");
+});
 export default router;

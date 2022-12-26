@@ -1,5 +1,5 @@
 <form method="post">
-  <div class="card" style="margin-top: 100px;">
+  <div class="card">
     <h4 class="card-header">
       Edit Category
     </h4>
@@ -23,12 +23,9 @@
           class="form-control"
           id="txtCatName"
           autofocus
-          placeholder=""
+          placeholder="Laptop"
           value="{{this.category.CatName}}"
         />
-      </div>
-
-
       </div>
     </div>
     <div class="card-footer text-muted">
@@ -36,17 +33,17 @@
         <i class="fa fa-backward" aria-hidden="true"></i>
         List
       </a>
-      {{!-- <button
+      <button
         type="submit"
         class="btn btn-danger"
         formaction="/admin/categories/del"
       >
         <i class="fa fa-trash" aria-hidden="true"></i>
         Delete
-      </button> --}}
+      </button>
       <button
         type="submit"
-        class="btn btn-outline-primary"
+        class="btn btn-primary"
         formaction="/admin/categories/patch"
       >
         <i class="fa fa-check" aria-hidden="true"></i>

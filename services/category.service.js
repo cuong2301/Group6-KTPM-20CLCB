@@ -24,7 +24,7 @@ export default {
     const sql = `	select c.*, count(p.CourID) as CourCount
     from categories c
            left join courses p on c.CatID = p.CatID
-    group by c.CatID, c.CatName`;
+    group by c.CatID, c.CatName, c.CatParent`;
     const ret = await db.raw(sql);
     return ret[0];
   },
