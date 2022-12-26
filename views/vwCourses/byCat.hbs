@@ -11,7 +11,7 @@
                 <i class="fa fa-caret-right" aria-hidden="true"></i>
                 {{CatName}}
                 {{#if CourCount}}
-                  <span class="badge badge-pill badge-primary text-danger float-right">{{CourCount}}</span>
+                  <span class="badge badge-pill badge-primary text-danger ", style="float: right;">{{CourCount}}</span>
                 {{/if}}
               </a>
             {{/each}}
@@ -34,13 +34,14 @@
     <div class="card-body text-black">
       <div class="row">
         {{#each this.courses}}
+
           <div class="col-sm-4 mb-3">
             <div class="card h-100">
               <img src="/public/img/5/main.jpg" alt="{{CourName}}" title="{{CourName}}">
               <div class="card-body">
                 <h5 class="card-title">{{CourName}}</h5>
-                <h5 class="card-title">{{CatName}}</h5>
                 <h5 class="text-danger">{{format_number Price}}</h5>
+                <h6 class="card-title">Lượt xem: {{Views}}</h6>
               </div>
               <div class="card-footer">
                 <a
@@ -58,25 +59,10 @@
               </div>
             </div>
           </div>
+         
         {{/each}}
       </div>
       <ul class="pagination">
-        {{!-- {{#if (eq value 1)  }}
-
-            {{else}}
-            <li class="page-item">
-              <a class="page-link" href="?page={{value}}">Previous</a>
-          </li>
-        {{/if}} --}}
-        {{!-- <li>{{this.pageNumbers.[0].isCurrent}}</li>
-       
-            {{#if (eq value 2)  }}
-
-            {{else}}
-            <li class="page-item">
-              <a class="page-link" href="?page={{value}}">Previous</a>
-          </li>
-        {{/if}} --}}
        {{#if (eq this.pageNumbers.[0].isCurPage 1)  }}
               
             {{else}}

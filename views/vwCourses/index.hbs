@@ -1,14 +1,14 @@
-<div class="card">
+<div class="card" style="margin-top: 100px;">
   <h4 class="card-header d-flex justify-content-between">
-    Products
-    <a
+    Courses
+    {{! <a
       class="btn btn-sm btn-outline-primary"
-      href="/admin/courses/add"
+      href="/admin/Courses/add"
       role="button"
     >
       <i class="fa fa-plus" aria-hidden="true"></i>
       Add Courses
-    </a>
+    </a> }}
   </h4>
   {{#if this.empty}}
     <div class="card-body">
@@ -32,25 +32,23 @@
               <td scope="row">{{CourID}}</td>
               <td>{{CourName}}</td>
               <td>{{format_number Price}}</td>
-
-              <td class="text-right">
-                <a
-                  class="btn btn-primary btn-sm"
-                  href="/admin/products/edit?id={{CoursesID}}"
-                  role="button"
-                  title="Edit
-                Product"
-                >
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                </a>
-              </td>
+              <form method="post">
+                <td class="text-right">
+                  <button
+                    type="submit"
+                    class="btn btn-sm btn-danger"
+                    formaction="/admin/Courses/del?id={{CourID}}"
+                  >
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    Delete
+                  </button>
+                </td>
+              </form>
             </tr>
           {{/each}}
         </tbody>
       </table>
     </div>
   {{/if}}
-  <div class="card-footer text-muted">
-    2 days ago
-  </div>
+
 </div>
