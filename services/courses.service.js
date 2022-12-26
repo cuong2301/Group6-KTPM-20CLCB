@@ -60,5 +60,11 @@ export default {
   async increaseView(id){
     const list = await db("courses").where("CourID", id);
     return db("courses").where("CourID", id).update({Views: list[0].Views+1})
+  },
+  async addNew(course){
+    return db("courses").insert(course);
+  },
+  async uptodate(course, id){
+    return db('courses').where('CourID', id).update(course);
   }
 };

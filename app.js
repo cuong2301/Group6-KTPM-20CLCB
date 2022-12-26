@@ -15,6 +15,7 @@ import coursesUserService from "./routes/courses-user.route.js";
 import categoryService from "./services/category.service.js";
 
 import coursesRoute from "./routes/courses.route.js";
+import teacherRoute from "./routes/teacher.route.js";
 const app = express();
 
 app.use(
@@ -64,10 +65,19 @@ app.get("/", async function (req, res) {
   console.log(popula);
   res.render("home", {
       newest: newest,
-      popular: popula
+      popular: popula,
   });
 });
-
+// app.get("/", async function (req, res) {
+//   const newest = await coursesService.findNewestCourses();
+//   const popula = await coursesService.findPopularCourses();
+//   console.log(popula);
+//   res.render("vwAccount/teacher-profile", {
+//     newest: newest,
+//     popular: popula,
+//     layout: 'bs6'
+//   });
+// });
 app.post("/", async function (req, res) {
   const a = req.body.rate;
   const b = req.body.comment;
@@ -75,11 +85,11 @@ app.post("/", async function (req, res) {
   console.log(b);
   res.redirect("/");
 });
-
 app.use("/admin/categories", categoryRoute);
 app.use("/admin/Courses", coursesRoute);
 app.use("/courses", coursesUserService);
 app.use("/account", accountRoute);
+app.use("/teacher", teacherRoute);
 const PORT = 3000;
 app.listen(PORT, function () {
   console.log(`E-commerce application listening at http://localhost:${PORT}`);

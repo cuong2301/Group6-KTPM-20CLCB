@@ -1,0 +1,57 @@
+
+    <div class="row">
+            <div class="card text-white bg-warning">
+                {{#if this.product.empty}}
+                    <div class="card-body">
+                        Không có dữ liệu!
+                    </div>
+                {{else}}
+                    <div class="card-body text-black">
+                        <div class="row">
+                            {{#each this.product}}
+                                <div class="col-sm-4 mb-3">
+                                    <div class="card h-100">
+                                        <img src="/public/img/5/main.jpg" alt="{{this.CourName}}" title="{{this.CourName}}">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{this.CourName}}</h5>
+                                            <h5 class="card-title">{{this.CatName}}</h5>
+                                            <h5 class="text-danger">{{format_number this.Price}}</h5>
+                                        </div>
+                                        <div class="card-footer" style="text-align: center">
+                                            <a
+                                                    class="btn btn-outline-primary"
+                                                    href="/teacher/courses/edit?id={{this.CourID}}"
+                                                    role="button"
+                                                    style ="width: 100%"
+                                            >
+                                                Edit course
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div>
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{value}}">Previous</a>
+                            </li>
+                            {{#each this.pageNumbers}}
+                                {{#if isCurrent}}
+                                    <li class="page-item active" aria-current="page">
+                                        <span class="page-link">{{value}}</span>
+                                    </li>
+                                {{else}}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{value}}">{{value}}</a>
+                                    </li>
+                                {{/if}}
+                            {{/each}}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{value}}">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>

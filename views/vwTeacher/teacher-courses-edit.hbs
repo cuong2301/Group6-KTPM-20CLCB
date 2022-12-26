@@ -1,0 +1,53 @@
+<script src="https://cdn.tiny.cloud/1/6xo69yo5u1wc5a0n3wobc897ey95w3bap7gyvix9iqdej71k/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea'
+    });
+</script>
+<div style="text-align: right">
+    <button class="btn btn-primary" type="submit">Save changes</button>
+</div>
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="post">
+            <div class="mb-3">
+                <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the
+                    site)</label>
+                <input class="form-control" id="inputUsername" type="text" placeholder="{{this.courses.CourName}}"
+                       name="CourName" value="{{this.courses.CourName}}">
+            </div>
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                    aria-expanded="true" aria-controls="collapseOne">
+                                Full description
+                            </button>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <textarea id="mytextarea" name="FullDes">{{this.courses.FullDes}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsetwo"
+                                    aria-expanded="true" aria-controls="collapsetwo">
+                                Small description
+                            </button>
+                            <div id="collapsetwo" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <textarea id="mytextarea" name="TinyDes">{{this.courses.TinyDes}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <div class="mb-3">
+                <label class="small mb-1" for="inputPrice">Price</label>
+                <input class="form-control" id="inputPrice" type="number" placeholder="{{this.courses.Price}}"
+                       name="Price" value="{{this.courses.Price}}">
+            </div>
+            <button class="btn btn-primary" type="submit">Save changes</button>
+        </form>
+    </div>
+</div>

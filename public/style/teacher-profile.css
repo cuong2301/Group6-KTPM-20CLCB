@@ -200,12 +200,14 @@ body {
 
 .nav_link {
     position: relative;
-    color: var(--first-color-light);
-    margin-bottom: 1.5rem;
+    color: black;
+    padding-top: 15px;
+    padding-bottom: 15px;
     transition: .3s
 }
 
 .nav_link:hover {
+    background-color: black;
     color: var(--white-color)
 }
 
@@ -243,7 +245,6 @@ body {
     /*    margin: calc(var(--header-height) + 1rem) 0 0 0;*/
     /*    padding-left: calc(var(--nav-width) + 2rem)*/
     /*}*/
-
     .header {
         height: calc(var(--header-height) + 1rem);
         padding: 0 2rem 0 calc(var(--nav-width) + 2rem)
@@ -263,9 +264,9 @@ body {
         padding: 1rem 1rem 0 0
     }
 
-    .show {
-        width: calc(var(--nav-width) + 156px)
-    }
+    /*.show {*/
+    /*    width: calc(var(--nav-width) + 156px)*/
+    /*}*/
 
     .body-pd {
         padding-left: calc(var(--nav-width) + 188px)
