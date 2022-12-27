@@ -43,4 +43,7 @@ export default {
         return db('users').where('id', id).update(user);
     },
 
+    update(name,id){
+        return db('users').where('id',id).update({'username':name});
+    }
 }

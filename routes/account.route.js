@@ -67,7 +67,35 @@ router.post('/register', async function (req, res) {
 });
 
 router.get('/profile', async function (req, res) {
-    res.render('vwAccount/profile');
+    const user_id= 4;
+    const user = await userService.findById(user_id);
+    console.log(user);
+    res.render('vwAccount/profile',{
+        user:user
+    });
+});
+
+router.post('/profile', async function (req, res) {
+    console.log(req.body);
+    let errormessage='';
+    if(req.body.username!=''){
+        await userService.update(req.body.username,4);
+    }
+    if(req.body.email!=''){
+        const re = /^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$/
+        const email=req.body.email;
+        if(re.test(email) === false){
+            errormessage ="Please fill correct email";
+        }
+    }
+    if(req.body.password!=''){
+        if(req.body.password!=req.body.passwordconfirm){
+            errormessage="Please confirm correct password";
+        }
+    }
+    return  res.render('vwAccount/profile',{
+        errormessage:errormessage,
+    });
 });
 
 // eg: /is-available?user=ryu

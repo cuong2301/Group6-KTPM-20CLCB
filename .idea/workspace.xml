@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c9a9cdb6-0928-4361-802a-4edde72deaad" name="Changes" comment="add profile for user">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/aa79cfd1-46f2-4e9e-9c30-2f0b85d26ff5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/aa79cfd1-46f2-4e9e-9c30-2f0b85d26ff5.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/account.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/account.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/user.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/user.service.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/vwAccount/profile.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/vwAccount/profile.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +46,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/tranm/Downloads/ecappexpress_20ktpmb_d09",
+    "last_opened_file_path": "C:/Users/tranm/OneDrive/Máy tính/Group6-KTPM-20CLCB/utils/123.sql",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "editing.templates"
   },
@@ -108,6 +111,7 @@
       <workItem from="1671631376070" duration="12175000" />
       <workItem from="1671677097635" duration="4214000" />
       <workItem from="1671802418117" duration="7740000" />
+      <workItem from="1672105092966" duration="8175000" />
     </task>
     <task id="LOCAL-00001" summary="First setup for project">
       <created>1670819844717</created>
@@ -262,6 +266,12 @@
           <url>file://$PROJECT_DIR$/routes/courses.route.js</url>
           <line>29</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/routes/courses-user.route.js</url>
+          <line>64</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
