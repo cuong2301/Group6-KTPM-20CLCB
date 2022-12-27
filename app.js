@@ -86,6 +86,7 @@ app.use("/admin/categories", categoryRoute);
 app.use("/admin/Courses", coursesRoute);
 app.use("/courses", coursesUserService);
 app.use("/account", accountRoute);
+app.use("/teacher", teacherRoute);
 const PORT = 3000;
 app.listen(PORT, function () {
   console.log(`E-commerce application listening at http://localhost:${PORT}`);
