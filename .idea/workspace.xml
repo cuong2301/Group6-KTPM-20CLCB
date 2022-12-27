@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c9a9cdb6-0928-4361-802a-4edde72deaad" name="Changes" comment="add profile for user">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/aa79cfd1-46f2-4e9e-9c30-2f0b85d26ff5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/aa79cfd1-46f2-4e9e-9c30-2f0b85d26ff5.xml" afterDir="false" />
+    <list default="true" id="c9a9cdb6-0928-4361-802a-4edde72deaad" name="Changes" comment="update for user-profile">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/account.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/account.route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/user.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/user.service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/vwAccount/profile.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/vwAccount/profile.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/vwCourses/detail.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/vwCourses/detail.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +108,7 @@
       <workItem from="1671631376070" duration="12175000" />
       <workItem from="1671677097635" duration="4214000" />
       <workItem from="1671802418117" duration="7740000" />
-      <workItem from="1672105092966" duration="8175000" />
+      <workItem from="1672105092966" duration="10091000" />
     </task>
     <task id="LOCAL-00001" summary="First setup for project">
       <created>1670819844717</created>
@@ -225,7 +222,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671804765076</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="update for user-profile">
+      <created>1672113449007</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1672113449007</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -257,7 +261,8 @@
     <MESSAGE value="fix" />
     <MESSAGE value="no" />
     <MESSAGE value="add profile for user" />
-    <option name="LAST_COMMIT_MESSAGE" value="add profile for user" />
+    <MESSAGE value="update for user-profile" />
+    <option name="LAST_COMMIT_MESSAGE" value="update for user-profile" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -75,10 +75,8 @@ app.get("/", async function (req, res) {
 });
 
 app.post("/", async function (req, res) {
-  const a = req.body.rate;
-  const b = req.body.comment;
+  const a = req.body.score;
   console.log(a);
-  console.log(b);
   res.redirect("/");
 });
 
