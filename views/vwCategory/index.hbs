@@ -1,6 +1,6 @@
 <div class="content-wrapper" style="margin-top: 60px;">
   <section class="content my-2">
-    
+
     <div class="card">
       <div class="card-header">
         <div class="row">
@@ -8,122 +8,87 @@
             <strong>Category</strong>
           </div>
           <div class="col-md-6" style="text-align: right;">
-            <a class="btn btn-sm btn-success" href="/admin/categories/add"
-            role="button">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            Add Category</a>
+            <a
+              class="btn btn-sm btn-success"
+              href="/admin/categories/add"
+              role="button"
+            >
+              <i class="fa fa-plus" aria-hidden="true"></i>
+              Add Category</a>
           </div>
         </div>
       </div>
-       {{#if this.empty}}
-    <div class="card-body">
-      Không có dữ liệu!
-    </div>
-  {{else}}
-    <div class="card-body">
-      <div class="row">
-        
+      {{#if this.empty}}
+        <div class="card-body">
+          Không có dữ liệu!
+        </div>
+      {{else}}
+        <div class="card-body">
+          <div class="row">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>CourCout</th>
+                  <th>CatParent Name</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each lcCategories}}
+                  <tr>
+                    <td scope="row">{{CatID}}</td>
+                    <td>{{CatName}}</td>
+                    <td>{{CourCount}}</td>
+                    {{#if CatParent}}
 
-      <table class="table table-bordered">
-        <thead> 
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>CourCout</th>
-            <th>Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each lcCategories}}
-            <tr >
-              <td scope="row">{{CatID}}</td>
-              <td>{{CatName}}</td>
-              <td>{{CourCount}}</td>
-              <td class="text-right" style="width: 200px;">
-                <form method="post">
-                <a
-                  class="btn btn-primary btn-sm"
-                  href="/admin/categories/edit?id={{CatID}}"
-                  role="button"
-                  title="Edit Category"
-                >
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                  Edit
-                </a>
-                {{#if CourCount}}
-                {{else}}
-                
-                 <button
-                    type="submit"
-                    class="btn btn-sm btn-danger"
-                    formaction="/admin/categories/del?id={{CatID}}"
-                  >
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                    Delete
-                  </button>
-                  
-                {{/if}}
-                </form>
-              </td>
-              
-            </tr>
-          {{/each}}
-        </tbody>
-      </table>
-       
-      </div>
-    </div>
-  {{/if}} 
+                      <td>{{CatParent}}</td>
+                    {{else}}
+                      <td>Cat Parent</td>
+                    {{/if}}
+                    <td class="text-right" style="width: 250px;">
+                      <form method="post">
+                        <a
+                          class="btn btn-primary btn-sm"
+                          href="/admin/categories/edit?id={{CatID}}"
+                          role="button"
+                          title="Edit Category"
+                        >
+                          <i class="fa fa-pencil" aria-hidden="true"></i>
+                          Edit
+                        </a>
+                        <a
+                          class="btn btn-warning btn-sm"
+                          href="/admin/courses/{{CatID}}"
+                          role="button"
+                          title="See More"
+                        >
+                          <i class="fa fa-eye" aria-hidden="true"></i>
+                          More
+                        </a>
+                        {{#if CourCount}}{{else}}
+
+                          <button
+                            type="submit"
+                            class="btn btn-sm btn-danger"
+                            formaction="/admin/categories/del?id={{CatID}}"
+                          >
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                            Delete
+                          </button>
+
+                        {{/if}}
+                      </form>
+                    </td>
+
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      {{/if}}
     </div>
   </section>
-
-
-
-{{!-- <div class="card" style="margin-top: 100px;">
-  <h4 class="card-header">
-    Categories
-    <a
-      class="btn btn-sm btn-outline-primary"
-      href="/admin/categories/add"
-      role="button"
-    >
-      <i class="fas fa-plus" aria-hidden="true"></i>
-      Add Category
-    </a>
-  </h4>
-  {{#if this.empty}}
-    <div class="card-body">
-      Không có dữ liệu!
-    </div>
-  {{else}}
-    <div class="card-body">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each this.categories}}
-            <tr>
-              <td scope="row">{{CatID}}</td>
-              <td>{{CatName}}</td>
-              <td class="text-right">
-                <a
-                  class="btn btn-primary btn-sm"
-                  href="/admin/categories/edit?id={{CatID}}"
-                  role="button"
-                  title="Edit Category"
-                >
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                </a>
-              </td>
-            </tr>
-          {{/each}}
-        </tbody>
-      </table>
-    </div>
-  {{/if}}
-</div> --}}
+</div>
