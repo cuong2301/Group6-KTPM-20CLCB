@@ -1,6 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import nodemailer from 'nodemailer';
+import passport from "passport";
 import session from "express-session";
 
 import userService from '../services/user.service.js';
@@ -75,7 +76,8 @@ router.get('/profile', async function (req, res) {
     });
 });
 
-router.post('/profile', async function (req, res) {
+
+router.post('/profile', auth, async function (req, res) {
     console.log(req.body);
     let errormessage='';
     if(req.body.username!=''){
@@ -117,7 +119,6 @@ router.post('/login', async function (req, res) {
     const user = await userService.findByEmail(req.body.email);
     if (user === null) {
         return res.render('vwAccount/login', {
-            layout: false,
             err_message: 'Invalid username or password.'
         });
     }
@@ -125,14 +126,12 @@ router.post('/login', async function (req, res) {
     const ret = bcrypt.compareSync(req.body.password, user.password);
     if (ret === false) {
         return res.render('vwAccount/login', {
-            layout: false,
             err_message: 'Invalid username or password.'
         });
     }
 
     delete user.password;
 
-    console.log( req.session.auth);
 
     req.session.auth = true;
     req.session.authUser = user;
@@ -141,12 +140,9 @@ router.post('/login', async function (req, res) {
     res.redirect(url);
 });
 
-
-
 router.post('/logout', async function (req, res) {
     req.session.auth = false;
     req.session.authUser = null;
-
     const url = req.headers.referer || '/';
     res.redirect(url);
 });
@@ -174,6 +170,10 @@ router.post('/register/verify',  async function (req, res){
     }
 
 });
+
+router.get('/auth/facebook', passport.authenticate('facebook',{scope:'email'}));
+
+
 
 
 export default router;

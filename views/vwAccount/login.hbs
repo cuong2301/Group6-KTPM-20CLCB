@@ -9,10 +9,17 @@
 {{/section}}
 
 <form method="post" id="frmLogin">
-    <section class="vh-100" style="background-color: #ffffff;">
+    <div class="vh-100" style="background-color: #ffffff;">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+
+                    {{#if err_message}}
+                        <div class="alert alert-danger" role="alert">
+                            {{err_message}}
+                        </div>
+                    {{/if}}
+
                     <div class="card shadow-2-strong shadow" style="border-radius: 1rem;">
                         <div class="card-body p-5">
                             <h3 class="mb-5">Sign in</h3>
@@ -26,19 +33,19 @@
                                 <input name="password" type="password" id="txtPassword" class="form-control form-control-lg">
                             </div>
 
-                                <button type="submit" class="btn btn-lg btn-primary" style="width: 100%">Login</button>
+                            <a href=""><div class="btn btn-lg btn-primary" style="width: 100%">Login</div></a>
 
                             <hr class="my-4">
                             <div class="d-grid gap-2">
                             <button class="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;"
                                     type="submit"><i class="fa fa-google me-2"></i> Sign in with google</button>
                             <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #3b5998;"
-                                    type="submit"><i class="fa fa-facebook me-2" aria-hidden="true"></i>Sign in with facebook</button>
+                                    type="submit"><a style="color: #ffffff; text-decoration: none; font-size: medium" href="/account/auth/facebook"><i class="fa fa-facebook me-2" aria-hidden="true"></i>Sign in with facebook</a></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </form>

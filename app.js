@@ -2,19 +2,24 @@ import express from "express";
 import hbs_sections from "express-handlebars-sections";
 import { engine } from "express-handlebars";
 import session from 'express-session';
+import FacebookStrategy from 'passport-facebook';
+import passport from 'passport'
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
 import numeral from "numeral";
-
 import categoryRoute from "./routes/category.route.js";
 import coursesService from "./services/courses.service.js";
 import accountRoute from "./routes/account.route.js";
 import coursesUserService from "./routes/courses-user.route.js";
 import categoryService from "./services/category.service.js";
-
 import coursesRoute from "./routes/courses.route.js";
+import config from "./utils/config.js";
+
+
 import activate_session from "./middlewares/session.mdw.js";
 import activate_locals from "./middlewares/locals.mdw.js";
 
@@ -60,6 +65,35 @@ app.use(async function (req, res, next) {
   next();
 });
 
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+    done(null, obj);
+});
+
+// Use the FacebookStrategy within Passport.
+passport.use(new FacebookStrategy({
+        clientID: config.facebook_api_key,
+        clientSecret:config.facebook_api_secret ,
+        callbackURL: config.callback_url
+    },
+    function(accessToken, refreshToken, profile, done) {
+        process.nextTick(function () {
+            console.log(accessToken, refreshToken, profile, done);
+            return done(null, profile);
+        });
+    }
+));
+
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({ secret: 'keyboard cat', key: 'sid'}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 activate_session(app);
 activate_locals(app);
 
@@ -79,6 +113,11 @@ app.post("/", async function (req, res) {
   console.log(a);
   res.redirect("/");
 });
+app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', { successRedirect : '/', failureRedirect: '/login' }),
+    function(req, res) {
+        res.redirect('/');
+    });
 
 app.use("/admin/categories", categoryRoute);
 app.use("/admin/Courses", coursesRoute);
