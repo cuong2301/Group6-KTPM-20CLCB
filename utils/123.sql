@@ -8,18 +8,20 @@ create table sus.users
     email      varchar(50)  not null,
     permission int          not null
 ) engine = MyISAM;
-
+INSERT INTO `users` VALUES (1,'admin','admin','a@g.com',0);
+INSERT INTO `users` VALUES (2,'teacher','teacher','t@g.com',1);
+INSERT INTO `users` VALUES (3,'user','uesr','u@g.com',2);
 DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
                               `CatID` int(11) unsigned NOT NULL AUTO_INCREMENT,
                               `CatName` varchar(50) COLLATE utf8_general_ci NOT NULL,
-							  `CatParent` int(11),
+							  `CatParent` varchar(50) COLLATE utf8_general_ci,
                               primary key(`CatID`)
 ) ENGINE=MyISAM ;
 
 BEGIN;
-INSERT INTO `categories` VALUES (1, 'Lập trình web',0);
-INSERT INTO `categories` VALUES (2, 'Lập trình thiết bị di động',0);
+INSERT INTO `categories` VALUES (1, 'Lập trình web','');
+INSERT INTO `categories` VALUES (2, 'Lập trình thiết bị di động','');
 COMMIT;
 
 DROP TABLE IF EXISTS `courses`;

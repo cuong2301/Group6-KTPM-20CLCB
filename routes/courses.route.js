@@ -41,6 +41,17 @@ router.get("/", async function (req, res) {
     layout: "bs5.hbs",
   });
 });
+
+router.get("/:id", async function (req, res) {
+  const catId = req.params.id || 0;
+  const list = await coursesService.findByCatId(catId);
+  res.render("vwCourses/index", {
+    courses: list,
+    empty: list.length === 0,
+    layout: "bs5.hbs",
+  });
+});
+
 router.post("/del", async function (req, res) {
   const id = req.query.id || 0;
   const affected_rows = await coursesService.del(id);

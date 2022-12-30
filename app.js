@@ -1,7 +1,7 @@
 import express from "express";
 import hbs_sections from "express-handlebars-sections";
 import { engine } from "express-handlebars";
-import session from 'express-session';
+import session from "express-session";
 
 import { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -69,8 +69,8 @@ app.get("/", async function (req, res) {
   console.log(popula);
   //console.log(req.session.auth);
   res.render("home", {
-      newest: newest,
-      popular: popula
+    newest: newest,
+    popular: popula,
   });
 });
 
@@ -82,6 +82,7 @@ app.post("/", async function (req, res) {
 
 app.use("/admin/categories", categoryRoute);
 app.use("/admin/Courses", coursesRoute);
+app.use("/admin/users", accountRoute);
 app.use("/courses", coursesUserService);
 app.use("/account", accountRoute);
 app.use("/teacher", teacherRoute);

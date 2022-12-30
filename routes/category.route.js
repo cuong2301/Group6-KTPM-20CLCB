@@ -9,7 +9,7 @@ router.get("/add", function (req, res) {
 
 router.post("/add", async function (req, res) {
   const ret = await categoryService.add(req.body);
-  res.render("vwCategory/add", { layout: "bs5.hbs" });
+  res.redirect("/admin/categories/add");
 });
 
 router.get("/", async function (req, res) {
