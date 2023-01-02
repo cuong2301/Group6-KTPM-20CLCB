@@ -53,7 +53,7 @@ app.engine(
         return a - b;
       },
       add(a, b) {
-        return a + b;
+        return +a + +b;
       },
     },
   })
