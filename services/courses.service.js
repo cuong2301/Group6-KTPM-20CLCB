@@ -21,7 +21,7 @@ export default {
   {
     const Id=await db('courses').select('CatID').where('CourID',id);
     
-    const list=await db('courses').where('CatID',+Id[0].CatID).whereNot('CourID',id).limit(5).orderBy('Views');
+    const list=await db('courses').where('CatID',+Id[0].CatID).whereNot('CourID',id).orderBy('Views').limit(5);
     if (list.length === 0) return null;
 
     return list;
