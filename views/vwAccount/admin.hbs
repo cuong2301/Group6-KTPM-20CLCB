@@ -1,0 +1,57 @@
+<div class="card" style="margin-top: 100px;">
+  <h4 class="card-header d-flex justify-content-between">
+    User
+  </h4>
+  {{#if this.empty}}
+    <div class="card-body">
+      Không có dữ liệu!
+    </div>
+  {{else}}
+    <div class="card-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Premission</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each this.users}}
+            <tr>
+              <td scope="row">{{id}}</td>
+              <td>{{username}}</td>
+              <td>{{email}}</td>
+              <td>
+                {{#if (eq this.permission 0)}}
+                  Admin
+                {{/if}}
+                {{#if (eq this.permission 1)}}
+                  Teacher
+                {{/if}}
+                {{#if (eq this.permission 2)}}
+                  User
+                {{/if}}
+              </td>
+              <form method="post">
+                <td class="text-right">
+                  <button
+                    type="submit"
+                    class="btn btn-sm btn-danger"
+                    formaction="/admin/Courses/del?id={{id}}"
+                  >
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    Delete
+                  </button>
+                </td>
+              </form>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  {{/if}}
+
+</div>

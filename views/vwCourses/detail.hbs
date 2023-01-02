@@ -16,10 +16,16 @@
         <h1 class="text-danger text-center">{{format_number this.product.Price}}đ
 </h1>
         <br>
-        <a class="btn btn-outline-success btn-lg align-middle" href="#" role="button" style="margin-left:10rem">
-            <i class="fa fa-cart-plus " aria-hidden="true"></i>
+        <div class="d-flex align-items-baseline" style="space-between">
+            <div class="btn btn-outline-danger btn-lg align-middle"  href="#" role="button" style="justify-content: left ; margin-left: 1rem ;margin-bottom: 1rem " >
+                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                Yêu thích
+            </div>
+            <div class="btn btn-outline-success btn-lg align-middle" href="#" role="button" style="justify-content: right ; margin-left: 3rem ;margin-bottom: 1rem ">
+                <i class="fa fa-cart-plus " aria-hidden="true"></i>
                 Mua khóa học
-        </a>
+            </div>
+        </div>
 {{!-- {{format_number this.product.Price}}đ --}}
 
         
