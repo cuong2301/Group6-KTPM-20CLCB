@@ -17,6 +17,16 @@ router.get("/", async function (req, res) {
   });
 });
 
+router.get("/courses/:id", async function (req, res) {
+  const CourID = req.params.id || 0;
+  const list = await userService.findByCourId(CourID);
+  res.render("vwAccount/admin", {
+    users: list,
+    empty: list.length === 0,
+    layout: "bs5.hbs",
+  });
+});
+
 router.get("/register", async function (req, res) {
   res.render("vwAccount/register");
 });
