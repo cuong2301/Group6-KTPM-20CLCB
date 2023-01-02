@@ -85,21 +85,20 @@ app.get("/", async function (req, res) {
   console.log(popula);
   //console.log(req.session.auth);
   res.render("home", {
-      newest: newest,
-      popular: popula
+    newest: newest,
+    popular: popula,
   });
 });
 
 app.post("/", async function (req, res) {
-  const a = req.body.rate;
-  const b = req.body.comment;
+  const a = req.body.score;
   console.log(a);
-  console.log(b);
   res.redirect("/");
 });
 
 app.use("/admin/categories", categoryRoute);
 app.use("/admin/Courses", coursesRoute);
+app.use("/admin/users", accountRoute);
 app.use("/courses", coursesUserService);
 app.use("/account", accountRoute);
 app.use("/teacher", teacherRoute);

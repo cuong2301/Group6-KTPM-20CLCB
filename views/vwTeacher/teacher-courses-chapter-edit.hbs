@@ -1,0 +1,71 @@
+{{#each chapter}}
+<form method="post">
+    <div class="card" style="margin-top: 100px;">
+        <h4 class="card-header">
+            Edit Chapter {{ChapOrder}}
+        </h4>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="txtChapOrder">Order</label>
+                <input
+                        name="ChapOrder"
+                        type="text"
+                        class="form-control"
+                        id="txtChapOrder"
+                        value="{{ChapOrder}}"
+                />
+            </div>
+            <div class="form-group">
+                <label for="txtChapName">Chapter Name</label>
+                <input
+                        name="ChapName"
+                        type="text"
+                        class="form-control"
+                        id="txtChapName"
+                        autofocus
+                        placeholder=""
+                        value="{{ChapName}}"
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="txtCatName">Link video</label>
+                <input
+                        name="Link"
+                        type="text"
+                        class="form-control"
+                        id="txtLib=nk"
+                        autofocus
+                        placeholder=""
+                        value="{{Link}}"
+                />
+            </div>
+
+
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        <a class="btn btn-outline-success" href="/teacher/courses/chapter?id={{CourID}}" role="button">
+            <i class="fa fa-backward" aria-hidden="true"></i>
+            List
+        </a>
+        {{!-- <button
+          type="submit"
+          class="btn btn-danger"
+          formaction="/admin/categories/del"
+        >
+          <i class="fa fa-trash" aria-hidden="true"></i>
+          Delete
+        </button> --}}
+        <button
+                type="submit"
+                class="btn btn-outline-primary"
+                formaction="/teacher/courses/chapter/edit?id={{ChapID}}&CourID={{this.CourID}}"
+        >
+            <i class="fa fa-check" aria-hidden="true"></i>
+            Save
+        </button>
+    </div>
+    </div>
+</form>
+    {{/each}}

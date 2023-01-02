@@ -5,71 +5,23 @@
 
 {{#section 'js'}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
-    <script>
-        $('#frmRegister').on('submit', function (e) {
-            e.preventDefault();
-            const username = $('#txtUsername').val();
-            if (username.length === 0) {
-                alert('Please input a valid username.');
-                return;
-            }
-            const email = $('#txtEmail').val();
-            $.getJSON(`/account/is-available?email=${email}`, function (data) {
-                if (data === false) {
-                    alert('Not available for registration!');
-                } else {
-                    $('#frmRegister').off('submit').submit();
-                }
-            });
-        });
-
-
-
-        function checkEmptyName(e){
-            const name = document.querySelector('#txtUsername').value;
-            if(name == ""){
-                alert('Please input a valid username.');
-                e.preventDefault();
-            }
-        }
-
-        function checkRegexMail(e){
-            const re = /^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$/
-            const mail = document.querySelector('#txtEmail').value;
-            if(re.test(mail) === false){
-                const str ='Please fill correct mail';
-                document.getElementById('required').innerHTML = str;
-                e.preventDefault();
-            }
-            if(mail === ''){
-                const str ='Please fill out a valid email format';
-                document.getElementById('required').innerHTML = str;
-                e.preventDefault();
-            }
-        }
-
-        function checkConfirmPass(e){
-            const pass = document.querySelector("#txtPassword").value;
-            const confirmPass = document.querySelector("#txtConfirm").value;
-            if(pass !== confirmPass){
-                document.getElementById('confirmNotice').innerHTML = "Confirm was wrong";
-                e.preventDefault();
-            }
-        }
-        //document.querySelector('#submit').addEventListener('click', checkEmptyName);
-        document.querySelector('#submit').addEventListener('click', checkRegexMail);
-        document.querySelector('#txtConfirm').addEventListener('mouseleave', checkConfirmPass);
-
-        // $('#txtDOB').datetimepicker({
-        //     timepicker: false,
-        //     format: 'd/m/Y',
-        //     mask: true
-        // });
-    </script>
+<!--    <script>-->
+<!--        $('.inputsubmit').click(function() {-->
+<!--            const errorc = document.{{this.errorconfirm}};-->
+<!--            const errore = document.{{this.erroremail}};-->
+<!--            if (errorc != "") {-->
+<!--                alert("hello huy");-->
+<!--            }-->
+<!--            if (errore != "") {-->
+<!--                alert("hello song ");-->
+<!--            }-->
+<!--        });-->
+<!--    </script>-->
 {{/section}}
 
 <div class="container-xl px-4 mt-4">
     <!-- Account page navigation-->
+
     <nav class="nav nav-borders">
         <a class="nav-link active ms-0" href="https://www.bootdey.com/snippets/view/bs5-edit-profile-account-details" target="__blank">Profile</a>
         <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-profile-billing-page" target="__blank">Billing</a>
@@ -132,14 +84,17 @@
                                     <label for="txtConfirm">Confirm New Password</label>
                                     <label id="confirmNotice" style="color: red; font-weight: bolder"></label>
                                 </div>
-                                <input type="password" class="form-control" id="txtConfirm" autofocus placeholder="*********************">
+                                <input type="password" class="form-control" name="passwordconfirm" id="txtConfirm" autofocus placeholder="*********************">
                             </div>
                         </div>
                         <!-- Save changes button-->
-                        <button class="btn btn-primary" type="button" id="submit">
+                        <button class="btn btn-primary inputsubmit" type="submit"  >
                             <i class="fa fa-check" aria-hidden="true"></i>
                             Save changes</button>
                     </form>
+                    <div style="text-align: center; color: red " >
+                        {{this.errormessage}}
+                    </div>
                 </div>
             </div>
         </form>

@@ -1,0 +1,79 @@
+<div class="content-wrapper" style="margin-top: 60px;">
+    <section class="content my-2">
+
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Chapter</strong>
+                    </div>
+                    <div class="col-md-6" style="text-align: right;">
+                        <a class="btn btn-sm btn-success" href="/teacher/courses/chapter/add?id={{this.CourID}}"
+                           role="button">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            Add Chapter</a>
+                    </div>
+                </div>
+            </div>
+            {{#if this.empty}}
+                <div class="card-body">
+                    Không có dữ liệu!
+                </div>
+            {{else}}
+                <div class="card-body">
+                    <div class="row">
+
+
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Order</th>
+                                <th>Name</th>
+<!--                                <th>Order</th>-->
+                                <th>Edit</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each chapter}}
+                                <tr >
+                                    <td scope="row">{{ChapOrder}}</td>
+                                    <td>{{ChapName}}</td>
+<!--                                    <td>{{Cour}}</td>-->
+                                    <td class="text-right" style="width: 200px;">
+                                        <form method="post">
+                                            <a
+                                                    class="btn btn-primary btn-sm"
+                                                    href="/teacher/courses/chapter/edit?id={{ChapID}}&CourID={{this.CourID}}"
+                                            role="button"
+                                            title="Edit Category"
+                                            >
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                            Edit
+                                            </a>
+                                                <button
+                                                        type="submit"
+                                                        class="btn btn-sm btn-danger"
+                                                        formaction="/teacher/courses/chapter/del?id={{ChapID}}&CourID={{this.CourID}}"
+                                                >
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                Delete
+                                                </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    {{# if flag}}
+                        <span style="color: red; font-size: 20px">Not Complete <i class="fa-regular fa-circle-xmark"></i></span>
+                    {{else}}
+                        <span style="color: green; font-size: 20px">Completed <i class="far fa-check-circle"></i></span>
+                    {{/if}}
+                </div>
+            {{/if}}
+        </div>
+    </section>
+
+
+</div>

@@ -1,19 +1,62 @@
-<script src="https://cdn.tiny.cloud/1/6xo69yo5u1wc5a0n3wobc897ey95w3bap7gyvix9iqdej71k/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-<script>
-    tinymce.init({
-        selector: 'textarea',
-        mode: "textareas",
-    });
-</script>
-<script>
-    $('#nav_list a.active').removeClass('active');
-</script>
+
+{{#section 'css'}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/css/fileinput.min.css" />
+{{/section}}
+
+{{#section 'js'}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/buffer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/filetype.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/piexif.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/sortable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/fileinput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/themes/fa4/theme.min.js"></script>
+    <script>
+        $('#fuMain').fileinput({
+            dropZoneEnabled: false,
+            validateInitialCount: true,
+            required: true,
+            maxFileCount: 5,
+            theme: 'fa4',
+            allowedFileExtensions: ['jpg', 'png', 'gif'],
+        });
+    </script>
+    <script src="https://cdn.tiny.cloud/1/6xo69yo5u1wc5a0n3wobc897ey95w3bap7gyvix9iqdej71k/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            mode: "textareas",
+        });
+    </script>
+    <script>
+        $('#nav_list a.active').removeClass('active');
+    </script>
+    <script>
+        $('#submitadd').click(function(){
+            if($('#inputCourName').val().trim() == ''){
+                alert("Empty for Course name")
+                return false;
+            } else if($('#mytextarea_ifr').contents().find('body').text().trim().length == 0){
+                alert("Empty for Description")
+                return false;
+            } else if($('#mytextarea2_ifr').contents().find('body').text().trim().length == 0){
+                alert("Empty for Description")
+                return false;
+            } else if( $('#inputPrice').val().trim() == ''){
+                alert("Empty for Price")
+                return false;
+            } else if($('#sel1').val() == ""){
+                alert("Empty for Category")
+                return false;
+            }
+        });
+    </script>
+{{/section}}
 <div>
     <button class="btn btn-primary" type="submit" style="text-align: right">Save changes</button>
 </div>
 <div class="card mb-4">
     <div class="card-body">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="small mb-1" for="inputCourName"><strong style="font-size: 20px">Course name</strong></label>
                 <input class="form-control" id="inputCourName" type="text" placeholder="Enter your CourName"
@@ -55,10 +98,14 @@
                     {{/each}}
                 </select>
             </div>
+            <div class="form-group">
+                <label class="small mb-1" for="fuMain"><strong style="font-size: 20px">Photo</strong></label>
+                <input type="file" multiple id="fuMain" name="fuMain">
+            </div>
             <div class="mb-3">
                 <label class="small mb-1" for="inputPrice"><strong style="font-size: 20px">Price</strong></label>
                 <input class="form-control" id="inputPrice" type="number" placeholder="{{this.courses.Price}}"
-                       name="Price" value="{{this.courses.Price}}">
+                       name="Price">
             </div>
             <div style="padding-top: 10px">
                 <button id="submitadd" class="btn btn-primary" type="submit">Add new course</button>
@@ -66,24 +113,3 @@
         </form>
     </div>
 </div>
-
-<script>
-    $('#submitadd').click(function(){
-        if($('#inputCourName').val().trim() == ''){
-            alert("Empty for Course name")
-            return false;
-        } else if($('#mytextarea_ifr').contents().find('body').text().trim().length == 0){
-            alert("Empty for Description")
-            return false;
-        } else if($('#mytextarea2_ifr').contents().find('body').text().trim().length == 0){
-            alert("Empty for Description")
-            return false;
-        } else if( $('#inputPrice').val().trim() == ''){
-            alert("Empty for Price")
-            return false;
-        } else if($('#sel1').val() == ""){
-            alert("Empty for Category")
-            return false;
-        }
-    });
-</script>
