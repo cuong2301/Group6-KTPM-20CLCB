@@ -63,6 +63,12 @@ export default {
       .where("CourID", id)
       .update({ Views: list[0].Views + 1 });
   },
+
+  async getNextID(){
+    const sql = `SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'courses' and table_schema = 'sus';`
+    const ret = await db.raw(sql);
+    return ret[0];
+  },
   addNew(courses) {
     return db("courses").insert(courses);
   },
