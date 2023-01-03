@@ -4,8 +4,9 @@ import nodemailer from "nodemailer";
 import session from "express-session";
 
 import userService from "../services/user.service.js";
+import FacebookStrategy from 'passport-facebook';
 import auth from "../middlewares/auth.mdw.js";
-
+import passport from 'passport'
 const router = express.Router();
 
 router.get("/", async function (req, res) {
