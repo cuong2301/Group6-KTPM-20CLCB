@@ -1,6 +1,5 @@
 import express from "express";
 import coursesService from "../services/courses.service.js";
-import productService from "../services/courses.service.js";
 const router = express.Router();
 
 router.get("/byCat/:id", async function (req, res) {
@@ -14,7 +13,7 @@ router.get("/byCat/:id", async function (req, res) {
   const limit = 6;
   const offset = (curPage - 1) * limit;
 
-  const total = await productService.countByCatId(catId);
+  const total = await coursesService.countByCatId(catId);
   const nPages = Math.ceil(total / limit);
 
   const pageNumbers = [];
@@ -25,7 +24,7 @@ router.get("/byCat/:id", async function (req, res) {
     });
   }
 
-  const list = await productService.findPageByCatId(catId, limit, offset);
+  const list = await coursesService.findPageByCatId(catId, limit, offset);
   res.render("vwCourses/byCat", {
     products: list,
     empty: list.length === 0,

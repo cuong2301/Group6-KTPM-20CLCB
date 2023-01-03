@@ -33,7 +33,7 @@
               <td>{{CourName}}</td>
               <td>{{format_number Price}}</td>
               <form method="post">
-                <td class="text-right">
+                <td class="text-right" style="width: 250px;">
                   <button
                     type="submit"
                     class="btn btn-sm btn-danger"
@@ -42,6 +42,15 @@
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     Delete
                   </button>
+                  <a
+                    class="btn btn-warning btn-sm"
+                    href="/admin/users/courses/{{CourID}}"
+                    role="button"
+                    title="See More"
+                  >
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                    More
+                  </a>
                 </td>
               </form>
             </tr>

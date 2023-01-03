@@ -1,7 +1,7 @@
 import express from "express";
 import hbs_sections from "express-handlebars-sections";
 import { engine } from "express-handlebars";
-import session from 'express-session';
+import session from "express-session";
 
 import { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -26,6 +26,11 @@ app.use(
     extended: true,
   })
 );
+
+app.get('/err',function(req,res){
+  throw new Error('Something Broke');
+
+});
 
 app.use("/public", express.static("public"));
 
@@ -56,7 +61,13 @@ app.set("view engine", "hbs");
 app.set("views", "./views");
 
 app.use(async function (req, res, next) {
+  let obj= [];
+  obj.parent = await categoryService.findCatParent();
+  obj.child = await categoryService.findAllWithDetails();
+  console.log(obj);
   res.locals.lcCategories = await categoryService.findAllWithDetails();
+  res.locals.lcCatParent=await categoryService.findCatParent();
+  res.locals.lcCat = await categoryService.findNotCatParent();
   next();
 });
 
@@ -66,11 +77,15 @@ activate_locals(app);
 app.get("/", async function (req, res) {
   const newest = await coursesService.findNewestCourses();
   const popula = await coursesService.findPopularCourses();
+  const listP= await categoryService.findCatParent();
+
+
+
   console.log(popula);
   //console.log(req.session.auth);
   res.render("home", {
-      newest: newest,
-      popular: popula
+    newest: newest,
+    popular: popula,
   });
 });
 
@@ -82,9 +97,21 @@ app.post("/", async function (req, res) {
 
 app.use("/admin/categories", categoryRoute);
 app.use("/admin/Courses", coursesRoute);
+app.use("/admin/users", accountRoute);
 app.use("/courses", coursesUserService);
 app.use("/account", accountRoute);
 app.use("/teacher", teacherRoute);
+
+app.use(function(req,res,next){
+
+  res.render('404',{layout:false});
+
+});
+app.use(function(err,req,res,next){
+    console.log(err.stack);
+    res.render('500',{layout:false});
+
+});
 const PORT = 3000;
 app.listen(PORT, function () {
   console.log(`E-commerce application listening at http://localhost:${PORT}`);

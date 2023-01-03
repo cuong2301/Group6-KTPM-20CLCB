@@ -17,14 +17,11 @@ export default {
 
     return list[0];
   },
-  async findCourMostViews(id) {
-    const Id = await db("courses").select("CatID").where("CourID", id);
-
-    const list = await db("courses")
-      .where("CatID", +Id[0].CatID)
-      .whereNot("CourID", id)
-      .limit(5)
-      .orderBy("Views");
+  async findCourMostViews(id)
+  {
+    const Id=await db('courses').select('CatID').where('CourID',id);
+    
+    const list=await db('courses').where('CatID',+Id[0].CatID).whereNot('CourID',id).orderBy('Views').limit(5);
     if (list.length === 0) return null;
 
     return list;
@@ -75,6 +72,12 @@ export default {
     return db("courses")
       .where("CourID", id)
       .update({ Views: list[0].Views + 1 });
+  },
+
+  async getNextID(){
+    const sql = `SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'courses' and table_schema = 'sus';`
+    const ret = await db.raw(sql);
+    return ret[0];
   },
   addNew(courses) {
     return db("courses").insert(courses);

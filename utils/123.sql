@@ -18,7 +18,15 @@ CREATE TABLE `categories` (
 							  `CatParent` varchar(50) COLLATE utf8_general_ci,
                               primary key(`CatID`)
 ) ENGINE=MyISAM ;
-
+drop table  if exists chapter;
+create table chapter(
+    ChapID int(11) unsigned NOT NULL  AUTO_INCREMENT,
+    ChapName varchar(200) ,
+    CourID int(11),
+    Link varchar(500),
+    ChapOrder int(11),
+    primary key (ChapID)
+);
 BEGIN;
 INSERT INTO `categories` VALUES (1, 'Lập trình web','');
 INSERT INTO `categories` VALUES (2, 'Lập trình thiết bị di động','');

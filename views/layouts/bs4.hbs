@@ -110,17 +110,26 @@
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-              >IT</a>
-              <ul class="dropdown-menu">
-                 {{#each lcCategories}}
-                   </li><a href="/courses/byCat/{{CatID}}" style="text-decoration: none; color:black ; font-weight:100, ">
-                  
-                  {{CatName}}
-                 </a>
-                   <li>
-                    <div style="font-size:larger; font"></div>
-            {{/each}}
-                
+              >Categories</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                 {{#each lcCatParent}}
+                 {{!-- {{#if CatParent}}
+                 {{else}}
+                 <li> <a href="/courses/byCat/{{CatID}}">{{CatName}}</a></li>
+                 {{/if}} --}}   
+                      <li><a class="dropdown-item" href="/courses/byCat/{{CatID}}" style="text-decoration: none; color:black ; font-weight:100, ">
+                      {{CatName}} &raquo;
+                      </a>           
+                        <ul class="dropdown-menu dropdown-submenu">
+                        {{#each lcCat}}
+                          <li>
+                            <a class="dropdown-item" href="/courses/byCat/{{CatID}}">{{CatName}}</a>
+                          </li> 
+                        {{/each}}  
+                        </ul>
+                  {{/each}}                      
+
+                      </li>
                
               </ul>
             </li>
