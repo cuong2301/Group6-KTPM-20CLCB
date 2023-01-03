@@ -30,6 +30,15 @@ export default {
     const ret = await db.raw(sql);
     return ret[0];
   },
+  async findCatParent()
+  {
+
+    return  await db('categories').where('CatParent',0);
+  },
+  async findNotCatParent()
+  {
+    return  await db('categories').whereNot('CatParent',0);
+  },
   add(newCategory) {
     return db("categories").insert(newCategory);
   },

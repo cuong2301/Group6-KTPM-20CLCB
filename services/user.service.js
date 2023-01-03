@@ -5,6 +5,16 @@ export default {
     return db("users");
   },
 
+  async findByCourId(id) {
+    const sql = `	SELECT u.*
+    From enroll e
+    Join users u
+    On e.studentId=u.id
+    Where e.CourID =${id} `;
+    const ret = await db.raw(sql);
+    return ret[0];
+  },
+
   async findById(id) {
     const list = await db("users").where("id", id);
     if (list.length === 0) return null;
