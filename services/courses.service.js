@@ -11,6 +11,11 @@ export default {
 
     return list[0].amount;
   },
+
+  async findByTeacherID(id){
+    return db("courses").where("TeacherID",id);
+  },
+
   async findById(id) {
     const list = await db("courses").where("CourID", id);
     if (list.length === 0) return null;

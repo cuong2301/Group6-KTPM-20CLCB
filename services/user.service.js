@@ -53,4 +53,8 @@ export default {
   update(name, id) {
     return db("users").where("id", id).update({ username: name });
   },
+
+  updateAll(id,user){
+    return db("users").where("id", id).update(user);
+  }
 };

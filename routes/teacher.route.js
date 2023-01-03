@@ -2,27 +2,82 @@ import express from 'express';
 import coursesService from "../services/courses.service.js";
 import categoryService from "../services/category.service.js";
 import chapterService from "../services/chapter.service.js";
-import { unlink } from 'node:fs';
 import multer from 'multer';
+import bcrypt from "bcryptjs";
+import userService from "../services/user.service.js";
 
 const router = express.Router();
 
+let errormessage = "";
 
-router.get('/profile', async function (req, res) {
+function requireRole () {
+    return function (req, res, next) {
+        console.log(req.session.authUser.permission);
+        if (req.session.auth && req.session.authUser.permission == 0) {
+            next();
+        } else {
+            res.render('404',{layout:false});
+        }
+    }
+}
+
+router.get('/profile', requireRole(), async function (req, res) {
     res.render('vwTeacher/teacher-profile',{
+        message: errormessage,
         layout: 'bs6'
     });
+    errormessage = "";
 });
 
-router.get('/courses', async function (req, res) {
-    const list = await coursesService.findAll();
+router.post('/profile', async function (req, res) {
+    let newUser = req.body;
+    const user = req.session.authUser;
+    const auser = await userService.findById(user.id);
+    errormessage = "";
+    if (newUser.email != "") {
+        const re =
+            /^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$/;
+        const email = newUser.email;
+        console.log(1);
+        if (re.test(email) === false) {
+            console.log(4);
+            errormessage = "Please fill correct email";
+        }
+    }
+    if (newUser.OldPassword != "") {
+        const check = bcrypt.compareSync(newUser.OldPassword, auser.password);
+        console.log(2);
+        if (!check) {
+            console.log(3);
+            errormessage = "Please confirm correct password";
+        }
+    }
+    if(errormessage == "" && newUser.NewPassword != "" && newUser.OldPassword != ""){
+        console.log(5);
+        const rawPassword = newUser.NewPassword;
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(rawPassword, salt);
+        newUser.password = hash;
+        errormessage = "Change successfully"
+    }
+    delete newUser.OldPassword;
+    delete newUser.NewPassword;
+    await userService.updateAll(user.id,newUser);
+    req.session.authUser = await userService.findById(user.id);
+
+    res.redirect("/teacher/profile")
+});
+
+router.get('/courses',requireRole(), async function (req, res) {
+    const user = req.session.authUser
+    const list = await coursesService.findByTeacherID(user.id);
     res.render('vwTeacher/teacher-courses',{
         product: list,
         empty: list.length === 0,
         layout: 'bs6'
     });
 });
-router.get("/courses/add",async function (req, res) {
+router.get("/courses/add",requireRole(),async function (req, res) {
     const list = await categoryService.findNotCatParent();
     res.render('vwTeacher/teacher-courses-add', {
         categories: list,
@@ -32,7 +87,7 @@ router.get("/courses/add",async function (req, res) {
 router.post('/courses/add', async function (req, res) {
     const next = await coursesService.getNextID();
     const nextID = next[0].AUTO_INCREMENT;
-    console.log(nextID);
+    const user = req.session.authUser
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null, './public/img');
@@ -55,6 +110,7 @@ router.post('/courses/add', async function (req, res) {
         let course = req.body;
         course.dob = formattedToday;
         course.update = formattedToday;
+        course.TeacherID = user.id;
         await coursesService.addNew(course);
         if (err) {
             console.error(err);
@@ -63,7 +119,7 @@ router.post('/courses/add', async function (req, res) {
         }
     })
 });
-router.get("/courses/edit",async function (req, res) {
+router.get("/courses/edit",requireRole(),async function (req, res) {
   const id = req.query.id || 0;
   const courses = await coursesService.findById(id);
   if (courses === null) {
@@ -107,7 +163,7 @@ router.post("/courses/edit", async function (req, res) {
         }
     })
 });
-router.get("/courses/chapter", async function (req, res) {
+router.get("/courses/chapter",requireRole(), async function (req, res) {
     const id = req.query.id || 0;
     const chap = await chapterService.findByCourID(id);
     const count = await chapterService.checkChapNull(id);
@@ -124,7 +180,7 @@ router.get("/courses/chapter", async function (req, res) {
         flag: flag
     })
 });
-router.get("/courses/chapter/edit", async function (req, res) {
+router.get("/courses/chapter/edit",requireRole(), async function (req, res) {
     const id = req.query.id || 0;
     const CourId = req.query.CourID || 0;
     const chap = await chapterService.findSpecificOrderChapter(id);
@@ -142,7 +198,7 @@ router.post("/courses/chapter/edit", async function (req, res) {
     await chapterService.editChap(chapter,id);
     res.redirect("/teacher/courses/chapter?id=" + CourID);
 });
-router.get("/courses/chapter/add", async function (req, res) {
+router.get("/courses/chapter/add", requireRole(),async function (req, res) {
     const id = req.query.id || 0;
     res.render("vwTeacher/teacher-courses-chapter-add",{
         CourID: id,
