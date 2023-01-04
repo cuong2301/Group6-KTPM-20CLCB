@@ -12,11 +12,14 @@ let errormessage = "";
 
 function requireRole () {
     return function (req, res, next) {
-        console.log(req.session.authUser.permission);
-        if (req.session.auth && req.session.authUser.permission == 0) {
+        if (req.session.auth) {
+
+            if(req.session.authUser.permission == 1)
             next();
+            else   res.render('permission',{layout:false});
+
         } else {
-            res.render('404',{layout:false});
+            res.redirect("/account/login");
         }
     }
 }
@@ -122,11 +125,13 @@ router.post('/courses/add', async function (req, res) {
 router.get("/courses/edit",requireRole(),async function (req, res) {
   const id = req.query.id || 0;
   const courses = await coursesService.findById(id);
+  const cate = await categoryService.findNotCatParent();
   if (courses === null) {
-    return res.redirect('/admin/categories');
+    return res.redirect('/teacher/courses');
   }
   res.render('vwTeacher/teacher-courses-edit', {
-    courses: courses,
+      categories: cate,
+      courses: courses,
       layout: 'bs6'
   });
 });
