@@ -4,9 +4,6 @@ export default {
   findAll() {
     return db("categories");
   },
-  findNotCatParent(){
-    return db("categories").where("CatParent",0);
-  },
   async findMostEnrollCat() {
     const sql = `SELECT courses.CatID, COUNT(enroll.StudentID) as thecount
                     FROM enroll enroll, courses courses

@@ -14,6 +14,19 @@ export default {
     const ret = await db.raw(sql);
     return ret[0];
   },
+  async findTeacher(){
+    const sql = `	SELECT *
+    From users u
+    Where u.permission =${1} `
+    const list = await db.raw(sql);
+    return list[0];
+    // const list = await db("users").where("permission", "1");
+    // if (list.length === 0) return null;
+    // return list[0];
+  },
+  async addTeacher(user){
+    return db("users").insert(user)
+  },
 
   async findById(id) {
     const list = await db("users").where("id", id);
@@ -28,6 +41,7 @@ export default {
 
     return list[0];
   },
+
 
   async findByEmail(email) {
     const list = await db("users").where("email", email);

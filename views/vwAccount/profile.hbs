@@ -5,18 +5,21 @@
 
 {{#section 'js'}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
-<!--    <script>-->
-<!--        $('.inputsubmit').click(function() {-->
-<!--            const errorc = document.{{this.errorconfirm}};-->
-<!--            const errore = document.{{this.erroremail}};-->
-<!--            if (errorc != "") {-->
-<!--                alert("hello huy");-->
-<!--            }-->
-<!--            if (errore != "") {-->
-<!--                alert("hello song ");-->
-<!--            }-->
-<!--        });-->
-<!--    </script>-->
+    <script>
+        $('#frmRegister').on('submit', function (e) {
+            e.preventDefault();
+            const email = $('#txtEmail').val();
+            $.getJSON(`/account/is-available?email=${email}`, function (data) {
+                if (data === false) {
+                    alert('Email already exist !!!!');
+                } else {
+                    $('#frmRegister').off('submit').submit();
+                }
+            })
+        });
+
+
+    </script>
 {{/section}}
 
 <div class="container-xl px-4 mt-4">
@@ -45,7 +48,7 @@
             </div>
         </div>
 
-        <form class="col-xl-8" method="post" action="/account/profile">
+        <form class="col-xl-8" method="post" action="/account/profile"  id="frmRegister">
             <!-- Account details card-->
             <div class="card mb-4">
                 <div class="card-header">Account Details</div>
@@ -69,7 +72,7 @@
 
                         <div class="mb-3">
                             <label for="oldpassword">Password</label>
-                            <input name="oldpassword" type="text" class="form-control" id="oldpassword" autofocus placeholder="*********************">
+                            <input name="oldpassword" type="password" class="form-control" id="oldpassword" autofocus placeholder="*********************">
                         </div>
 
                         <div class="row gx-3 mb-3">
@@ -92,7 +95,7 @@
                             <i class="fa fa-check" aria-hidden="true"></i>
                             Save changes</button>
                     </form>
-                    <div style="text-align: center; color: red " >
+                    <div for="message" id ="message" style="text-align: center; color: red " >
                         {{this.errormessage}}
                     </div>
                 </div>
@@ -100,3 +103,4 @@
         </form>
     </div>
 </div>
+

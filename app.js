@@ -13,6 +13,7 @@ import coursesService from "./services/courses.service.js";
 import accountRoute from "./routes/account.route.js";
 import coursesUserService from "./routes/courses-user.route.js";
 import categoryService from "./services/category.service.js";
+import adminRoute from "./routes/admin.route.js";
 
 import coursesRoute from "./routes/courses.route.js";
 import activate_session from "./middlewares/session.mdw.js";
@@ -25,6 +26,7 @@ import config from "./utils/config.js";
 import teacherRoute from "./routes/teacher.route.js";
 import passport from "passport";
 import router from "./routes/account.route.js";
+import bcrypt from "bcryptjs";
 const app = express();
 
 app.use(
@@ -103,7 +105,7 @@ app.post("/", async function (req, res) {
 
 app.use("/admin/categories", categoryRoute);
 app.use("/admin/Courses", coursesRoute);
-app.use("/admin/users", accountRoute);
+app.use("/admin", adminRoute);
 app.use("/courses", coursesUserService);
 app.use("/account", accountRoute);
 app.use("/teacher", teacherRoute);
