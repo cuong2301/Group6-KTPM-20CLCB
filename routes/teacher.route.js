@@ -41,10 +41,17 @@ router.post('/profile', async function (req, res) {
         const re =
             /^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$/;
         const email = newUser.email;
-        console.log(1);
         if (re.test(email) === false) {
             console.log(4);
             errormessage = "Please fill correct email";
+            delete newUser.email;
+        } else {
+            const uuser = await userService.findByEmail(email);
+            if(newUser.email === user.email) errormessage = "This email not change";
+            else if (uuser === null) {
+                const user = await userService.findByEmail(email);
+                errormessage = "This email has been taken";
+            }
         }
     }
     if (newUser.OldPassword != "") {
