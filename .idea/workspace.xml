@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c9a9cdb6-0928-4361-802a-4edde72deaad" name="Changes" comment="update for user-profile">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/aa79cfd1-46f2-4e9e-9c30-2f0b85d26ff5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/aa79cfd1-46f2-4e9e-9c30-2f0b85d26ff5.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/account.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/account.route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/vwAccount/profile.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/vwAccount/profile.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/courses-user.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/courses-user.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/courses.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/courses.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/vwCourses/detail.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/vwCourses/detail.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,22 +38,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/tranm/OneDrive/Máy tính/Group6-KTPM-20CLCB",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editing.templates"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/tranm/OneDrive/Máy tính/Group6-KTPM-20CLCB&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editing.templates&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\suyoung\Desktop\Courses-Group6\Group6-FinalProject\public\img" />
@@ -111,6 +111,7 @@
       <workItem from="1671802418117" duration="7740000" />
       <workItem from="1672105092966" duration="10091000" />
       <workItem from="1672902375088" duration="19179000" />
+      <workItem from="1672937074427" duration="3549000" />
     </task>
     <task id="LOCAL-00001" summary="First setup for project">
       <created>1670819844717</created>
@@ -271,7 +272,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/routes/courses.route.js</url>
-          <line>28</line>
+          <line>29</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">

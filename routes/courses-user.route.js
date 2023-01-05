@@ -97,4 +97,46 @@ router.get('/detail/:id', async function (req, res) {
     listMost
   });
 });
+
+router.post('/detail/:id', async function (req, res) {
+  const proId = req.params.id || 0;
+  const product = await coursesService.findById(proId);
+
+
+
+  let wishlist = {
+    StudentID :req.session.authUser.id,
+    CourID :req.params.id
+  };
+  let studentcourses={
+    CourID :req.params.id,
+    StudentID :req.session.authUser.id,
+  }
+
+  if(typeof  req.body.like!=="undefined"){
+    let check = await coursesService.findwishcourses(req.body.like);
+      if(check==""){
+        await coursesService.addwishcourses(wishlist);
+      }
+  }
+
+  if(typeof  req.body.buy!=="undefined"){
+    let check = await coursesService.findstudentcourses(req.body.buy);
+    if(check==""){
+      await coursesService.addstudentcourses(studentcourses);
+    }
+  }
+
+
+  if (product === null) {
+    return res.redirect('/');
+  }
+
+  res.render('vwCourses/detail', {
+    product: product
+  });
+
+});
+
+
 export default router;

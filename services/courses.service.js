@@ -46,6 +46,12 @@ export default {
     return db("courses").where("CatID", catID);
   },
 
+  findwishcourses(coursesID){
+    return db("wishcourses").where("CourID", coursesID);
+  },
+  findstudentcourses(coursesID){
+    return db("enroll").where("CourID", coursesID);
+  },
   async findNewestCourses() {
     return db("courses").limit(10).orderBy("dob", "desc");
   },
@@ -104,4 +110,12 @@ export default {
 
     return db("courses").where("CourID", id).update(courses);
   },
-};
+  addwishcourses(wishlist){
+    return db("wishcourses").insert(wishlist);
+  },
+  addstudentcourses(courses){
+    return db("enroll").insert(courses);
+  }
+}
+
+
