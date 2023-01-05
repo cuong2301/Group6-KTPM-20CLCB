@@ -121,10 +121,12 @@
                       {{CatName}} &raquo;
                       </a>           
                         <ul class="dropdown-menu dropdown-submenu">
-                        {{#each lcCat}}
+                        {{#each ../lcCat}}
+                            {{#if (eq CatParent ../CatID)}}
                           <li>
                             <a class="dropdown-item" href="/courses/byCat/{{CatID}}">{{CatName}}</a>
-                          </li> 
+                          </li>
+                            {{/if}}
                         {{/each}}  
                         </ul>
                   {{/each}}                      
