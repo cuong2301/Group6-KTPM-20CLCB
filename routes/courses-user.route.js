@@ -5,10 +5,29 @@ import * as bodyParser from "express";
 const router = express.Router();
 
 router.get("/", async function (req, res) {
-  const list = await coursesService.findAll();
+  const curPage = parseInt(req.query.page || 1);
+  const limit = 6;
+  const offset = (curPage - 1) * limit;
+
+  const total = await coursesService.countAll();
+  console.log(total);
+  const nPages = Math.ceil(total / limit);
+
+  const pageNumbers = [];
+  for (let i = 1; i <= nPages; i++) {
+    pageNumbers.push({
+      value: i,
+      isCurrent: i === +curPage,
+      isCurPage:curPage,
+      nPages,
+    });
+  }
+
+  const list = await coursesService.findPageAll(limit, offset);
   res.render("vwCourses/byCat", {
     courses: list,
     empty: list.length === 0,
+    pageNumbers: pageNumbers,
   });
 });
 
@@ -19,8 +38,8 @@ router.get("/byCat/:id", async function (req, res) {
     if (c.CatID === +catId) c.isActive = true;
   }
 
-  const curPage = req.query.page || 1;
-  const limit = 2;
+  const curPage = parseInt(req.query.page || 1);
+  const limit = 6;
   const offset = (curPage - 1) * limit;
 
   const total = await coursesService.countByCatId(catId);

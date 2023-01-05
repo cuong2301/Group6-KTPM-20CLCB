@@ -4,6 +4,10 @@ export default {
   findAll() {
     return db("courses");
   },
+  async countAll() {
+    const list = await db("courses").count({ amount: "CourID" });
+    return list[0].amount;
+  },
   async countByCatId(catId) {
     const list = await db("courses")
       .where("CatID", catId)
@@ -35,7 +39,9 @@ export default {
   findPageByCatId(catId, limit, offset) {
     return db("courses").where("CatID", catId).limit(limit).offset(offset);
   },
-
+  findPageAll(limit, offset) {
+    return db("courses").limit(limit).offset(offset);
+  },
   findByCatId(catID) {
     return db("courses").where("CatID", catID);
   },
