@@ -1,32 +1,14 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import nodemailer from "nodemailer";
-import session from "express-session";
 
 import userService from "../services/user.service.js";
-import FacebookStrategy from 'passport-facebook';
-import auth from "../middlewares/auth.mdw.js";
+import adminRole from "../middlewares/adminRole.mdw.js";
+
 import passport from 'passport'
 const router = express.Router();
 
-router.get("/", async function (req, res) {
-  const list = await userService.findAll();
-  res.render("vwAccount/admin", {
-    users: list,
-    empty: list.length === 0,
-    layout: "bs5.hbs",
-  });
-});
 
-router.get("/courses/:id", async function (req, res) {
-  const CourID = req.params.id || 0;
-  const list = await userService.findByCourId(CourID);
-  res.render("vwAccount/admin", {
-    users: list,
-    empty: list.length === 0,
-    layout: "bs5.hbs",
-  });
-});
 
 router.get("/register", async function (req, res) {
   res.render("vwAccount/register");
@@ -42,7 +24,7 @@ function generateOTP() {
   }
   return OTP;
 }
-const otp = generateOTP();
+let otp ;
 
 let userOtp;
 router.post("/register", async function (req, res) {
@@ -50,6 +32,7 @@ router.post("/register", async function (req, res) {
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(rawPassword, salt);
   console.log(req.session.auth);
+  otp = generateOTP();
   userOtp = {
     username: req.body.username,
     password: hash,
@@ -136,7 +119,6 @@ router.post("/login", async function (req, res) {
   const user = await userService.findByEmail(req.body.email);
   if (user === null) {
     return res.render("vwAccount/login", {
-      layout: false,
       err_message: "Invalid username or password.",
     });
   }
@@ -144,7 +126,6 @@ router.post("/login", async function (req, res) {
   const ret = bcrypt.compareSync(req.body.password, user.password);
   if (ret === false) {
     return res.render("vwAccount/login", {
-      layout: false,
       err_message: "Invalid username or password.",
     });
   }
@@ -155,9 +136,15 @@ router.post("/login", async function (req, res) {
 
   req.session.auth = true;
   req.session.authUser = user;
-
-  const url = req.session.retUrl || "/";
-  res.redirect(url);
+  if(req.session.authUser.permission == 0){ // 0 is admin
+    res.redirect("/admin/users");
+  }
+  else if(req.session.authUser.permission == 2){// 2 is user
+    const url = req.session.retUrl || "/";
+    res.redirect(url);
+  } else if(req.session.authUser.permission == 1){
+    res.redirect("/teacher/courses");
+  }
 });
 
 router.post("/logout", async function (req, res) {
@@ -198,8 +185,5 @@ router.post("/register/verify", async function (req, res) {
 });
 
 router.get('/auth/facebook', passport.authenticate('facebook',{scope:'email'}));
-
-
-
 
 export default router;
