@@ -157,7 +157,6 @@ router.post("/courses/edit", async function (req, res) {
 
         const formattedToday = yyyy + '-' + mm + '-' + dd;
         let course = req.body;
-        course.dob = formattedToday;
         course.update = formattedToday;
         course.CourID = id;
         await coursesService.patch(course);
@@ -188,6 +187,7 @@ router.get("/courses/chapter",requireRole(), async function (req, res) {
 router.get("/courses/chapter/edit",requireRole(), async function (req, res) {
     const id = req.query.id || 0;
     const CourId = req.query.CourID || 0;
+
     const chap = await chapterService.findSpecificOrderChapter(id);
     res.render("vwTeacher/teacher-courses-chapter-edit",{
         chapter: chap,
@@ -200,6 +200,18 @@ router.post("/courses/chapter/edit", async function (req, res) {
     const id = req.query.id || 0;
     const CourID = req.query.CourID || 0;
     let chapter = req.body;
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    const formattedToday = yyyy + '-' + mm + '-' + dd;
+    let course = {};
+    course.CourID = id;
+    course.update = formattedToday;
+    await coursesService.patch(course);
     await chapterService.editChap(chapter,id);
     res.redirect("/teacher/courses/chapter?id=" + CourID);
 });
@@ -214,12 +226,39 @@ router.post("/courses/chapter/add", async function (req, res) {
     const id = req.query.id || 0;
     let chapter = req.body;
     chapter.CourID = id;
+
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+    const formattedToday = yyyy + '-' + mm + '-' + dd;
+    let course = {};
+    course.CourID = id;
+    course.update = formattedToday;
+
+    await coursesService.patch(course);
     await chapterService.addNew(chapter);
     res.redirect("/teacher/courses/chapter?id=" + id);
 });
 router.post("/courses/chapter/del", async function (req, res) {
     const id = req.query.id || 0;
     const CourID = req.query.CourID || 0;
+
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    const formattedToday = yyyy + '-' + mm + '-' + dd;
+    let course = {};
+    course.CourID = id;
+    course.update = formattedToday;
+
+    await coursesService.patch(course);
     await chapterService.del(id);
     res.redirect("/teacher/courses/chapter?id=" + CourID);
 });

@@ -68,19 +68,24 @@ router.post("/register", async function (req, res) {
 });
 
 router.get("/profile", async function (req, res) {
-  const user_id = 4;
+  const user_id = req.session.authUser.id;
   const user = await userService.findById(user_id);
-  console.log(user);
+  req.session.authUser = user;
+
+
+
   res.render("vwAccount/profile", {
     user: user,
+
   });
 });
 
 router.post("/profile", async function (req, res) {
-  console.log(req.body);
-  let errormessage = "";
+ let user= req.session.authUser;
+  let errormessage = "changes success !!!";
   if (req.body.username != "") {
-    await userService.update(req.body.username, 4);
+    req.session.authUser.username=req.body.username;
+    await userService.update(req.body.username,user.id);
   }
   if (req.body.email != "") {
     const re =
@@ -89,14 +94,54 @@ router.post("/profile", async function (req, res) {
     if (re.test(email) === false) {
       errormessage = "Please fill correct email";
     }
+    else{
+      req.session.authUser.email=req.body.email;
+      await userService.updateAll(user.id,req.session.authUser);
+    }
   }
+  const ret = bcrypt.compareSync(req.body.oldpassword, user.password);
   if (req.body.password != "") {
     if (req.body.password != req.body.passwordconfirm) {
       errormessage = "Please confirm correct password";
     }
+    if(req.body.oldpassword==""){
+      errormessage = "Please enter password";
+    }
+    if(ret===false){
+      errormessage = "Incorrect password !!";
+    }
+    if(ret===true){
+      if (req.body.password != req.body.passwordconfirm) {
+      } else {
+        const rawPassword = req.body.passwordconfirm;
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(rawPassword, salt);
+        let usernew = {
+          id :req.session.authUser.id,
+          username: req.session.authUser.username,
+          password: hash,
+          email: req.session.authUser.email,
+          permission: 0,
+        };
+        req.session.authUser = usernew;
+        await userService.updateAll(user.id, req.session.authUser);
+      }
+    }
   }
+  if (req.body.oldpassword != "") {
+    if(req.body.password  ==""){
+      errormessage = "Please confirm password";
+    }
+    if(req.body.password != req.body.passwordconfirm) {
+      errormessage = "Please confirm correct password";
+    }
+  }
+  user=req.session.authUser;
+
+  req.session.message=errormessage;
   return res.render("vwAccount/profile", {
     errormessage: errormessage,
+    user:user
   });
 });
 
