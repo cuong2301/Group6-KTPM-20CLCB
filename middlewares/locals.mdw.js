@@ -1,4 +1,5 @@
 import categoryService from '../services/category.service.js';
+import userService from "../services/user.service.js";
 
 export default function (app) {
     app.use(async function (req, res, next) {
@@ -13,6 +14,7 @@ export default function (app) {
 
     app.use(async function (req, res, next) {
         res.locals.lcCategories = await categoryService.findAllWithDetails();
+        res.locals.lcTeacher = await userService.findTeacher();
         next();
     });
 }
