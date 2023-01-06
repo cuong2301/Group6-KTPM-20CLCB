@@ -62,6 +62,15 @@ app.engine(
       add(a, b) {
         return a + b;
       },
+      eqString(arg1, arg2) {
+        if(arg1.localeCompare(arg2)===0)
+        {
+          return true;
+        }
+        return false;
+        
+
+      },
     },
   })
 );
