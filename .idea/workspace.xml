@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c9a9cdb6-0928-4361-802a-4edde72deaad" name="Changes" comment="add courseslist">
+    <list default="true" id="c9a9cdb6-0928-4361-802a-4edde72deaad" name="Changes" comment="font-end wishcourses and courseslist">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/account.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/account.route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/vwAccount/courseslist.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/vwAccount/courseslist.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/vwAccount/profile.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/vwAccount/profile.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/courses.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/courses.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/user.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/user.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layouts/bs4.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/bs4.hbs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/vwAccount/wishcourses.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/vwAccount/wishcourses.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -113,7 +114,8 @@
       <workItem from="1672105092966" duration="10091000" />
       <workItem from="1672902375088" duration="19179000" />
       <workItem from="1672937074427" duration="3853000" />
-      <workItem from="1672972695349" duration="5829000" />
+      <workItem from="1672972695349" duration="7957000" />
+      <workItem from="1672988720996" duration="2861000" />
     </task>
     <task id="LOCAL-00001" summary="First setup for project">
       <created>1670819844717</created>
@@ -262,7 +264,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672976989459</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="font-end wishcourses and courseslist">
+      <created>1672978924470</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1672978924470</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,7 +308,8 @@
     <MESSAGE value="fix bug logout" />
     <MESSAGE value="add wishcourses" />
     <MESSAGE value="add courseslist" />
-    <option name="LAST_COMMIT_MESSAGE" value="add courseslist" />
+    <MESSAGE value="font-end wishcourses and courseslist" />
+    <option name="LAST_COMMIT_MESSAGE" value="font-end wishcourses and courseslist" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

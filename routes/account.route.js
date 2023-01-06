@@ -4,7 +4,7 @@ import nodemailer from "nodemailer";
 
 import userService from "../services/user.service.js";
 import adminRole from "../middlewares/adminRole.mdw.js";
-
+import coursesService from "../services/courses.service.js";
 import passport from 'passport'
 const router = express.Router();
 
@@ -68,16 +68,26 @@ router.post("/register", async function (req, res) {
 
 router.get("/wishcourses", async function (req, res) {
   if (req.session.authUser==null){
-    res.redirect("/account/login");
+    res.redirect("/");
   }
   else{
     const user_id = req.session.authUser.id;
-    const user = await userService.findById(user_id);
-    req.session.authUser = user;
-    res.render("vwAccount/wishcourses", {
-      user: user,
+    const ret= await userService.findwishcourses(user_id);
+    const product =  await coursesService.wishcourses(ret.CourID);
+    const CourCount= await coursesService.countByCourId(ret.CourID);
+
+    if (product === null) {
+      return res.redirect('/');
+    }
+    res.render('vwAccount/wishcourses', {
+      product: product,
+      CourCount:CourCount
     });
+
   }});
+
+
+
 
 router.get("/courseslist", async function (req, res) {
   if (req.session.authUser==null){

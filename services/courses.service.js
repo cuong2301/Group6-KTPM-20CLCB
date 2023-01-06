@@ -15,6 +15,11 @@ export default {
 
     return list[0].amount;
   },
+  async countByCourId(Courid) {
+    const ret = await db.raw(
+        "select count(*) as CourCount from courses as course, wishcourses as wishlist where course.CourID=wishlist.CourID");
+    return ret[0];
+  },
 
   async findByTeacherID(id){
     return db("courses").where("TeacherID",id);
@@ -81,6 +86,12 @@ export default {
       name
     );
     console.log(ret[0]);
+    return ret[0];
+  },
+
+  async wishcourses(CourID){
+    const ret = await db.raw(
+        "select *from courses as course, wishcourses as wishlist where course.CourID=wishlist.CourID");
     return ret[0];
   },
 
