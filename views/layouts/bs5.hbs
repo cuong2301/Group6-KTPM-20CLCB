@@ -38,7 +38,12 @@
       <nav class="nav">
         <div><a href="#" class="nav_logo" style="text-decoration: none">
             <i class="bx bx-layer nav_logo-icon"></i>
-            <span class="nav_logo-name">Admin</span>
+            {{#if auth}}
+                <span class="nav_logo-name">{{authUser.username}}</span>
+            {{else}}
+                <span class="nav_logo-name">Not login</span>
+            {{/if}}
+
           </a>
           <div class="nav_list">
 
@@ -51,9 +56,9 @@
               <span class="nav_name">Catelogies</span>
             </a>
             <a
-              href="/admin/courses"
-              class="nav_link"
-              style="text-decoration: none"
+                    href="/admin/courses"
+                    class="nav_link"
+                    style="text-decoration: none"
             >
               <i class="bx bx-folder nav_icon"></i>
               <span class="nav_name">Courses</span>
@@ -66,9 +71,9 @@
               <i class="bx bx-user nav_icon"></i>
               <span class="nav_name">Users</span>
             </a>
-            <a href="#" class="nav_link" style="text-decoration: none">
-              <i class="bx bx-message-square-detail nav_icon"></i>
-              <span class="nav_name">Messages</span>
+            <a href="/admin/teachers" class="nav_link" style="text-decoration: none">
+                <i class="bx bx-user-plus nav_icon"></i>
+              <span class="nav_name">Add teacher</span>
             </a>
             <a href="#" class="nav_link" style="text-decoration: none">
               <i class="bx bx-bookmark nav_icon"></i>
@@ -81,7 +86,8 @@
             </a>
           </div>
         </div>
-        <a href="#" class="nav_link" style="text-decoration: none">
+          <form action="/admin/admin-logout" id="frmLogout" method="post"></form>
+        <a href="javascript: $('#frmLogout').submit();" class="nav_link" style="text-decoration: none">
           <i class="bx bx-log-out nav_icon"></i>
           <span class="nav_name">SignOut</span>
         </a>

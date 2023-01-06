@@ -1,0 +1,60 @@
+<form method="post">
+    <div class="content-wrapper" style="margin-top: 60px;">
+        <section class="content my-2">
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Create teacher account</strong>
+                        </div>
+                        <div class="col-md-6" style="text-align: right;">
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                Save
+                            </button>
+                            <a
+                                    class="btn btn-sm btn-info"
+                                    href="/admin/teachers"
+                                    role="button"
+                            >
+                                <i class="fa fa-backward" aria-hidden="true"></i>
+                                List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {{#if err_message}}
+                        <div class="alert alert-danger" role="alert">
+                            {{err_message}}
+                        </div>
+                    {{/if}}
+                    <div class="form-group">
+                        <label for="txtCatName">Teacher Name</label>
+                        <input
+                                name="username"
+                                type="text"
+                                class="form-control"
+                                id="txtCatName"
+                                autofocus
+                                placeholder="Quoc Huy"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="txtCatName">Login ID</label>
+                        <input
+                                name="tkuser"
+                                type="text"
+                                class="form-control"
+                                id="txtCatName"
+                                autofocus
+                                placeholder="Quoc Huy"
+                        />
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</form>

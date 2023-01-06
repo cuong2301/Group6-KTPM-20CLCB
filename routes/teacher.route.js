@@ -2,27 +2,92 @@ import express from 'express';
 import coursesService from "../services/courses.service.js";
 import categoryService from "../services/category.service.js";
 import chapterService from "../services/chapter.service.js";
-import { unlink } from 'node:fs';
 import multer from 'multer';
+import bcrypt from "bcryptjs";
+import userService from "../services/user.service.js";
 
 const router = express.Router();
 
+let errormessage = "";
 
-router.get('/profile', async function (req, res) {
+function requireRole () {
+    return function (req, res, next) {
+        if (req.session.auth) {
+
+            if(req.session.authUser.permission == 1)
+            next();
+            else   res.render('permission',{layout:false});
+
+        } else {
+            res.redirect("/account/login");
+        }
+    }
+}
+
+router.get('/profile', requireRole(), async function (req, res) {
     res.render('vwTeacher/teacher-profile',{
+        message: errormessage,
         layout: 'bs6'
     });
+    errormessage = "";
 });
 
-router.get('/courses', async function (req, res) {
-    const list = await coursesService.findAll();
+router.post('/profile', async function (req, res) {
+    let newUser = req.body;
+    const user = req.session.authUser;
+    const auser = await userService.findById(user.id);
+    errormessage = "";
+    if (newUser.email != "") {
+        const re =
+            /^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$/;
+        const email = newUser.email;
+        if (re.test(email) === false) {
+            console.log(4);
+            errormessage = "Please fill correct email";
+            delete newUser.email;
+        } else {
+            const uuser = await userService.findByEmail(email);
+            if(newUser.email === user.email) errormessage = "This email not change";
+            else if (uuser === null) {
+                const user = await userService.findByEmail(email);
+                errormessage = "This email has been taken";
+            }
+        }
+    }
+    if (newUser.OldPassword != "") {
+        const check = bcrypt.compareSync(newUser.OldPassword, auser.password);
+        console.log(2);
+        if (!check) {
+            console.log(3);
+            errormessage = "Please confirm correct password";
+        }
+    }
+    if(errormessage == "" && newUser.NewPassword != "" && newUser.OldPassword != ""){
+        console.log(5);
+        const rawPassword = newUser.NewPassword;
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(rawPassword, salt);
+        newUser.password = hash;
+        errormessage = "Change successfully"
+    }
+    delete newUser.OldPassword;
+    delete newUser.NewPassword;
+    await userService.updateAll(user.id,newUser);
+    req.session.authUser = await userService.findById(user.id);
+
+    res.redirect("/teacher/profile")
+});
+
+router.get('/courses',requireRole(), async function (req, res) {
+    const user = req.session.authUser
+    const list = await coursesService.findByTeacherID(user.id);
     res.render('vwTeacher/teacher-courses',{
         product: list,
         empty: list.length === 0,
         layout: 'bs6'
     });
 });
-router.get("/courses/add",async function (req, res) {
+router.get("/courses/add",requireRole(),async function (req, res) {
     const list = await categoryService.findNotCatParent();
     res.render('vwTeacher/teacher-courses-add', {
         categories: list,
@@ -32,7 +97,7 @@ router.get("/courses/add",async function (req, res) {
 router.post('/courses/add', async function (req, res) {
     const next = await coursesService.getNextID();
     const nextID = next[0].AUTO_INCREMENT;
-    console.log(nextID);
+    const user = req.session.authUser
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null, './public/img');
@@ -55,6 +120,7 @@ router.post('/courses/add', async function (req, res) {
         let course = req.body;
         course.dob = formattedToday;
         course.update = formattedToday;
+        course.TeacherID = user.id;
         await coursesService.addNew(course);
         if (err) {
             console.error(err);
@@ -63,14 +129,16 @@ router.post('/courses/add', async function (req, res) {
         }
     })
 });
-router.get("/courses/edit",async function (req, res) {
+router.get("/courses/edit",requireRole(),async function (req, res) {
   const id = req.query.id || 0;
   const courses = await coursesService.findById(id);
+  const cate = await categoryService.findNotCatParent();
   if (courses === null) {
-    return res.redirect('/admin/categories');
+    return res.redirect('/teacher/courses');
   }
   res.render('vwTeacher/teacher-courses-edit', {
-    courses: courses,
+      categories: cate,
+      courses: courses,
       layout: 'bs6'
   });
 });
@@ -96,7 +164,6 @@ router.post("/courses/edit", async function (req, res) {
 
         const formattedToday = yyyy + '-' + mm + '-' + dd;
         let course = req.body;
-        course.dob = formattedToday;
         course.update = formattedToday;
         course.CourID = id;
         await coursesService.patch(course);
@@ -107,7 +174,7 @@ router.post("/courses/edit", async function (req, res) {
         }
     })
 });
-router.get("/courses/chapter", async function (req, res) {
+router.get("/courses/chapter",requireRole(), async function (req, res) {
     const id = req.query.id || 0;
     const chap = await chapterService.findByCourID(id);
     const count = await chapterService.checkChapNull(id);
@@ -124,9 +191,10 @@ router.get("/courses/chapter", async function (req, res) {
         flag: flag
     })
 });
-router.get("/courses/chapter/edit", async function (req, res) {
+router.get("/courses/chapter/edit",requireRole(), async function (req, res) {
     const id = req.query.id || 0;
     const CourId = req.query.CourID || 0;
+
     const chap = await chapterService.findSpecificOrderChapter(id);
     res.render("vwTeacher/teacher-courses-chapter-edit",{
         chapter: chap,
@@ -139,10 +207,22 @@ router.post("/courses/chapter/edit", async function (req, res) {
     const id = req.query.id || 0;
     const CourID = req.query.CourID || 0;
     let chapter = req.body;
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    const formattedToday = yyyy + '-' + mm + '-' + dd;
+    let course = {};
+    course.CourID = id;
+    course.update = formattedToday;
+    await coursesService.patch(course);
     await chapterService.editChap(chapter,id);
     res.redirect("/teacher/courses/chapter?id=" + CourID);
 });
-router.get("/courses/chapter/add", async function (req, res) {
+router.get("/courses/chapter/add", requireRole(),async function (req, res) {
     const id = req.query.id || 0;
     res.render("vwTeacher/teacher-courses-chapter-add",{
         CourID: id,
@@ -153,12 +233,39 @@ router.post("/courses/chapter/add", async function (req, res) {
     const id = req.query.id || 0;
     let chapter = req.body;
     chapter.CourID = id;
+
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+    const formattedToday = yyyy + '-' + mm + '-' + dd;
+    let course = {};
+    course.CourID = id;
+    course.update = formattedToday;
+
+    await coursesService.patch(course);
     await chapterService.addNew(chapter);
     res.redirect("/teacher/courses/chapter?id=" + id);
 });
 router.post("/courses/chapter/del", async function (req, res) {
     const id = req.query.id || 0;
     const CourID = req.query.CourID || 0;
+
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    const formattedToday = yyyy + '-' + mm + '-' + dd;
+    let course = {};
+    course.CourID = id;
+    course.update = formattedToday;
+
+    await coursesService.patch(course);
     await chapterService.del(id);
     res.redirect("/teacher/courses/chapter?id=" + CourID);
 });

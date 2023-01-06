@@ -5,47 +5,49 @@
 
 {{#section 'js'}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
-<!--    <script>-->
-<!--        $('.inputsubmit').click(function() {-->
-<!--            const errorc = document.{{this.errorconfirm}};-->
-<!--            const errore = document.{{this.erroremail}};-->
-<!--            if (errorc != "") {-->
-<!--                alert("hello huy");-->
-<!--            }-->
-<!--            if (errore != "") {-->
-<!--                alert("hello song ");-->
-<!--            }-->
-<!--        });-->
-<!--    </script>-->
+    <script>
+        $('#frmRegister').on('submit', function (e) {
+            e.preventDefault();
+            const email = $('#txtEmail').val();
+            $.getJSON(`/account/is-available?email=${email}`, function (data) {
+                if (data === false) {
+                    alert('Email already exist !!!!');
+                } else {
+                    $('#frmRegister').off('submit').submit();
+                }
+            })
+        });
+
+
+    </script>
 {{/section}}
 
 <div class="container-xl px-4 mt-4">
     <!-- Account page navigation-->
 
     <nav class="nav nav-borders">
-        <a class="nav-link active ms-0" href="https://www.bootdey.com/snippets/view/bs5-edit-profile-account-details" target="__blank">Profile</a>
-        <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-profile-billing-page" target="__blank">Billing</a>
-        <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-profile-security-page" target="__blank">Security</a>
-        <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-edit-notifications-page"  target="__blank">Notifications</a>
+        <a class="nav-link active ms-0" href="http://localhost:3000/account/profile" target="__blank">Profile</a>
+        <a class="nav-link" href="http://localhost:3000/account/wishcourses" target="__blank">Wish Courses</a>
+        <a class="nav-link" href="http://localhost:3000/account/courseslist" target="__blank">Course List</a>
     </nav>
     <hr class="mt-0 mb-4">
     <div class="row">
         <div class="col-xl-4">
             <!-- Profile picture card-->
             <div class="card mb-4 mb-xl-0">
-                <div class="card-header">Profile Picture</div>
+                <div class="card-header" style="text-align: center">Profile user </div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
                     <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
                     <!-- Profile picture help block-->
-                    <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+
                     <!-- Profile picture upload button-->
-                    <button class="btn btn-primary" type="button">Upload new image</button>
+
                 </div>
             </div>
         </div>
 
-        <form class="col-xl-8" method="post" action="/account/profile">
+        <form class="col-xl-8" method="post" action="/account/profile"  id="frmRegister">
             <!-- Account details card-->
             <div class="card mb-4">
                 <div class="card-header">Account Details</div>
@@ -69,7 +71,7 @@
 
                         <div class="mb-3">
                             <label for="oldpassword">Password</label>
-                            <input name="oldpassword" type="text" class="form-control" id="oldpassword" autofocus placeholder="*********************">
+                            <input name="oldpassword" type="password" class="form-control" id="oldpassword" autofocus placeholder="*********************">
                         </div>
 
                         <div class="row gx-3 mb-3">
@@ -92,7 +94,7 @@
                             <i class="fa fa-check" aria-hidden="true"></i>
                             Save changes</button>
                     </form>
-                    <div style="text-align: center; color: red " >
+                    <div for="message" id ="message" style="text-align: center; color: red " >
                         {{this.errormessage}}
                     </div>
                 </div>
@@ -100,3 +102,4 @@
         </form>
     </div>
 </div>
+

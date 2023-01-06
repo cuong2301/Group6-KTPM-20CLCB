@@ -1,9 +1,10 @@
 import express from "express";
 import categoryService from "../services/category.service.js";
+import adminRole from "../middlewares/adminRole.mdw.js";
 
 const router = express.Router();
 
-router.get("/add", function (req, res) {
+router.get("/add", adminRole, function (req, res) {
   res.render("vwCategory/add", { layout: "bs5.hbs" });
 });
 
@@ -12,7 +13,7 @@ router.post("/add", async function (req, res) {
   res.redirect("/admin/categories/add");
 });
 
-router.get("/", async function (req, res) {
+router.get("/",adminRole, async function (req, res) {
   const list = await categoryService.findAll();
   res.render("vwCategory/index", {
     categories: list,
@@ -20,7 +21,7 @@ router.get("/", async function (req, res) {
     layout: "bs5.hbs",
   });
 });
-router.get("/edit", async function (req, res) {
+router.get("/edit", adminRole, async function (req, res) {
   const id = req.query.id || 0;
   const category = await categoryService.findById(id);
   if (category === null) {
@@ -33,13 +34,13 @@ router.get("/edit", async function (req, res) {
   });
 });
 
-router.post("/del", async function (req, res) {
+router.post("/del",adminRole, async function (req, res) {
   const id = req.query.id || 0;
   const affected_rows = await categoryService.del(id);
   res.redirect("/admin/categories");
 });
 
-router.post("/patch", async function (req, res) {
+router.post("/patch", adminRole, async function (req, res) {
   const affected_rows = await categoryService.patch(req.body);
   res.redirect("/admin/categories");
 });

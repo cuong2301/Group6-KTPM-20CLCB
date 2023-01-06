@@ -1,6 +1,6 @@
 import express from "express";
 import coursesService from "../services/courses.service.js";
-import productService from "../services/courses.service.js";
+import adminRole from "../middlewares/adminRole.mdw.js";
 const router = express.Router();
 
 router.get("/byCat/:id", async function (req, res) {
@@ -14,7 +14,7 @@ router.get("/byCat/:id", async function (req, res) {
   const limit = 6;
   const offset = (curPage - 1) * limit;
 
-  const total = await productService.countByCatId(catId);
+  const total = await coursesService.countByCatId(catId);
   const nPages = Math.ceil(total / limit);
 
   const pageNumbers = [];
@@ -25,7 +25,7 @@ router.get("/byCat/:id", async function (req, res) {
     });
   }
 
-  const list = await productService.findPageByCatId(catId, limit, offset);
+  const list = await coursesService.findPageByCatId(catId, limit, offset);
   res.render("vwCourses/byCat", {
     products: list,
     empty: list.length === 0,
@@ -33,7 +33,7 @@ router.get("/byCat/:id", async function (req, res) {
   });
 });
 
-router.get("/", async function (req, res) {
+router.get("/",adminRole, async function (req, res) {
   const list = await coursesService.findAll();
   res.render("vwCourses/index", {
     courses: list,
@@ -42,7 +42,7 @@ router.get("/", async function (req, res) {
   });
 });
 
-router.get("/:id", async function (req, res) {
+router.get("/:id", adminRole, async function (req, res) {
   const catId = req.params.id || 0;
   const list = await coursesService.findByCatId(catId);
   res.render("vwCourses/index", {
@@ -52,7 +52,7 @@ router.get("/:id", async function (req, res) {
   });
 });
 
-router.post("/del", async function (req, res) {
+router.post("/del", adminRole, async function (req, res) {
   const id = req.query.id || 0;
   const affected_rows = await coursesService.del(id);
   res.redirect("/admin/Courses");

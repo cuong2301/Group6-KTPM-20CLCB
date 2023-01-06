@@ -5,6 +5,29 @@ export default {
     return db("users");
   },
 
+  async findByCourId(id) {
+    const sql = `	SELECT u.*
+    From enroll e
+    Join users u
+    On e.studentId=u.id
+    Where e.CourID =${id} `;
+    const ret = await db.raw(sql);
+    return ret[0];
+  },
+  async findTeacher(){
+    const sql = `	SELECT *
+    From users u
+    Where u.permission =${1} `
+    const list = await db.raw(sql);
+    return list[0];
+    // const list = await db("users").where("permission", "1");
+    // if (list.length === 0) return null;
+    // return list[0];
+  },
+  async addTeacher(user){
+    return db("users").insert(user)
+  },
+
   async findById(id) {
     const list = await db("users").where("id", id);
     if (list.length === 0) return null;
@@ -18,6 +41,7 @@ export default {
 
     return list[0];
   },
+
 
   async findByEmail(email) {
     const list = await db("users").where("email", email);
@@ -43,4 +67,12 @@ export default {
   update(name, id) {
     return db("users").where("id", id).update({ username: name });
   },
+
+  updateAll(id,user){
+    return db("users").where("id", id).update(user);
+  }
+  ,
+  findwishcourses(id) {
+    return db("wishcourses").where("StudentID", id);
+  }
 };

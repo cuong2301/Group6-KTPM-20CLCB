@@ -66,17 +66,32 @@
                         <a class="nav-link mx-2 text-uppercase" href="#">About</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav ms-auto ">
-                    <li class="nav-item">
-                        <a class="nav-link  mx-2 text-uppercase" href="/account/login">Sign in</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link  mx-2 text-uppercase" href="/account/register">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link mx-2 text-uppercase" href="#"><i class="fa-solid fa-circle-user me-1"></i>
-                            Account</a>
-                    </li>
+                <ul class="navbar-nav ms-auto">
+                    {{#if auth}}
+                        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                            <ul class="navbar-nav">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{authUser.username}}
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                        <li><a class="dropdown-item" href="/account/profile">Profile</a></li>
+                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <form action="/account/logout" id="frmLogout" method="post"></form>
+                                        <li><a class="dropdown-item" href="javascript: $('#frmLogout').submit();">Log out</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    {{else}}
+                        <li class="nav-item">
+                            <a class="nav-link mx-2 text-uppercase" href="/account/login">Sign in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx-2 text-uppercase" href="/account/register">Register</a>
+                        </li>
+                    {{/if}}
                 </ul>
             </div>
         </div>
@@ -92,10 +107,10 @@
                         <!-- SIDEBAR USER TITLE -->
                         <div class="profile-usertitle">
                             <div class="profile-usertitle-name">
-                                Marcus Doe
+                                {{authUser.username}}
                             </div>
                             <div class="profile-usertitle-job">
-                                Developer
+                                Teacher
                             </div>
                         </div>
                         <!-- END SIDEBAR USER TITLE -->
@@ -106,21 +121,11 @@
                         <div class="profile-usermenu">
                             <nav class="nav">
                                 <div class="nav_list">
-                                    <a href="/teacher/profile" class="nav_link active" style="text-decoration: none">
+                                    <a href="/teacher/profile" class="nav_link" style="text-decoration: none">
                                         <span class="nav_name">Profile</span>
                                     </a>
                                     <a href="/teacher/courses" class="nav_link" style="text-decoration: none">
                                         <span class="nav_name">Your Courses</span>
-                                    </a>
-                                    <a href="#" class="nav_link" style="text-decoration: none">
-                                        <span class="nav_name">Messages</span> </a>
-                                    <a href="#" class="nav_link" style="text-decoration: none">
-                                        <span class="nav_name">Bookmark</span>
-                                    </a>
-                                    <a href="#" class="nav_link" style="text-decoration: none">
-                                        <span class="nav_name">Files</span> </a>
-                                    <a href="#" class="nav_link" style="text-decoration: none">
-                                        <span class="nav_name">Stats</span>
                                     </a>
                                 </div>
                             </nav>

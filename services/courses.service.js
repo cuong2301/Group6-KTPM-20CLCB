@@ -4,6 +4,10 @@ export default {
   findAll() {
     return db("courses");
   },
+  async countAll() {
+    const list = await db("courses").count({ amount: "CourID" });
+    return list[0].amount;
+  },
   async countByCatId(catId) {
     const list = await db("courses")
       .where("CatID", catId)
@@ -11,6 +15,16 @@ export default {
 
     return list[0].amount;
   },
+  async countByCourId(Courid) {
+    const ret = await db.raw(
+        "select count(*) as CourCount from courses as course, wishcourses as wishlist where course.CourID=wishlist.CourID");
+    return ret[0];
+  },
+
+  async findByTeacherID(id){
+    return db("courses").where("TeacherID",id);
+  },
+
   async findById(id) {
     const list = await db("courses").where("CourID", id);
     if (list.length === 0) return null;
@@ -30,11 +44,19 @@ export default {
   findPageByCatId(catId, limit, offset) {
     return db("courses").where("CatID", catId).limit(limit).offset(offset);
   },
-
+  findPageAll(limit, offset) {
+    return db("courses").limit(limit).offset(offset);
+  },
   findByCatId(catID) {
     return db("courses").where("CatID", catID);
   },
 
+  findwishcourses(coursesID){
+    return db("wishcourses").where("CourID", coursesID);
+  },
+  findstudentcourses(coursesID){
+    return db("enroll").where("CourID", coursesID);
+  },
   async findNewestCourses() {
     return db("courses").limit(10).orderBy("dob", "desc");
   },
@@ -67,6 +89,12 @@ export default {
     return ret[0];
   },
 
+  async wishcourses(CourID){
+    const ret = await db.raw(
+        "select *from courses as course, wishcourses as wishlist where course.CourID=wishlist.CourID");
+    return ret[0];
+  },
+
   async increaseView(id) {
     const list = await db("courses").where("CourID", id);
     return db("courses")
@@ -93,4 +121,12 @@ export default {
 
     return db("courses").where("CourID", id).update(courses);
   },
-};
+  addwishcourses(wishlist){
+    return db("wishcourses").insert(wishlist);
+  },
+  addstudentcourses(courses){
+    return db("enroll").insert(courses);
+  }
+}
+
+

@@ -1,21 +1,14 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import nodemailer from "nodemailer";
-import session from "express-session";
 
 import userService from "../services/user.service.js";
-import auth from "../middlewares/auth.mdw.js";
-
+import adminRole from "../middlewares/adminRole.mdw.js";
+import coursesService from "../services/courses.service.js";
+import passport from 'passport'
 const router = express.Router();
 
-router.get("/", async function (req, res) {
-  const list = await userService.findAll();
-  res.render("vwAccount/admin", {
-    users: list,
-    empty: list.length === 0,
-    layout: "bs5.hbs",
-  });
-});
+
 
 router.get("/register", async function (req, res) {
   res.render("vwAccount/register");
@@ -31,7 +24,7 @@ function generateOTP() {
   }
   return OTP;
 }
-const otp = generateOTP();
+let otp = generateOTP();
 
 let userOtp;
 router.post("/register", async function (req, res) {
@@ -43,7 +36,7 @@ router.post("/register", async function (req, res) {
     username: req.body.username,
     password: hash,
     email: req.body.email,
-    permission: 0,
+    permission: 2,
   };
   //console.log(userOtp.email);
   const transporter = nodemailer.createTransport({
@@ -73,20 +66,66 @@ router.post("/register", async function (req, res) {
   res.redirect("register/verify");
 });
 
+router.get("/wishcourses", async function (req, res) {
+  if (req.session.authUser==null){
+    res.redirect("/");
+  }
+  else{
+    const user_id = req.session.authUser.id;
+    const ret= await userService.findwishcourses(user_id);
+    const product =  await coursesService.wishcourses(ret.CourID);
+    const CourCount= await coursesService.countByCourId(ret.CourID);
+
+    if (product === null) {
+      return res.redirect('/');
+    }
+    res.render('vwAccount/wishcourses', {
+      product: product,
+      CourCount:CourCount
+    });
+
+  }});
+
+
+
+
+router.get("/courseslist", async function (req, res) {
+  if (req.session.authUser==null){
+    res.redirect("/");
+  }
+  else{
+    const user_id = req.session.authUser.id;
+    const user = await userService.findById(user_id);
+    req.session.authUser = user;
+    res.render("vwAccount/courseslist", {
+      user: user,
+    });
+  }});
+
+
 router.get("/profile", async function (req, res) {
-  const user_id = 4;
+  if (req.session.authUser==null){
+    res.redirect("/account/login");
+  }
+  else{
+  const user_id = req.session.authUser.id;
   const user = await userService.findById(user_id);
-  console.log(user);
+  req.session.authUser = user;
+
+
+
   res.render("vwAccount/profile", {
     user: user,
+
   });
-});
+}});
 
 router.post("/profile", async function (req, res) {
-  console.log(req.body);
-  let errormessage = "";
+ let user= req.session.authUser;
+  let errormessage = "changes success !!!";
   if (req.body.username != "") {
-    await userService.update(req.body.username, 4);
+    req.session.authUser.username=req.body.username;
+    await userService.update(req.body.username,user.id);
   }
   if (req.body.email != "") {
     const re =
@@ -95,14 +134,54 @@ router.post("/profile", async function (req, res) {
     if (re.test(email) === false) {
       errormessage = "Please fill correct email";
     }
+    else{
+      req.session.authUser.email=req.body.email;
+      await userService.updateAll(user.id,req.session.authUser);
+    }
   }
+  const ret = bcrypt.compareSync(req.body.oldpassword, user.password);
   if (req.body.password != "") {
     if (req.body.password != req.body.passwordconfirm) {
       errormessage = "Please confirm correct password";
     }
+    if(req.body.oldpassword==""){
+      errormessage = "Please enter password";
+    }
+    if(ret===false){
+      errormessage = "Incorrect password !!";
+    }
+    if(ret===true){
+      if (req.body.password != req.body.passwordconfirm) {
+      } else {
+        const rawPassword = req.body.passwordconfirm;
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(rawPassword, salt);
+        let usernew = {
+          id :req.session.authUser.id,
+          username: req.session.authUser.username,
+          password: hash,
+          email: req.session.authUser.email,
+          permission: 0,
+        };
+        req.session.authUser = usernew;
+        await userService.updateAll(user.id, req.session.authUser);
+      }
+    }
   }
+  if (req.body.oldpassword != "") {
+    if(req.body.password  ==""){
+      errormessage = "Please confirm password";
+    }
+    if(req.body.password != req.body.passwordconfirm) {
+      errormessage = "Please confirm correct password";
+    }
+  }
+  user=req.session.authUser;
+
+  req.session.message=errormessage;
   return res.render("vwAccount/profile", {
     errormessage: errormessage,
+    user:user
   });
 });
 
@@ -125,7 +204,6 @@ router.post("/login", async function (req, res) {
   const user = await userService.findByEmail(req.body.email);
   if (user === null) {
     return res.render("vwAccount/login", {
-      layout: false,
       err_message: "Invalid username or password.",
     });
   }
@@ -133,7 +211,6 @@ router.post("/login", async function (req, res) {
   const ret = bcrypt.compareSync(req.body.password, user.password);
   if (ret === false) {
     return res.render("vwAccount/login", {
-      layout: false,
       err_message: "Invalid username or password.",
     });
   }
@@ -144,9 +221,15 @@ router.post("/login", async function (req, res) {
 
   req.session.auth = true;
   req.session.authUser = user;
-
-  const url = req.session.retUrl || "/";
-  res.redirect(url);
+  if(req.session.authUser.permission == 0){ // 0 is admin
+    res.redirect("/admin/users");
+  }
+  else if(req.session.authUser.permission == 2){// 2 is user
+    const url = req.session.retUrl || "/";
+    res.redirect(url);
+  } else if(req.session.authUser.permission == 1){
+    res.redirect("/teacher/courses");
+  }
 });
 
 router.post("/logout", async function (req, res) {
@@ -185,5 +268,7 @@ router.post("/register/verify", async function (req, res) {
     //window.alert("Wrong otp");
   }
 });
+
+router.get('/auth/facebook', passport.authenticate('facebook',{scope:'email'}));
 
 export default router;
