@@ -124,9 +124,57 @@ export default {
   addwishcourses(wishlist){
     return db("wishcourses").insert(wishlist);
   },
-  addstudentcourses(courses){
-    return db("enroll").insert(courses);
-  }
+  async addEnroll(entity){
+    console.log(entity);
+    delete entity.FeedBack;
+    delete entity.Rating;
+    const check=await db('enroll').where('CourID',entity.CourID).where('StudentID',entity.StudentID);
+    if(check.length===0)
+    {
+      return await db('enroll').insert(entity);
+    }else{
+    return null;}
+  },
+  async checkEnroll(Courid,id){
+    
+    const check=await db('enroll').where('CourID',Courid).where('StudentID',id);
+    let flag = true;
+    if(check.length===0)
+    {
+      flag = false    
+    }
+    return flag;
+  },
+
+  async chapter(id){
+    return await db('chapter').where('CourID',id);
+
+  },
+  async ratingCourses(id){
+    const rate= await db('coursesrating').avg('Rating as rate').count('RatingID as cnt').where('CourID',id);
+    return rate[0];
+  },
+  async review(id){
+    const ret =await db.raw('SELECT c.RatingID,c.Rating,c.FeedBack,c.dob,s.username from coursesrating  c, users  s where c.StudentID=s.id and  CourID=?',id);
+    return ret[0];
+  },
+  async addFB(entity)
+  {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    const formattedToday = yyyy + '-' + mm + '-' + dd;
+    entity.dob=formattedToday;
+    return await db('coursesrating').insert(entity);
+
+
+  },
+
 }
 
 
