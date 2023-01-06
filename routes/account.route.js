@@ -24,7 +24,7 @@ function generateOTP() {
   }
   return OTP;
 }
-let otp ;
+let otp = generateOTP();
 
 let userOtp;
 router.post("/register", async function (req, res) {
@@ -32,12 +32,11 @@ router.post("/register", async function (req, res) {
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(rawPassword, salt);
   console.log(req.session.auth);
-  otp = generateOTP();
   userOtp = {
     username: req.body.username,
     password: hash,
     email: req.body.email,
-    permission: 0,
+    permission: 2,
   };
   //console.log(userOtp.email);
   const transporter = nodemailer.createTransport({
