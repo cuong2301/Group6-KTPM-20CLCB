@@ -1,6 +1,6 @@
 <div class="card" style="margin-top: 100px;">
   <h4 class="card-header d-flex justify-content-between">
-    User
+    Student
   </h4>
   {{#if this.empty}}
     <div class="card-body">
@@ -36,15 +36,23 @@
                 {{/if}}
               </td>
               <form method="post">
-                <td class="text-right">
-                  <button
-                    type="submit"
-                    class="btn btn-sm btn-danger"
-                    formaction="/admin/Courses/del?id={{id}}"
-                  >
+                  <td class="text-right" style="width: 250px;">
+                    <button type="submit" class="btn btn-sm btn-danger" formaction="/admin/users/del?id={{id}}" >
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     Delete
-                  </button>
+                    </button>
+                    {{#if this.blocked}}
+                        <button type="submit" class="btn btn-sm btn-outline-dark" formaction="/admin/users/enable?id={{id}}" >
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        Enable
+                        </button>
+
+                    {{else}}
+                        <button type="submit" class="btn btn-sm btn-outline-warning" formaction="/admin/users/disable?id={{id}}" >
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        Disable
+                        </button>
+                    {{/if}}
                 </td>
               </form>
             </tr>

@@ -2,13 +2,16 @@ use sus;
 drop table if exists users;
 create table sus.users
 (
-    id int auto_increment primary key,
-    username   varchar(50)  not null,
-    password   varchar(255) not null,
-    email      varchar(50)  not null,
-    description varchar(200),
-    permission int          not null
-) engine = MyISAM;
+    id          int auto_increment
+        primary key,
+    username    varchar(50)  not null,
+    password    varchar(255) not null,
+    email       varchar(50)  not null,
+    description varchar(200) null,
+    permission  int          not null,
+    blocked     tinyint(1)   null
+)
+    engine = MyISAM;
 INSERT INTO `users` VALUES (1,'admin','admin','a@g.com',0);
 INSERT INTO `users` VALUES (2,'teacher','teacher','t@g.com',1);
 INSERT INTO `users` VALUES (3,'user','uesr','u@g.com',2);

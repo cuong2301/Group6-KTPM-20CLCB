@@ -4,6 +4,8 @@ import nodemailer from "nodemailer";
 
 import userService from "../services/user.service.js";
 import adminRole from "../middlewares/adminRole.mdw.js";
+import isLogin from "../middlewares/isLogin.mdw.js";
+
 
 import passport from 'passport'
 const router = express.Router();
@@ -37,6 +39,7 @@ router.post("/register", async function (req, res) {
     password: hash,
     email: req.body.email,
     permission: 2,
+    blocked: false,
   };
   //console.log(userOtp.email);
   const transporter = nodemailer.createTransport({
@@ -159,9 +162,10 @@ router.get("/is-available", async function (req, res) {
   res.json(false);
 });
 
-router.get("/login", function (req, res) {
+router.get("/login", isLogin, function (req, res) {
   res.render("vwAccount/login");
 });
+
 
 router.post("/login", async function (req, res) {
   const user = await userService.findByEmail(req.body.email);
@@ -181,18 +185,24 @@ router.post("/login", async function (req, res) {
   delete user.password;
 
   console.log(req.session.auth);
+  if(user.blocked == true){
+    return res.render("banned", {
+    });
+  }
+  else {
+    req.session.auth = true;
+    req.session.authUser = user;
+    if(req.session.authUser.permission == 0){ // 0 is admin
+      res.redirect("/admin/users");
+    }
+    else if(req.session.authUser.permission == 2){// 2 is user
+      const url = req.session.retUrl || "/";
+      res.redirect(url);
+    } else if(req.session.authUser.permission == 1){
+      res.redirect("/teacher/courses");
+    }
+  }
 
-  req.session.auth = true;
-  req.session.authUser = user;
-  if(req.session.authUser.permission == 0){ // 0 is admin
-    res.redirect("/admin/users");
-  }
-  else if(req.session.authUser.permission == 2){// 2 is user
-    const url = req.session.retUrl || "/";
-    res.redirect(url);
-  } else if(req.session.authUser.permission == 1){
-    res.redirect("/teacher/courses");
-  }
 });
 
 router.post("/logout", async function (req, res) {
