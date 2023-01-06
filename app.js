@@ -87,8 +87,6 @@ app.get("/", async function (req, res) {
   const popula = await coursesService.findPopularCourses();
   const listP= await categoryService.findCatParent();
 
-
-
   console.log(popula);
   //console.log(req.session.auth);
   res.render("home", {

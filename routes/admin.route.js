@@ -3,6 +3,7 @@ import userService from "../services/user.service.js";
 import router from "./account.route.js";
 import bcrypt from "bcryptjs";
 import categoryService from "../services/category.service.js";
+import coursesService from "../services/courses.service.js";
 
 
 
@@ -62,8 +63,16 @@ router.post("/teachers/add", async function (req, res) {
         email: req.body.tkuser,
         permission: 1,
     };
-    await userService.add(user);
-    res.redirect("/admin/teachers/add");
+    const temp = await userService.findByEmail(req.body.tkuser);
+    if(temp == null) {
+        await userService.add(user);
+        res.redirect("/admin/teachers/add");
+    }
+    else{
+        res.render("vwTeacher/add-teacher", {
+            layout:"bs5.hbs",
+            err_message: "This email is existed", });
+    }
 });
 
 router.get("/users", adminRole, async function (req, res) {
@@ -85,6 +94,20 @@ router.get("/teachers", adminRole, async function (req, res) {
 
 router.get("/teachers/add", adminRole, function (req, res){
     res.render("vwTeacher/add-teacher");
+});
+
+router.post("/admin-logout", async function (req, res) {
+    req.session.auth = false;
+    req.session.authUser = null;
+
+    const url = "/admin/admin-login";
+    res.redirect(url);
+});
+
+router.post("/teachers/del", adminRole, async function (req, res) {
+    const id = req.query.id || 0;
+    const affected_rows = await userService.del(id);
+    res.redirect("/admin/teachers");
 });
 
 export default router;
