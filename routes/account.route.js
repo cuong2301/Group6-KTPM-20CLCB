@@ -66,6 +66,33 @@ router.post("/register", async function (req, res) {
   res.redirect("register/verify");
 });
 
+router.get("/wishcourses", async function (req, res) {
+  if (req.session.authUser==null){
+    res.redirect("/account/login");
+  }
+  else{
+    const user_id = req.session.authUser.id;
+    const user = await userService.findById(user_id);
+    req.session.authUser = user;
+    res.render("vwAccount/wishcourses", {
+      user: user,
+    });
+  }});
+
+router.get("/courseslist", async function (req, res) {
+  if (req.session.authUser==null){
+    res.redirect("/");
+  }
+  else{
+    const user_id = req.session.authUser.id;
+    const user = await userService.findById(user_id);
+    req.session.authUser = user;
+    res.render("vwAccount/courseslist", {
+      user: user,
+    });
+  }});
+
+
 router.get("/profile", async function (req, res) {
   if (req.session.authUser==null){
     res.redirect("/account/login");
