@@ -68,6 +68,10 @@ router.post("/register", async function (req, res) {
 });
 
 router.get("/profile", async function (req, res) {
+  if (req.session.authUser==null){
+    res.redirect("/account/login");
+  }
+  else{
   const user_id = req.session.authUser.id;
   const user = await userService.findById(user_id);
   req.session.authUser = user;
@@ -78,7 +82,7 @@ router.get("/profile", async function (req, res) {
     user: user,
 
   });
-});
+}});
 
 router.post("/profile", async function (req, res) {
  let user= req.session.authUser;
