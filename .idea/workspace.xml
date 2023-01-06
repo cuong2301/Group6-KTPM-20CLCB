@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c9a9cdb6-0928-4361-802a-4edde72deaad" name="Changes" comment="add studentcourses and add wishcourses">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/aa79cfd1-46f2-4e9e-9c30-2f0b85d26ff5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/aa79cfd1-46f2-4e9e-9c30-2f0b85d26ff5.xml" afterDir="false" />
+    <list default="true" id="c9a9cdb6-0928-4361-802a-4edde72deaad" name="Changes" comment="fix bug logout">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/account.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/account.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/vwAccount/profile.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/vwAccount/profile.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +111,7 @@
       <workItem from="1672105092966" duration="10091000" />
       <workItem from="1672902375088" duration="19179000" />
       <workItem from="1672937074427" duration="3853000" />
-      <workItem from="1672972695349" duration="1525000" />
+      <workItem from="1672972695349" duration="3939000" />
     </task>
     <task id="LOCAL-00001" summary="First setup for project">
       <created>1670819844717</created>
@@ -240,7 +239,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672940824387</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="fix bug logout">
+      <created>1672974416719</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1672974416719</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -274,7 +280,8 @@
     <MESSAGE value="add profile for user" />
     <MESSAGE value="update for user-profile" />
     <MESSAGE value="add studentcourses and add wishcourses" />
-    <option name="LAST_COMMIT_MESSAGE" value="add studentcourses and add wishcourses" />
+    <MESSAGE value="fix bug logout" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bug logout" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
