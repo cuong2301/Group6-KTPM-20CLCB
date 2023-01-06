@@ -25,6 +25,11 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    {{#if err_message}}
+                        <div class="alert alert-danger" role="alert">
+                            {{err_message}}
+                        </div>
+                    {{/if}}
                     <div class="form-group">
                         <label for="txtCatName">Teacher Name</label>
                         <input

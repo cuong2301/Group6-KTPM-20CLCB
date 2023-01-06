@@ -71,4 +71,8 @@ export default {
   updateAll(id,user){
     return db("users").where("id", id).update(user);
   }
+  ,
+  findwishcourses(id) {
+    return db("wishcourses").where("StudentID", id);
+  }
 };

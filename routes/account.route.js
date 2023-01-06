@@ -4,7 +4,7 @@ import nodemailer from "nodemailer";
 
 import userService from "../services/user.service.js";
 import adminRole from "../middlewares/adminRole.mdw.js";
-
+import coursesService from "../services/courses.service.js";
 import passport from 'passport'
 const router = express.Router();
 
@@ -24,7 +24,7 @@ function generateOTP() {
   }
   return OTP;
 }
-let otp ;
+let otp = generateOTP();
 
 let userOtp;
 router.post("/register", async function (req, res) {
@@ -32,12 +32,11 @@ router.post("/register", async function (req, res) {
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(rawPassword, salt);
   console.log(req.session.auth);
-  otp = generateOTP();
   userOtp = {
     username: req.body.username,
     password: hash,
     email: req.body.email,
-    permission: 0,
+    permission: 2,
   };
   //console.log(userOtp.email);
   const transporter = nodemailer.createTransport({
@@ -67,7 +66,48 @@ router.post("/register", async function (req, res) {
   res.redirect("register/verify");
 });
 
+router.get("/wishcourses", async function (req, res) {
+  if (req.session.authUser==null){
+    res.redirect("/");
+  }
+  else{
+    const user_id = req.session.authUser.id;
+    const ret= await userService.findwishcourses(user_id);
+    const product =  await coursesService.wishcourses(ret.CourID);
+    const CourCount= await coursesService.countByCourId(ret.CourID);
+
+    if (product === null) {
+      return res.redirect('/');
+    }
+    res.render('vwAccount/wishcourses', {
+      product: product,
+      CourCount:CourCount
+    });
+
+  }});
+
+
+
+
+router.get("/courseslist", async function (req, res) {
+  if (req.session.authUser==null){
+    res.redirect("/");
+  }
+  else{
+    const user_id = req.session.authUser.id;
+    const user = await userService.findById(user_id);
+    req.session.authUser = user;
+    res.render("vwAccount/courseslist", {
+      user: user,
+    });
+  }});
+
+
 router.get("/profile", async function (req, res) {
+  if (req.session.authUser==null){
+    res.redirect("/account/login");
+  }
+  else{
   const user_id = req.session.authUser.id;
   const user = await userService.findById(user_id);
   req.session.authUser = user;
@@ -78,7 +118,7 @@ router.get("/profile", async function (req, res) {
     user: user,
 
   });
-});
+}});
 
 router.post("/profile", async function (req, res) {
  let user= req.session.authUser;

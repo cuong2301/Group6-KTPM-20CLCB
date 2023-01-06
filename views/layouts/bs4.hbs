@@ -30,25 +30,6 @@
     </style>
   </head>
   <body>
-    <div class="superNav border-bottom py-2 bg-light">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 centerOnMobile">
-            <select class="me-3 border-0 bg-light">
-              <option value="en-us">EN-US</option>
-            </select>
-            <span
-              class="d-none d-lg-inline-block d-md-inline-block d-sm-inline-block d-xs-none me-3"
-            >
-              <strong>onlineacademygroup6@gmail.com</strong></span>
-          </div>
-          <div
-            class="col-lg-6 col-md-6 col-sm-12 col-xs-12 d-none d-lg-block d-md-block-d-sm-block d-xs-none text-end"
-          >
-          </div>
-        </div>
-      </div>
-    </div>
     <nav
       class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm"
     >
@@ -116,10 +97,10 @@
                  {{!-- {{#if CatParent}}
                  {{else}}
                  <li> <a href="/courses/byCat/{{CatID}}">{{CatName}}</a></li>
-                 {{/if}} --}}   
+                 {{/if}} --}}
                       <li><a class="dropdown-item" href="/courses/byCat/{{CatID}}" style="text-decoration: none; color:black ; font-weight:100, ">
                       {{CatName}} &raquo;
-                      </a>           
+                      </a>
                         <ul class="dropdown-menu dropdown-submenu">
                         {{#each ../lcCat}}
                             {{#if (eq CatParent ../CatID)}}
@@ -127,12 +108,12 @@
                             <a class="dropdown-item" href="/courses/byCat/{{CatID}}">{{CatName}}</a>
                           </li>
                             {{/if}}
-                        {{/each}}  
+                        {{/each}}
                         </ul>
-                  {{/each}}                      
+                  {{/each}}
 
                       </li>
-               
+
               </ul>
             </li>
             <li class="nav-item">
