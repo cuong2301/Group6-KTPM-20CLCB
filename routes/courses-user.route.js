@@ -1,5 +1,6 @@
 import express from "express";
 import coursesService from "../services/courses.service.js";
+import userService from"../services/user.service.js";
 import * as bodyParser from "express";
 
 const router = express.Router();
@@ -85,17 +86,60 @@ const CourCount= await coursesService.countsearch(ret);
 
 router.get('/detail/:id', async function (req, res) {
   const proId = req.params.id || 0;
+  const user = req.session.authUser;
   const product = await coursesService.findById(proId);
   const listMost=await coursesService.findCourMostViews(proId);
   await coursesService.increaseView(proId);
+  const chap=await coursesService.chapter(proId);
+  const rating=await coursesService.ratingCourses(proId);
+  const teacherId=product.TeacherID; 
+  const teacher=await userService.findById(teacherId);
+  const rev=await coursesService.review(proId);
+  let flag;
+  if(user == null){
+
+  } else {
+   flag = await coursesService.checkEnroll(proId,user.id);
+  }
+  console.log(req.session.auth);
+  
   if (product === null) {
+
     return res.redirect('/');
   }
 
   res.render('vwCourses/detail', {
     product: product,
-    listMost
+    listMost,
+    chap,
+    rating,
+    teacher,
+    rev,
+    flag,
   });
+});
+
+router.post('/add', async function (req, res) {
+  
+ 
+  // console.log(req.body);
+  const ret= await coursesService.addEnroll(req.body);
+  console.log(ret);
+  
+  res.render('vwCourses/add',{
+    ret,
+    layout: false,
+});
+});
+
+router.post('/comment', async function (req, res) {
+  
+  console.log(req.body)
+  const c=await coursesService.addFB(req.body);
+  return res.redirect('/courses')
+  
+
+
 });
 
 router.post('/detail/:id', async function (req, res) {

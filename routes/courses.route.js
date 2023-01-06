@@ -34,17 +34,50 @@ router.get("/byCat/:id", async function (req, res) {
 });
 
 router.get("/",adminRole, async function (req, res) {
-  const list = await coursesService.findAll();
+  const catId = req.query.catID || 0;
+  const teacherId = req.query.teacherID || 0;
+  console.log(catId);
+  console.log(teacherId);
+  let list;
+  if(catId != 0 && teacherId != 0){
+    list = await coursesService.findByTeacherIDAndByCat(catId,teacherId);
+  } else if(catId != 0 && teacherId == 0){
+    list = await coursesService.findByCatId(catId);
+  } else if(catId == 0 && teacherId != 0){
+    list = await coursesService.findByTeacherID(catId);
+  } else {
+    list = await coursesService.findAll();
+  }
   res.render("vwCourses/index", {
     courses: list,
     empty: list.length === 0,
     layout: "bs5.hbs",
+    CatID: catId,
+    teacherId: teacherId
   });
 });
 
-router.get("/:id", adminRole, async function (req, res) {
-  const catId = req.params.id || 0;
-  const list = await coursesService.findByCatId(catId);
+// router.get("/", adminRole, async function (req, res) {
+//   const catId = req.query.id || 0;
+//   const teacherId = req.query.teacherID || 0;
+//   let list;
+//   if(catId != 0 && teacherId != 0){
+//     list = await coursesService.findByTeacherIDAndByCat(catId,teacherId);
+//   } else if(catId != 0 && teacherId == 0){
+//     list = await coursesService.findByCatId(catId);
+//   } else if(catId == 0 && teacherId != 0){
+//     list = await coursesService.findByTeacherID(catId);
+//   }
+//   res.render("vwCourses/index", {
+//     courses: list,
+//     empty: list.length === 0,
+//     layout: "bs5.hbs",
+//   });
+// });
+
+router.get("/teacher/:id", adminRole, async function (req, res) {
+  const teacherId = req.params.id || 0;
+  const list = await coursesService.findByTeacherID(teacherId);
   res.render("vwCourses/index", {
     courses: list,
     empty: list.length === 0,
@@ -55,6 +88,19 @@ router.get("/:id", adminRole, async function (req, res) {
 router.post("/del", adminRole, async function (req, res) {
   const id = req.query.id || 0;
   const affected_rows = await coursesService.del(id);
+  res.redirect("/admin/Courses");
+});
+
+router.post("/block", adminRole, async function (req, res) {
+  const id = req.query.id || 0;
+  let affected = await coursesService.findById(id);
+  if(affected.block == 0){
+    affected.block = 1;
+  } else {
+    affected.block = 0;
+  }
+  console.log(affected);
+  await  coursesService.patch(affected);
   res.redirect("/admin/Courses");
 });
 export default router;

@@ -1,63 +1,141 @@
-<div class="card" style="margin-top: 100px;">
-  <h4 class="card-header d-flex justify-content-between">
-    Courses
-    {{! <a
-      class="btn btn-sm btn-outline-primary"
-      href="/admin/Courses/add"
-      role="button"
-    >
-      <i class="fa fa-plus" aria-hidden="true"></i>
-      Add Courses
-    </a> }}
-  </h4>
-  {{#if this.empty}}
-    <div class="card-body">
-      Không có dữ liệu!
-    </div>
-  {{else}}
-    <div class="card-body">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Courses</th>
-            <th>Price</th>
+{{#section 'css'}}
+    <link href="/./public/style/byCat.css" rel="stylesheet">
+{{/section}}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="card mt-5">
+                <h4 class="card-header ">
+                    Lĩnh vực
+                </h4>
+                <div class="just-padding">
+                    <div class="list-group list-group-root well">
+                        {{#each lcCatParent}}
+                            <a href="#" class="list-group-item" data-bs-toggle="collapse"
+                               data-bs-target="#item-{{CatID}}"
+                               aria-expanded="true" aria-controls="collapseOne"></i>{{CatName}}
+                            </a>
+                            <div class="list-group collapse" id="item-{{CatID}}">
+                                {{#each ../lcCat}}
+                                    {{#if (eq CatParent ../CatID) }}
+                                        {{#if (eq ../../this.CatID CatID)}}
+                                            <a href="/admin/courses?catID={{CatID}}&teacherID={{../../this.teacherId}}"
+                                            class="list-group-item sm-3 active"
+                                            data-toggle="collapse">
+                                            <i class="glyphicon glyphicon-chevron-right"></i>{{CatName}}
+                                            </a>
+                                        {{else}}
+                                            <a href="/admin/courses?catID={{CatID}}&teacherID={{../../this.teacherId}}"
+                                            class="list-group-item"
+                                            data-toggle="collapse">
+                                            <i class="glyphicon glyphicon-chevron-right"></i>{{CatName}}
+                                            </a>
+                                        {{/if}}
+                                    {{/if}}
+                                {{/each}}
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-5">
+                <h4 class="card-header ">
+                    Teacher
+                </h4>
+                <div class="just-padding">
+                    <div class="list-group list-group-root well">
+                        {{#each lcTeacher}}
+                            {{#if (eq ../this.teacherId id)}}
+                            <a href="/admin/courses?catID={{../this.CatID}}&teacherID={{id}}" class="list-group-item active"
+                               data-bs-target="#teacher-{{id}}"
+                               aria-expanded="true" aria-controls="collapseOne"></i>{{username}}
+                            </a>
+                            {{else}}
+                                <a href="/admin/courses?catID={{../this.CatID}}&teacherID={{id}}" class="list-group-item"
+                                data-bs-target="#teacher-{{id}}"
+                                aria-expanded="true" aria-controls="collapseOne"></i>{{username}}
+                                </a>
+                            {{/if}}
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="card mt-5">
+                <h4 class="card-header d-flex justify-content-between">
+                    Courses
+                    {{! <a
+                      class="btn btn-sm btn-outline-primary"
+                      href="/admin/Courses/add"
+                      role="button"
+                    >
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                      Add Courses
+                    </a> }}
+                </h4>
+                {{#if this.empty}}
+                    <div class="card-body">
+                        Không có dữ liệu!
+                    </div>
+                {{else}}
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Courses</th>
+                                <th>Price</th>
 
-            <th>&nbsp;</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each this.courses}}
-            <tr>
-              <td scope="row">{{CourID}}</td>
-              <td>{{CourName}}</td>
-              <td>{{format_number Price}}</td>
-              <form method="post">
-                <td class="text-right" style="width: 250px;">
-                  <button
-                    type="submit"
-                    class="btn btn-sm btn-danger"
-                    formaction="/admin/Courses/del?id={{CourID}}"
-                  >
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                    Delete
-                  </button>
-                  <a
-                    class="btn btn-warning btn-sm"
-                    href="/admin/users/courses/{{CourID}}"
-                    role="button"
-                    title="See More"
-                  >
-                    <i class="fa fa-eye" aria-hidden="true"></i>
-                    More
-                  </a>
-                </td>
-              </form>
-            </tr>
-          {{/each}}
-        </tbody>
-      </table>
-    </div>
-  {{/if}}
+                                <th>&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each this.courses}}
+                                <tr>
+                                    <td scope="row">{{CourID}}</td>
+                                    <td>{{CourName}}</td>
+                                    <td>{{format_number Price}}</td>
+                                    <form method="post">
+                                        <td class="text-right" style="width: 250px;">
+                                            <button
+                                                    type="submit"
+                                                    class="btn btn-sm btn-danger"
+                                                    formaction="/admin/Courses/del?id={{CourID}}"
+                                            >
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                            Delete
+                                            </button>
 
+                                            {{#if (eq block 0)}}
+                                                <button
+                                                        type="submit"
+                                                        class="btn btn-sm btn-Warning"
+                                                        formaction="/admin/Courses/block?id={{CourID}}"
+                                                >
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                Block
+                                                </button>
+                                            {{else}}
+                                                <button
+                                                        type="submit"
+                                                        class="btn btn-sm btn-success"
+                                                        formaction="/admin/Courses/block?id={{CourID}}"
+                                                >
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                Unblock
+                                                </button>
+                                            {{/if}}
+                                        </td>
+                                    </form>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                {{/if}}
+
+            </div>
+        </div>
+    </div>
 </div>
