@@ -1,7 +1,7 @@
 <form method="post">
   <div class="card" style="margin-top: 100px;">
     <h4 class="card-header">
-      Edit Category
+      Edit Big Category
     </h4>
     <div class="card-body">
       <div class="form-group">
@@ -27,19 +27,12 @@
           value="{{this.category.CatName}}"
         />
       </div>
-      <div class="form-group">
-        <label for="txtCatID">CatParent</label>
-       <select name="CatParent" id="txtCatParent" class="form-control">
-              {{#each lcCatParent}}
-                <option value="{{CatID}}">{{CatName}}</option> oke tui di cong viec ti ve lam cai top cat
-              {{/each}}
-            </select>
-      </div>
+
 
       </div>
     </div>
     <div class="card-footer text-muted">
-      <a class="btn btn-outline-success" href="/admin/categories" role="button">
+      <a class="btn btn-outline-success" href="/admin/BigCategories" role="button">
         <i class="fa fa-backward" aria-hidden="true"></i>
         List
       </a>
@@ -54,7 +47,7 @@
       <button
         type="submit"
         class="btn btn-outline-primary"
-        formaction="/admin/categories/patch"
+        formaction="/admin/BigCategories/patch"
       >
         <i class="fa fa-check" aria-hidden="true"></i>
         Save

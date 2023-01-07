@@ -20,7 +20,7 @@ import activate_session from "./middlewares/session.mdw.js";
 import activate_locals from "./middlewares/locals.mdw.js";
 
 import cookieParser from "cookie-parser";
-import FacebookStrategy from 'passport-facebook';
+import FacebookStrategy from "passport-facebook";
 import bodyParser from "body-parser";
 import config from "./utils/config.js";
 import teacherRoute from "./routes/teacher.route.js";
@@ -35,9 +35,8 @@ app.use(
   })
 );
 
-app.get('/err',function(req,res){
-  throw new Error('Something Broke');
-
+app.get("/err", function (req, res) {
+  throw new Error("Something Broke");
 });
 
 app.use("/public", express.static("public"));
@@ -63,13 +62,10 @@ app.engine(
         return a + b;
       },
       eqString(arg1, arg2) {
-        if(arg1.localeCompare(arg2)===0)
-        {
+        if (arg1.localeCompare(arg2) === 0) {
           return true;
         }
         return false;
-        
-
       },
     },
   })
@@ -78,12 +74,12 @@ app.set("view engine", "hbs");
 app.set("views", "./views");
 
 app.use(async function (req, res, next) {
-  let obj= [];
+  let obj = [];
   obj.parent = await categoryService.findCatParent();
   obj.child = await categoryService.findAllWithDetails();
-  console.log(obj);
+  //console.log(obj);
   res.locals.lcCategories = await categoryService.findAllWithDetails();
-  res.locals.lcCatParent=await categoryService.findCatParent();
+  res.locals.lcCatParent = await categoryService.findCatParent();
   res.locals.lcCat = await categoryService.findNotCatParent();
   next();
 });
@@ -94,7 +90,8 @@ activate_locals(app);
 app.get("/", async function (req, res) {
   const newest = await coursesService.findNewestCourses();
   const popula = await coursesService.findPopularCourses();
-  const listP= await categoryService.findCatParent();
+  const MostEnroll = await categoryService.findMostEnrollCat();
+  //const listP = await categoryService.findCatParent();
 
   console.log(popula);
   //console.log(req.session.auth);
@@ -106,7 +103,7 @@ app.get("/", async function (req, res) {
 
 app.post("/", async function (req, res) {
   const a = req.body.score;
-  console.log(a);
+  //console.log(a);
   res.redirect("/");
 });
 
@@ -117,46 +114,52 @@ app.use("/courses", coursesUserService);
 app.use("/account", accountRoute);
 app.use("/teacher", teacherRoute);
 
-app.use(function(req,res,next){
-
-  res.render('404',{layout:false});
-
+app.use(function (req, res, next) {
+  res.render("404", { layout: false });
 });
-app.use(function(err,req,res,next){
-    console.log(err.stack);
-    res.status(500).render('500',{layout:false});
-
+app.use(function (err, req, res, next) {
+  console.log(err.stack);
+  res.status(500).render("500", { layout: false });
 });
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user);
 });
 
-passport.deserializeUser(function(obj, done) {
+passport.deserializeUser(function (obj, done) {
   done(null, obj);
 });
 
-passport.use(new FacebookStrategy({
+passport.use(
+  new FacebookStrategy(
+    {
       clientID: config.facebook_api_key,
-      clientSecret:config.facebook_api_secret ,
-      callbackURL: config.callback_url
+      clientSecret: config.facebook_api_secret,
+      callbackURL: config.callback_url,
     },
-    function(accessToken, refreshToken, profile, done) {
+    function (accessToken, refreshToken, profile, done) {
       process.nextTick(function () {
         console.log(accessToken, refreshToken, profile, done);
         return done(null, profile);
       });
     }
-));
+  )
+);
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({ secret: 'keyboard cat', key: 'sid'}));
+app.use(session({ secret: "keyboard cat", key: "sid" }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect : '/', failureRedirect: '/login' }),
-    function(req, res) {
-        res.redirect('/');
-    });
+app.get(
+  "/auth/facebook/callback",
+  passport.authenticate("facebook", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+  }),
+  function (req, res) {
+    res.redirect("/");
+  }
+);
 
 const PORT = 3000;
 app.listen(PORT, function () {

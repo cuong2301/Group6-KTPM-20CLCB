@@ -10,11 +10,11 @@
           <div class="col-md-6" style="text-align: right;">
             <a
               class="btn btn-sm btn-success"
-              href="/admin/categories/add"
+              href="/admin/BigCategories/add"
               role="button"
             >
               <i class="fa fa-plus" aria-hidden="true"></i>
-              Add Category</a>
+              Add Big Category</a>
           </div>
         </div>
       </div>
@@ -36,25 +36,18 @@
                 </tr>
               </thead>
               <tbody>
-                {{#each lcCategories}}
+                {{#each this.categories}}
                   <tr>
                     <td scope="row">{{CatID}}</td>
                     <td>{{CatName}}</td>
                     <td>{{CourCount}}</td>
-                    {{#if CatParent}}
-                      {{#each ../lcCatParent}}
-                        {{#if (eq CatID ../CatParent)}}
-                          <td>{{CatName}}</td>
-                        {{/if}}
-                      {{/each}}
-                    {{else}}
-                      <td>Cat Parent</td>
-                    {{/if}}
+                    <td>Cat Parent</td>
+
                     <td class="text-right" style="width: 250px;">
                       <form method="post">
                         <a
                           class="btn btn-primary btn-sm"
-                          href="/admin/categories/edit?id={{CatID}}"
+                          href="/admin/BigCategories/edit?id={{CatID}}"
                           role="button"
                           title="Edit Category"
                         >
@@ -62,18 +55,19 @@
                           Edit
                         </a>
                         
-                        {{#if CourCount}}
-                        
-                        {{else}}
-                          <button
+                        {{#each ../lcCategories}}
+                        {{#if (eq CatParent ../CatID)}}
+                          {{/if}}              
+                        {{/each}}
+                        {{#if CourCount}}{{else}}
+                        <button
                             type="submit"
                             class="btn btn-sm btn-danger"
-                            formaction="/admin/categories/del?id={{CatID}}"
+                            formaction="/admin/BigCategories/del?id={{CatID}}"
                           >
                             <i class="fa fa-trash" aria-hidden="true"></i>
                             Delete
                           </button>
-
                         {{/if}}
                       </form>
                     </td>

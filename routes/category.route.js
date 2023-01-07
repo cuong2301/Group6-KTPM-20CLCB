@@ -13,7 +13,7 @@ router.post("/add", async function (req, res) {
   res.redirect("/admin/categories/add");
 });
 
-router.get("/",adminRole, async function (req, res) {
+router.get("/", adminRole, async function (req, res) {
   const list = await categoryService.findAll();
   res.render("vwCategory/index", {
     categories: list,
@@ -34,7 +34,7 @@ router.get("/edit", adminRole, async function (req, res) {
   });
 });
 
-router.post("/del",adminRole, async function (req, res) {
+router.post("/del", adminRole, async function (req, res) {
   const id = req.query.id || 0;
   const affected_rows = await categoryService.del(id);
   res.redirect("/admin/categories");

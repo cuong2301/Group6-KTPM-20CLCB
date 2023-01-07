@@ -12,6 +12,7 @@ create table sus.users
     blocked     tinyint(1)   null
 )
     engine = MyISAM;
+    insert into `users` value (1,'admin','$2a$10$xfoUPt4sx/zhOWOUke49Z.AOt8sQxqniyiJypLEdZjoCczAPgmjba','a@g.com','',0,null);
 DROP TABLE IF EXISTS `BigCategories`;
 CREATE TABLE `BigCategories` (
                               `CatID` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -38,6 +39,7 @@ create table chapter(
 );
 BEGIN;
 INSERT INTO `BigCategories` VALUES (1, 'IT',0);
+INSERT INTO `BigCategories` VALUES (2, 'IT1',0);
 COMMIT;
 BEGIN;
 INSERT INTO `categories` VALUES (1, 'Lập trình web','1',0);
@@ -61,6 +63,7 @@ CREATE TABLE `courses` (
 ) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 BEGIN;
+
 INSERT INTO `courses` VALUES (1,
                               'Freshwater Cultured Pearl','2022-08-03','2022-08-03', 'Freshwater Cultured Pearl, Citrine, Peridot & Amethyst Bracelet, 7.5\"', '<UL>\r\n    <LI>Metal stamp: 14k </LI>\r\n    <LI>Metal: yellow-ld</LI>\r\n    <LI>Material Type: amethyst, citrine, ld, pearl, peridot</LI>\r\n    <LI>Gem Type: citrine, peridot, amethyst</LI>\r\n    <LI>Length: 7.5 inches</LI>\r\n    <LI>Clasp Type: filigree-box</LI>\r\n    <LI>Total metal weight: 0.6 Grams</LI>\r\n</UL>\r\n<STRONG>Pearl Information</STRONG><BR>\r\n<UL>\r\n    <LI>Pearl type: freshwater-cultured</LI>\r\n</UL>\r\n<STRONG>Packaging Information</STRONG><BR>\r\n<UL>\r\n    <LI>Package: Regal Blue Sueded-Cloth Pouch</LI>\r\n</UL>',
                               1500000, 1, 2,1,0);
@@ -73,6 +76,8 @@ INSERT INTO `courses` VALUES (7, 'Reponsivve','2022-12-14','2022-08-03', 'Nữ t
 INSERT INTO `courses` VALUES (8, 'HTML, CSS, Javascript','2022-10-14','2022-08-03', 'Nữ tính - trẻ trung', '<UL>\r\n    <LI>General: 2G Network, GSM 900 / 1800 / 1900</LI>\r\n    <LI>Size:&nbsp; 99 x 45 x 18.6 mm, 73 cc</LI>\r\n    <LI>Weight: 95 g</LI>\r\n    <LI>Display: type TFT, 65K colors</LI>\r\n    <LI>Size: 128 x 160 pixels, 28 x 35 mm</LI>\r\n</UL>\r\n', 2400000, 2, 0,123,0);
 INSERT INTO `courses` VALUES (9, 'Lập trình ứng dụng java','2022-01-19','2022-08-03', 'Nữ tính - trẻ trung', '<UL>\r\n    <LI>General: 2G Network, GSM 900 / 1800 / 1900</LI>\r\n    <LI>Size:&nbsp; 99 x 45 x 18.6 mm, 73 cc</LI>\r\n    <LI>Weight: 95 g</LI>\r\n    <LI>Display: type TFT, 65K colors</LI>\r\n    <LI>Size: 128 x 160 pixels, 28 x 35 mm</LI>\r\n</UL>\r\n', 2400000, 2, 0,123,0);
 INSERT INTO `courses` VALUES (10, 'Mạng máy tính','2022-11-14','2022-08-03', 'Nữ tính - trẻ trung', '<UL>\r\n    <LI>General: 2G Network, GSM 900 / 1800 / 1900</LI>\r\n    <LI>Size:&nbsp; 99 x 45 x 18.6 mm, 73 cc</LI>\r\n    <LI>Weight: 95 g</LI>\r\n    <LI>Display: type TFT, 65K colors</LI>\r\n    <LI>Size: 128 x 160 pixels, 28 x 35 mm</LI>\r\n</UL>\r\n', 2400000, 2, 0,123,0);
+INSERT INTO `courses` values (11,'TEST','2022-12-31','2023-1-3','NULL','NULL',1800000000,1,1,0,0);
+
 commit;
 drop table IF EXISTS `ENROLL`;
 CREATE TABLE `ENROLL`(
