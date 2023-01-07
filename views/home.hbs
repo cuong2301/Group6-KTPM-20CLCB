@@ -25,29 +25,6 @@
             width: 200px;
         }
     </style>
-    <script>
-        function hiding(){
-            $("#fgh").css("display","none");
-        }
-        function myFunction() {
-            let score = 0;
-            if( document.getElementById('rate-5').checked) score = 5
-            else if( document.getElementById('rate-4').checked) score = 4
-            else if( document.getElementById('rate-3').checked) score = 3
-            else if( document.getElementById('rate-2').checked) score = 2
-            else if( document.getElementById('rate-1').checked) score = 1
-            $.ajax({
-                url: "http://localhost:3000",
-                type: "POST",
-                data :{score: JSON.stringify(score)},
-                dataType: "json",
-                success: function (result) {
-                    alert("123");
-                    $('#fgh').hide();
-                }
-            });
-        }
-    </script>
 </head>
 <body>
     <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
@@ -101,7 +78,6 @@
             </div>
         </div>
     </div>
-
     <div class="mostview container-fluid my-5">
         <h1>TOP MOST VIEWS COURSES</h1>
         <div class="row">
@@ -125,66 +101,28 @@
             </div>
         </div>
     </div>
-
+    <div class="label enroll">
+        <h1>Top enrolled categories last week</h1>
+    </div>
     <div class="mostCat">
-        <div class="row" style="display:inline; text-align: center">
-            <h2>Top </h2>
-            <ul>
-                <li>
-                    <a>1</a>
-                </li>
-                <li>
-                    <a>1</a>
-                </li>
-                <li>
-                    <a>1</a>
-                </li>
-                <li>
-                    <a>1</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <form id="fgh">
-    <div class="rating">
-        <div class="post">
-            <div class="text">Thanks for rating us!</div>
-            <div class="edit">EDIT</div>
-        </div>
-            <div class="star-widget">
-                <input type="radio" name="rate" id="rate-5" value="5">
-                <label for="rate-5" class="fas fa-star"></label>
-                <input type="radio" name="rate" id="rate-4" value="4">
-                <label for="rate-4" class="fas fa-star"></label>
-                <input type="radio" name="rate" id="rate-3" value="3">
-                <label for="rate-3" class="fas fa-star" ></label>
-                <input type="radio" name="rate" id="rate-2" value="2">
-                <label for="rate-2" class="fas fa-star"></label>
-                <input type="radio" name="rate" id="rate-1" value="1">
-                <label for="rate-1" class="fas fa-star"></label>
-                    <header></header>
-                    <div class="textarea">
-                        <textarea name="comment" cols="30" placeholder="Describe your experience.."></textarea>
+        <div class="row">
+            {{#each this.mostenroll}}
+            <div class="col-sm-4" style="">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{CatName}}</h5>
+                        <p class="card-text">{{quantity}} students enroll </p>
+                        <a href="/courses/byCat/{{CatID}}" class="btn btn-primary">Check detail</a>
                     </div>
-                    <div class="btn">
-                        <button onclick="myFunction()" type="button">Post</button>
-                    </div>
+                </div>
             </div>
+            {{/each}}
     </div>
-    </form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
             integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
             crossorigin="anonymous"></script>
-    <script>
-        const btn = document.querySelector("button");
-        const post = document.querySelector(".post");
-        const widget = document.querySelector(".star-widget");
-        const editBtn = document.querySelector(".edit");
-        const star1 = document.querySelector("#rate-1");
-    </script>
     <script>
         $(document).ready(function () {
             $('#hero-carousel').find('.carousel-item').first().addClass('active');

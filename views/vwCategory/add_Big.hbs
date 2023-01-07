@@ -6,7 +6,7 @@
         <div class="card-header">
           <div class="row">
             <div class="col-md-6">
-              <strong>Create Sub-Category</strong>
+              <strong>Create Big Category</strong>
             </div>
             <div class="col-md-6" style="text-align: right;">
               <button type="submit" class="btn btn-sm btn-primary">
@@ -15,7 +15,7 @@
               </button>
               <a
                 class="btn btn-sm btn-info"
-                href="/admin/categories"
+                href="/admin/BigCategories"
                 role="button"
               >
                 <i class="fa fa-backward" aria-hidden="true"></i>
@@ -33,17 +33,8 @@
               class="form-control"
               id="txtCatName"
               autofocus
-              placeholder="Lập trình"
+              placeholder="IT"
             />
-          </div>
-          <div class="form-group">
-            <label for="txtCatName">Category Parent</label>
-            <br />
-            <select name="CatParent" id="txtCatParent" class="form-control">
-              {{#each lcCatParent}}
-                <option value="{{CatID}}">{{CatName}}</option>
-              {{/each}}
-            </select>
           </div>
         </div>
       </div>

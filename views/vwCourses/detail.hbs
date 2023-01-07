@@ -1,13 +1,13 @@
 {{#section 'css'}}
-  <link href="/./public/style/style.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    <link href="/./public/style/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
           integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
-          crossorigin="anonymous" />
+          crossorigin="anonymous"/>
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
           integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
-          crossorigin="anonymous" />
+          crossorigin="anonymous"/>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
@@ -22,251 +22,284 @@
     </style>
 {{/section}}
 <form method="post">
-  
-<div class="p-3 mb-2 bg-dark text-white">
 
-    <p class="h1 text-center ml-md-3">{{this.product.CourName}}</p>
-    <input type="text" name="CourID" value="{{this.product.CourID}}" hidden>
-     <input type="text" name="StudentID" value="{{authUser.id}}" hidden>
-    <p class="h6 text-center ml-md-3">{{this.product.TinyDes}}</p>
-    <i style="margin-left:40%" class="text-center fa fa-star text-warning " aria-hidden="true" >{{this.rating.rate}} ({{this.rating.cnt}} ratings)</i>
-    <i class="bi bi-arrow-up-circle-fill text-center"></i>
-    <div class="text-center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
-    <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
-     </svg> Update: {{this.product.update}}
+    <div class="p-3 mb-2 bg-dark text-white">
+
+        <p class="h1 text-center ml-md-3">{{this.product.CourName}}</p>
+        <input type="text" name="CourID" value="{{this.product.CourID}}" hidden>
+        <input type="text" name="StudentID" value="{{authUser.id}}" hidden>
+        <p class="h6 text-center ml-md-3">{{this.product.TinyDes}}</p>
+        <i style="margin-left:40%" class="text-center fa fa-star text-warning " aria-hidden="true">{{this.rating.rate}}
+            ({{this.rating.cnt}} ratings)</i>
+        <i class="bi bi-arrow-up-circle-fill text-center"></i>
+        <div class="text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
+            </svg>
+            Update: {{this.product.update}}
+        </div>
     </div>
-</div>
 
-<div class="position-fixed border " style="right:50px;top:150px;width:25%;">
-        <img src="/public/img/{{this.product.CourID}}/main.jpg" alt=""class="align-center" style="height: 250px;width:100%;margin-bottom:20px" >
+    <div class="position-fixed border " style="right:50px;top:150px;width:25%;">
+        <img src="/public/img/{{this.product.CourID}}/main.jpg" alt="" class="align-center"
+             style="height: 250px;width:100%;margin-bottom:20px">
         <br>
-        <h1 class="text-danger text-center" >{{format_number this.product.Price}}đ
-</h1>
+        <h1 class="text-danger text-center">{{format_number this.product.Price}}đ
+        </h1>
         <br>
         <div class="d-flex align-items-baseline" style="space-between">
             <form method="post" class="d-flex align-items-baseline" style="space-between">
-                <button class="btn btn-outline-danger btn-lg align-middle" value={{this.product.CourID}} type="submit" name="like" href="#" role="button" style="justify-content: left ; margin-left: 1rem ;margin-bottom: 1rem " >
+                <button class="btn btn-outline-danger btn-lg align-middle" value={{this.product.CourID}} type="submit"
+                        name="like" href="#" role="button"
+                        style="justify-content: left ; margin-left: 1rem ;margin-bottom: 1rem ">
                     <i class="fa fa-heart-o" aria-hidden="true"></i>
                     Yêu thích
                 </button>
-            <button class="btn btn-outline-success btn-lg align-middle" formaction="/courses/add" type="submit" style="justify-content: right ; margin-left: 3rem ;margin-bottom: 1rem ">
-                <i class="fa fa-cart-plus " aria-hidden="true"></i>
-                Mua khóa học
-            </button>
-        </div>
-{{!-- {{format_number this.product.Price}}đ --}}
-
-        
-</div>
-<div style="width: 50%;margin-left:15%">
-
-
-    <div style=" border: 1px solid gray;margin-bottom:50px">
-        <h3 style="margin-left: 20px;" class="text-black" >What you'll learn</h3>
-        <div style="margin-left: 20px;">{{{this.product.FullDes}}}</div>
-
-    </div>
-    <div style="border: 1px solid gray;margin-bottom:50px;">
-        <h3 style="margin-left: 20px;" class="text-black" >Description</h3>
-        <div style="margin-left: 20px;">{{{this.product.FullDes}}}</div>
-        
-    </div>
-
-    <div style=" border: 1px solid gray;">
-        <h3 style="margin-left: 20px;" class="text-black" >Information Lecture</h3>
-        <div style="margin-left: 20px;"><h4>{{this.teacher.username}}</h4></div>
-        <div style="margin-left: 20px;">{{this.teacher.description}}</div>
-        
-        
-    </div>
-    <br>
-    <h2>Course content</h2>
-        
-    <div class="accordion" id="accordionExample">
-      {{#if auth}}
-        {{#if flag}}
-            {{#each chap}}
-                <div class="accordion-item">
-                <h2 class="accordion-header" id="heading{{ChapOrder}}">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ChapOrder}}" aria-expanded="true" aria-controls="collapse{{ChapOrder}}">
-                <strong>{{ChapName}}</strong>
+                <button class="btn btn-outline-success btn-lg align-middle" formaction="/courses/add" type="submit"
+                        style="justify-content: right ; margin-left: 3rem ;margin-bottom: 1rem ">
+                    <i class="fa fa-cart-plus " aria-hidden="true"></i>
+                    Mua khóa học
                 </button>
-                </h2>
-                <div id="collapse{{ChapOrder}}" class="accordion-collapse collapse show" aria-labelledby="heading{{ChapOrder}}" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                <strong>{{{Link}}}</strong>
+        </div>
+        {{!-- {{format_number this.product.Price}}đ --}}
 
-                </div>
-                </div>
-                </div>
-            {{/each}}
+
+    </div>
+    <div style="width: 50%;margin-left:15%">
+
+
+        <div style=" border: 1px solid gray;margin-bottom:50px">
+            <h3 style="margin-left: 20px;" class="text-black">What you'll learn</h3>
+            <div style="margin-left: 20px;">{{{this.product.FullDes}}}</div>
+
+        </div>
+        <div style="border: 1px solid gray;margin-bottom:50px;">
+            <h3 style="margin-left: 20px;" class="text-black">Description</h3>
+            <div style="margin-left: 20px;">{{{this.product.FullDes}}}</div>
+
+        </div>
+
+        <div style=" border: 1px solid gray;">
+            <h3 style="margin-left: 20px;" class="text-black">Information Lecture</h3>
+            <div style="margin-left: 20px;"><h4>{{this.teacher.username}}</h4></div>
+            <div style="margin-left: 20px;">{{this.teacher.description}}</div>
+
+
+        </div>
+        <br>
+        <h2>Course content</h2>
+
+        <div class="accordion" id="accordionExample">
+            {{#if auth}}
+                {{#if flag}}
+                    {{#each chap}}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading{{ChapOrder}}">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse{{ChapOrder}}" aria-expanded="true"
+                                        aria-controls="collapse{{ChapOrder}}">
+                                    <strong>{{ChapName}}</strong>
+                                </button>
+                            </h2>
+                            <div id="collapse{{ChapOrder}}" class="accordion-collapse collapse show"
+                                 aria-labelledby="heading{{ChapOrder}}" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>{{{Link}}}</strong>
+
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                {{else}}
+                    {{#each chap}}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading{{ChapOrder}}">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse{{ChapOrder}}" aria-expanded="true"
+                                        aria-controls="collapse{{ChapOrder}}">
+                                    <strong>{{ChapName}}</strong>
+                                </button>
+                            </h2>
+                            {{#if (eqString ChapOrder "One")}}
+                                <div id="collapse{{ChapOrder}}" class="accordion-collapse collapse show"
+                                     aria-labelledby="heading{{ChapOrder}}" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <strong>{{{Link}}}</strong>
+
+                                    </div>
+                                </div>
+                            {{/if}}
+
+                        </div>
+                    {{/each}}
+
+                {{/if}}
             {{else}}
                 {{#each chap}}
-            <div class="accordion-item">
-            <h2 class="accordion-header" id="heading{{ChapOrder}}">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ChapOrder}}" aria-expanded="true" aria-controls="collapse{{ChapOrder}}">
-            <strong>{{ChapName}}</strong>
-            </button>
-            </h2>
-        {{#if (eqString ChapOrder "One")}}
-            <div id="collapse{{ChapOrder}}" class="accordion-collapse collapse show" aria-labelledby="heading{{ChapOrder}}" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-            <strong>{{{Link}}}</strong>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading{{ChapOrder}}">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse{{ChapOrder}}" aria-expanded="true"
+                                    aria-controls="collapse{{ChapOrder}}">
+                                <strong>{{ChapName}}</strong>
+                            </button>
+                        </h2>
+                        {{#if (eqString ChapOrder "One")}}
+                            <div id="collapse{{ChapOrder}}" class="accordion-collapse collapse show"
+                                 aria-labelledby="heading{{ChapOrder}}" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>{{{Link}}}</strong>
 
-        </div>
-        </div>
-        {{/if}}
-      
-      </div>
-      {{/each}}
+                                </div>
+                            </div>
+                        {{/if}}
 
-        {{/if}}
-      {{else}}
-          {{#each chap}}
-            <div class="accordion-item">
-            <h2 class="accordion-header" id="heading{{ChapOrder}}">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ChapOrder}}" aria-expanded="true" aria-controls="collapse{{ChapOrder}}">
-            <strong>{{ChapName}}</strong>
-            </button>
-            </h2>
-        {{#if (eqString ChapOrder "One")}}
-            <div id="collapse{{ChapOrder}}" class="accordion-collapse collapse show" aria-labelledby="heading{{ChapOrder}}" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-            <strong>{{{Link}}}</strong>
+                    </div>
+                {{/each}}
 
-        </div>
-        </div>
-        {{/if}}
-      
-      </div>
-      {{/each}}
-      
-     
-        
-      {{/if}}
-    </div>
-  
-  <br>
-  
 
-  <div style="" class="mostview container-fluid my-5 ">
-        <h1>TOP MOST BUY COURSES</h1>
-        <div class="row">
-            <div class="col-12 m-auto">
-                <div class="owl-carousel owl-theme d-flex">
-                    {{#each this.listMost}}
-                        <div style="margin-right: 5px;" class="item mb-4">
-                            <div class="card text-center border-0 shadow">
-                                <img src="/public/img/123.jpg" alt="" class="card-img-top" style="width: 50%px;height:50%px">
-                                <div class="card-body">
-                                    <div class="card-title text-center">
-                                        <h4>{{CourName}}</h4>
+
+            {{/if}}
+        </div>
+
+        <br>
+
+
+        <div style="" class="mostview container-fluid my-5 ">
+            <h1>TOP MOST BUY COURSES</h1>
+            <div class="row">
+                <div class="col-12 m-auto">
+                    <div class="owl-carousel owl-theme d-flex">
+                        {{#each this.listMost}}
+                            <div style="margin-right: 5px;" class="item mb-4">
+                                <div class="card text-center border-0 shadow">
+                                    <img src="/public/img/123.jpg" alt="" class="card-img-top"
+                                         style="width: 50%px;height:50%px">
+                                    <div class="card-body">
+                                        <div class="card-title text-center">
+                                            <h4>{{CourName}}</h4>
+                                        </div>
+                                        <p class="card-text text-center">{{TinyDes}}</p>
+                                        <a href="/courses/detail/{{CourID}}" class="btn btn-primary">Check detail</a>
                                     </div>
-                                    <p class="card-text text-center">{{TinyDes}}</p>
-                                    <a href="/courses/detail/{{CourID}}" class="btn btn-primary">Check detail</a>
                                 </div>
                             </div>
-                        </div>
-                    {{/each}}
+                        {{/each}}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-   <div class="col-md-12">
-    <div class="offer-dedicated-body-left">
-        <div class="tab-content" id="pills-tabContent">
+        <div class="col-md-12">
+            <div class="offer-dedicated-body-left">
+                <div class="tab-content" id="pills-tabContent">
 
-            <div class="tab-pane fade active show" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
-                <div id="ratings-and-reviews" class="bg-white rounded shadow-sm p-4 mb-4 clearfix restaurant-detailed-star-rating">
-                     <i style="" class=" fa fa-star text-dark " aria-hidden="true" >{{this.rating.rate}} COURSES RATING - ({{this.rating.cnt}} ratings)</i>
+                    <div class="tab-pane fade active show" id="pills-reviews" role="tabpanel"
+                         aria-labelledby="pills-reviews-tab">
+                        <div id="ratings-and-reviews"
+                             class="bg-white rounded shadow-sm p-4 mb-4 clearfix restaurant-detailed-star-rating">
+                            <i style="" class=" fa fa-star text-dark " aria-hidden="true">{{this.rating.rate}} COURSES
+                                RATING - ({{this.rating.cnt}} ratings)</i>
+                        </div>
+
+                        <div class="bg-white rounded shadow-sm p-4 mb-4 restaurant-detailed-ratings-and-reviews">
+                            <h5 class="mb-1">All Ratings and Reviews</h5>
+                            {{#each this.rev}}
+                                <hr>
+                                <div class="reviews-members pt-4 pb-4">
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            <a href="#"><img alt="Generic placeholder image"
+                                                             src="http://bootdey.com/img/Content/avatar/avatar1.png"
+                                                             class="mr-3 rounded-pill"></a>
+                                            <h6 style="margin-left: 10px;" class="mb-1 mt-3 mr-3"><p class="text-black"
+                                                                                                     href="#">{{username}}</p>
+                                            </h6>
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="reviews-members-header">
+                                                <i style="" class=" fa fa-star text-warning "
+                                                   aria-hidden="true">{{Rating}}</i>
+
+                                                <p class="text-gray">{{dob}}</p>
+                                            </div>
+                                            <div class="reviews-members-body">
+                                                <p>{{FeedBack}} </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </hr>
+                            {{/each}}
+
+                            <a class="text-center w-100 d-block mt-4 font-weight-bold" href="#">See All Reviews</a>
+                        </div>
+
+                    </div>
                 </div>
+            </div>
+        </div>
+        {{#if auth}}
+            {{#if flag}}
+                <div id="fgh">
+                    <div class="rating">
+                        <div class="post">
+                            <div class="text">Thanks for rating us!</div>
+                            <div class="edit">EDIT</div>
+                        </div>
+                        <div class="star-widget">
+                            <input type="radio" name="Rating" id="rate-5" value="5">
+                            <label for="rate-5" class="fas fa-star"></label>
+                            <input type="radio" name="Rating" id="rate-4" value="4">
+                            <label for="rate-4" class="fas fa-star"></label>
+                            <input type="radio" name="Rating" id="rate-3" value="3">
+                            <label for="rate-3" class="fas fa-star"></label>
+                            <input type="radio" name="Rating" id="rate-2" value="2">
+                            <label for="rate-2" class="fas fa-star"></label>
+                            <input type="radio" name="Rating" id="rate-1" value="1">
+                            <label for="rate-1" class="fas fa-star"></label>
+                            <header></header>
+                            <div class="textarea">
+                                <textarea id="Comment" name="FeedBack" cols="30"
+                                          placeholder="Describe your experience.." class="text-dark"></textarea>
+                            </div>
+                            <button class="btn btn-outline-success btn-lg " formaction="/courses/comment" type="submit"
+                                    style="justify-content: left ;margin-bottom: 1rem ">
 
-                <div class="bg-white rounded shadow-sm p-4 mb-4 restaurant-detailed-ratings-and-reviews">
-                    <h5 class="mb-1">All Ratings and Reviews</h5>
-                    {{#each this.rev}}
-                    <hr>
-                    <div class="reviews-members pt-4 pb-4">
-                        <div class="media">
-                          <div class="d-flex">
-                            <a href="#"><img alt="Generic placeholder image" src="http://bootdey.com/img/Content/avatar/avatar1.png" class="mr-3 rounded-pill"></a>
-                            <h6 style="margin-left: 10px;" class="mb-1 mt-3 mr-3" ><p class="text-black" href="#">{{username}}</p></h6>
-                            </div>
-                            <div class="media-body">
-                                <div class="reviews-members-header">
-                                   <i style="" class=" fa fa-star text-warning " aria-hidden="true" >{{Rating}}</i>
-                                    
-                                    <p class="text-gray">{{dob}}</p>
-                                </div>
-                                <div class="reviews-members-body">
-                                    <p>{{FeedBack}} </p>
-                                </div>
-                            </div>
+                                Post
+                            </button>
                         </div>
                     </div>
-                    </hr>
-                    {{/each}}
-                    
-                    <a class="text-center w-100 d-block mt-4 font-weight-bold" href="#">See All Reviews</a>
                 </div>
+            {{/if}}
+        {{/if}}
 
-            </div>
-        </div>
     </div>
-</div>
-{{#if auth}}
-<div id="fgh" >
-    <div class="rating">
-        <div class="post">
-            <div class="text">Thanks for rating us!</div>
-            <div class="edit">EDIT</div>
-        </div>
-            <div class="star-widget">
-                <input type="radio" name="Rating" id="rate-5" value="5">
-                <label for="rate-5" class="fas fa-star"></label>
-                <input type="radio" name="Rating" id="rate-4" value="4">
-                <label for="rate-4" class="fas fa-star"></label>
-                <input type="radio" name="Rating" id="rate-3" value="3">
-                <label for="rate-3" class="fas fa-star" ></label>
-                <input type="radio" name="Rating" id="rate-2" value="2">
-                <label for="rate-2" class="fas fa-star"></label>
-                <input type="radio" name="Rating" id="rate-1" value="1">
-                <label for="rate-1" class="fas fa-star"></label>
-                    <header></header>
-                    <div class="textarea">
-                        <textarea id = "Comment" name="FeedBack" cols="30" placeholder="Describe your experience.." class="text-dark"></textarea>
-                    </div>
-                    <button class="btn btn-outline-success btn-lg " formaction="/courses/comment" type="submit" style="justify-content: left ;margin-bottom: 1rem ">
-                    
-                    Post
-                    </button>
-            </div>
-    </div>
-    </div>
-    {{/if}}
-    
-</div>
 
 
 </form>
 {{#section 'js'}}
 
-<script>
-        function hiding(){
-            $("#fgh").css("display","none");
+    <script>
+        function hiding() {
+            $("#fgh").css("display", "none");
         }
+
         function myFunction() {
             let score = 0;
             let comment = document.getElementById('Comment').value;
-            if( document.getElementById('rate-5').checked) score = 5
-            else if( document.getElementById('rate-4').checked) score = 4
-            else if( document.getElementById('rate-3').checked) score = 3
-            else if( document.getElementById('rate-2').checked) score = 2
-            else if( document.getElementById('rate-1').checked) score = 1
+            if (document.getElementById('rate-5').checked) score = 5
+            else if (document.getElementById('rate-4').checked) score = 4
+            else if (document.getElementById('rate-3').checked) score = 3
+            else if (document.getElementById('rate-2').checked) score = 2
+            else if (document.getElementById('rate-1').checked) score = 1
             $.ajax({
                 url: "http://localhost:3000",
                 type: "POST",
-                data :{score: JSON.stringify(score),
-                comment: JSON.stringify(comment)},
+                data: {
+                    score: JSON.stringify(score),
+                    comment: JSON.stringify(comment)
+                },
                 dataType: "json",
                 success: function (result) {
                     alert("123");
@@ -275,7 +308,7 @@
             });
         }
     </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
             integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
             crossorigin="anonymous"></script>
@@ -296,7 +329,7 @@
             loop: true,
             margin: 0,
             nav: true,
-            navText : ['<i class="fa-solid fa-angle-left" ></i>','' +
+            navText: ['<i class="fa-solid fa-angle-left" ></i>', '' +
             '<i class="fa-solid fa-angle-right" aria-hidden="true"></i>'],
             responsive: {
                 0: {

@@ -199,10 +199,13 @@ router.post('/add', async function (req, res) {
 });
 
 router.post('/comment', async function (req, res) {
-  
+
   console.log(req.body)
+  const id = req.body.CourID;
   const c=await coursesService.addFB(req.body);
-  return res.redirect('/courses')
+  const rating=await coursesService.ratingCourses(id);
+  await coursesService.patch({CourID: id ,score: rating.rate});
+  return res.redirect('/courses/detail/' + req.body.CourID)
   
 
 
