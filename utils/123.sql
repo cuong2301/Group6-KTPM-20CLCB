@@ -84,7 +84,7 @@ CREATE TABLE `ENROLL`(
 
 drop table if exists `CoursesRating`;
 create table `CoursesRating`(
-                                `RatingID` int(11),
+                                `RatingID` int(11) unsigned NOT NULL AUTO_INCREMENT,
                                 `CourID` int(11),
                                 `StudentID` int(11),
                                 `Rating` int,
