@@ -86,6 +86,31 @@ router.get("/profile", async function (req, res) {
   });
 }});
 
+router.post("/wishcourses", async function (req, res) {
+  let user= req.session.authUser;
+  let del = req.body.delete;
+  await userService.deleteWish(user.id,del);
+  let wishlist = {
+    StudentID :req.session.authUser.id,
+    CourID :req.params.id
+  };
+
+  if (req.session.authUser==null){
+    res.redirect("/");
+  }
+  else {
+    const user_id = req.session.authUser.id;
+    const product = await coursesService.wishcourses(user_id);
+    const CourCount = await coursesService.countByCourId(user_id);
+
+    if (product === null) {
+      return res.redirect('/');
+    }
+    res.render('vwAccount/wishcourses', {
+      product: product,
+      CourCount: CourCount
+    });
+  }});
 router.post("/profile", async function (req, res) {
  let user= req.session.authUser;
   let errormessage = "changes success !!!";
