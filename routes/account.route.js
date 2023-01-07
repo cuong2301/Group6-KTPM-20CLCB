@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 import userService from "../services/user.service.js";
 import adminRole from "../middlewares/adminRole.mdw.js";
 import isLogin from "../middlewares/isLogin.mdw.js";
-
+import coursesService from "../services/courses.service.js";
 
 import passport from 'passport'
 const router = express.Router();
@@ -86,6 +86,31 @@ router.get("/profile", async function (req, res) {
   });
 }});
 
+router.post("/wishcourses", async function (req, res) {
+  let user= req.session.authUser;
+  let del = req.body.delete;
+  await userService.deleteWish(user.id,del);
+  let wishlist = {
+    StudentID :req.session.authUser.id,
+    CourID :req.params.id
+  };
+
+  if (req.session.authUser==null){
+    res.redirect("/");
+  }
+  else {
+    const user_id = req.session.authUser.id;
+    const product = await coursesService.wishcourses(user_id);
+    const CourCount = await coursesService.countByCourId(user_id);
+
+    if (product === null) {
+      return res.redirect('/');
+    }
+    res.render('vwAccount/wishcourses', {
+      product: product,
+      CourCount: CourCount
+    });
+  }});
 router.post("/profile", async function (req, res) {
  let user= req.session.authUser;
   let errormessage = "changes success !!!";
@@ -216,6 +241,101 @@ router.post("/logout", async function (req, res) {
 router.get("/register/verify", function (req, res) {
   res.render("vwAccount/otp");
 });
+
+router.get("/wishcourses", async function (req, res) {
+  if (req.session.authUser==null){
+    res.redirect("/");
+  }
+  else{
+    const user_id = req.session.authUser.id;
+    const product =  await coursesService.wishcourses(user_id);
+    const CourCount= await coursesService.countByCourId(user_id);
+
+    if (product === null) {
+      return res.redirect('/');
+    }
+    const catId = req.params.id || 0;
+
+    for (let c of res.locals.lcCategories) {
+      if (c.CatID === +catId) c.isActive = true;
+    }
+
+    const curPage = parseInt(req.query.page || 1);
+    const limit = 6;
+    const offset = (curPage - 1) * limit;
+
+    const total = await coursesService.countWish(user_id);
+    const nPages = Math.ceil(total / limit);
+    const pageNumbers = [];
+    for (let i = 1; i <= nPages; i++) {
+      pageNumbers.push({
+        value: i,
+        isCurrent: i === +curPage,
+        isCurPage:curPage,
+        nPages,
+      });
+    }
+
+    const list = await coursesService.findPageByStudentID(user_id, limit, offset);
+
+    res.render('vwAccount/wishcourses', {
+      product: list,
+      CourCount:CourCount,
+      empty: list.length === 0,
+      pageNumbers: pageNumbers
+    });
+
+  }});
+
+
+
+
+router.get("/courseslist", async function (req, res) {
+  if (req.session.authUser==null){
+    res.redirect("/");
+  }
+  else{
+    const user_id = req.session.authUser.id;
+    const product =  await coursesService.enrollcourses(user_id);
+    console.log(product);
+    const CourCount= await coursesService.countByCourId(user_id);
+    if (product === null) {
+      return res.redirect('/');
+    }
+    const catId = req.params.id || 0;
+
+    for (let c of res.locals.lcCategories) {
+      if (c.CatID === +catId) c.isActive = true;
+    }
+
+    const curPage = parseInt(req.query.page || 1);
+    const limit = 6;
+    const offset = (curPage - 1) * limit;
+
+    const total = await coursesService.countEnroll(user_id);
+    const nPages = Math.ceil(total / limit);
+    const pageNumbers = [];
+    for (let i = 1; i <= nPages; i++) {
+      pageNumbers.push({
+        value: i,
+        isCurrent: i === +curPage,
+        isCurPage:curPage,
+        nPages,
+      });
+    }
+
+    const list = await coursesService.findPageByStudentIDforenroll(user_id, limit, offset);
+
+    res.render('vwAccount/courseslist', {
+      product: list,
+      CourCount:CourCount,
+      empty: list.length === 0,
+      pageNumbers: pageNumbers
+    });
+
+  }});
+
+
 
 router.post("/register/verify", async function (req, res) {
   const otpIn = [

@@ -56,6 +56,7 @@ CREATE TABLE `courses` (
                            `FullDes` text COLLATE utf8_general_ci NOT NULL,
                            `Price` int(11) NOT NULL,
                            `CatID` int(11) NOT NULL,
+                           `score` float default 0,
                            `TeacherID` int(11),
                            `Views` int(11),
                            `Block` int(1) default 0,
@@ -89,7 +90,7 @@ CREATE TABLE `ENROLL`(
 
 drop table if exists `CoursesRating`;
 create table `CoursesRating`(
-                                `RatingID` int(11),
+                                `RatingID` int(11) unsigned NOT NULL AUTO_INCREMENT,
                                 `CourID` int(11),
                                 `StudentID` int(11),
                                 `Rating` int,

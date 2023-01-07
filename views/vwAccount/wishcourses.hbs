@@ -50,7 +50,7 @@
                                         <h5 class="text-danger">{{format_number this.Price}}</h5>
                                         <h6 class="card-title">Lượt xem: {{Views}}</h6>
                                     </div>
-                                    <div class="card-footer d-flex justify-content-between" >
+                                    <form class="card-footer d-flex justify-content-between" method="post">
                                         <a
                                                 class="btn btn-outline-primary"
                                                 href="/courses/detail/{{this.CourID}}"
@@ -59,17 +59,18 @@
 
                                             Xem chi tiết
                                         </a>
-                                        <a class="btn btn-outline-success" href="#" role="button">
+                                        <button class="btn btn-outline-danger" href="#" role="button" name="delete" value={{this.CourID}}>
 
                                             xóa yêu thích
-                                        </a>
-                                    </div>
+                                        </button>
+
+                                    </form>
                                 </div>
                             </div>
 
                         {{/each}}
                     </div>
-                    <ul class="pagination" style="align-content: center">
+                    <ul class="pagination">
                         {{#if (eq this.pageNumbers.[0].isCurPage 1)  }}
 
                         {{else}}
@@ -103,6 +104,7 @@
                     </ul>
                 </div>
             {{/if}}
+
         </div>
     </div>
 
