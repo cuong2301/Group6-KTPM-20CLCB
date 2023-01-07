@@ -44,10 +44,11 @@
 </h1>
         <br>
         <div class="d-flex align-items-baseline" style="space-between">
-            <button class="btn btn-outline-danger btn-lg align-middle" formaction="/courses/wishcourses" style="justify-content: left ; margin-left: 1rem ;margin-bottom: 1rem " >
-                <i class="fa fa-heart-o" aria-hidden="true"></i>
-                Yêu thích
-            </button>
+            <form method="post" class="d-flex align-items-baseline" style="space-between">
+                <button class="btn btn-outline-danger btn-lg align-middle" value={{this.product.CourID}} type="submit" name="like" href="#" role="button" style="justify-content: left ; margin-left: 1rem ;margin-bottom: 1rem " >
+                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                    Yêu thích
+                </button>
             <button class="btn btn-outline-success btn-lg align-middle" formaction="/courses/add" type="submit" style="justify-content: right ; margin-left: 3rem ;margin-bottom: 1rem ">
                 <i class="fa fa-cart-plus " aria-hidden="true"></i>
                 Mua khóa học
