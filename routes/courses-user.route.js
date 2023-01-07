@@ -9,11 +9,8 @@ router.get("/", async function (req, res) {
   const curPage = parseInt(req.query.page || 1);
   const limit = 6;
   const offset = (curPage - 1) * limit;
-
   const total = await coursesService.countAll();
-  console.log(total);
   const nPages = Math.ceil(total / limit);
-
   const pageNumbers = [];
   for (let i = 1; i <= nPages; i++) {
     pageNumbers.push({
@@ -54,7 +51,7 @@ router.get("/byCat/:id", async function (req, res) {
     });
   }
   const list = await coursesService.findPageByCatId(catId, limit, offset);
-  console.log(list);
+
   res.render("vwCourses/byCat", {
     courses: list,
     empty: list.length === 0,
@@ -62,24 +59,81 @@ router.get("/byCat/:id", async function (req, res) {
   });
 });
 
-router.get('/search',async function (req,res){
-  res.render('vwCourses/search');
+router.get('/search', async function (req, res){
+const ret= req.session.Search.Search;
+  if(ret!=""){
+    const product = await coursesService.searchByName(ret);
+    const CourCount= await coursesService.countsearch(ret);
+    if (product === null) {
+      return res.redirect('/');
+    }
+    const catId = req.params.id || 0;
+    for (let c of res.locals.lcCategories) {
+      if (c.CatID === +catId) c.isActive = true;
+    }
+    const curPage = parseInt(req.query.page || 1);
+    const limit = 6;
+    const offset = (curPage - 1) * limit;
+    const temp = await coursesService.counttotalsearch(ret);
+    const total = temp[0].CourCount;
+    const nPages = Math.ceil(total / limit);
+    const pageNumbers = [];
+    for (let i = 1; i <= nPages; i++) {
+      pageNumbers.push({
+        value: i,
+        isCurrent: i === +curPage,
+        isCurPage:curPage,
+        nPages,
+      });
+    }
+    const list = await coursesService.findPageByNameCourses(ret, limit, offset);
+    res.render('vwCourses/search', {
+      product: list,
+      CourCount:CourCount,
+      empty: list.length === 0,
+      pageNumbers: pageNumbers
+    });}
+  else{
+    res.render('vwCourses/search');
+  }
 });
 
 router.post('/search', async function (req, res) {
   const ret=req.body.Search;
-  console.log(ret);
-  console.log(req.body);
+  req.session.Search=req.body;
+ if(ret!=null){
   const product = await coursesService.searchByName(ret);
-const CourCount= await coursesService.countsearch(ret);
+ const CourCount= await coursesService.countsearch(ret);
   if (product === null) {
     return res.redirect('/');
   }
+   const catId = req.params.id || 0;
+   for (let c of res.locals.lcCategories) {
+     if (c.CatID === +catId) c.isActive = true;
+   }
+   const curPage = parseInt(req.query.page || 1);
+   const limit = 6;
+   const offset = (curPage - 1) * limit;
+   const temp = await coursesService.counttotalsearch(ret);
+   const total = temp[0].CourCount;
+   const nPages = Math.ceil(total / limit);
+   const pageNumbers = [];
+   for (let i = 1; i <= nPages; i++) {
+     pageNumbers.push({
+       value: i,
+       isCurrent: i === +curPage,
+       isCurPage:curPage,
+       nPages,
+     });
+   }
+   const list = await coursesService.findPageByNameCourses(ret, limit, offset);
   res.render('vwCourses/search', {
-    product: product,
-    CourCount:CourCount
+    product: list,
+    CourCount:CourCount,
+    empty: list.length === 0,
+    pageNumbers: pageNumbers
   });
-
+ }
 });
 
 router.get('/detail/:id', async function (req, res) {

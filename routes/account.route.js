@@ -325,7 +325,11 @@ router.get("/courseslist", async function (req, res) {
     }
 
     const list = await coursesService.findPageByStudentIDforenroll(user_id, limit, offset);
-
+    console.log(total);
+    console.log(catId);
+    console.log(curPage);
+    console.log(list);
+    console.log(CourCount);
     res.render('vwAccount/courseslist', {
       product: list,
       CourCount:CourCount,

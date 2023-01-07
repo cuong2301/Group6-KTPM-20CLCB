@@ -59,6 +59,12 @@ export default {
   findPageByCatId(catId, limit, offset) {
     return db("courses").where("CatID", catId).limit(limit).offset(offset);
   },
+  async findPageByNameCourses(name, limit, offset) {
+    const ret = await db.raw("select  linhvuc.CatName , khoahoc.*  from categories as linhvuc, courses as khoahoc where linhvuc.CatID=khoahoc.CatID and match(linhvuc.CatName,khoahoc.CourName) against(? IN BOOLEAN MODE ) LIMIT ?? OFFSET ??",
+        [name,limit,offset]
+    );
+    return ret[0];
+  },
   async findPageByStudentID(id, limit, offset) {
     const ret = await db.raw("select * from wishcourses as thamgia, courses as khoahoc where thamgia.CourID=khoahoc.CourID and thamgia.StudentID like ?? LIMIT ?? OFFSET  ??",[id,limit,offset]
         );
@@ -103,16 +109,22 @@ export default {
       "select  linhvuc.CatName , khoahoc.*  from categories as linhvuc, courses as khoahoc where linhvuc.CatID=khoahoc.CatID and match(linhvuc.CatName,khoahoc.CourName) against(? IN BOOLEAN MODE )",
       name
     );
-    console.log(ret[0]);
+
     return ret[0];
   },
 
   async countsearch(name) {
     const ret = await db.raw(
-      "select linhvuc.CatName,count(khoahoc.CourID) as CourCount from categories as linhvuc, courses as khoahoc where linhvuc.CatID=khoahoc.CatID and match(linhvuc.CatName,khoahoc.CourName) against(? IN BOOLEAN MODE ) group by linhvuc.CatName",
+      "select linhvuc.CatName,khoahoc.CatID,count(khoahoc.CourID) as CourCount from categories as linhvuc, courses as khoahoc where linhvuc.CatID=khoahoc.CatID and match(linhvuc.CatName,khoahoc.CourName) against(? IN BOOLEAN MODE ) group by linhvuc.CatName",
       name
     );
-    console.log(ret[0]);
+    return ret[0];
+  },
+  async counttotalsearch(name) {
+    const ret = await db.raw(
+        "select count(khoahoc.CourID) as CourCount from categories as linhvuc, courses as khoahoc where linhvuc.CatID=khoahoc.CatID and match(linhvuc.CatName,khoahoc.CourName) against(? IN BOOLEAN MODE ) ",
+        name
+    );
     return ret[0];
   },
 
