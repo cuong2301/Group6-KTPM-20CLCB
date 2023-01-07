@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c9a9cdb6-0928-4361-802a-4edde72deaad" name="Changes" comment="update wishcourses">
+    <list default="true" id="c9a9cdb6-0928-4361-802a-4edde72deaad" name="Changes" comment="delete wishcourses">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/account.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/account.route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/user.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/user.service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/vwAccount/courseslist.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/vwAccount/courseslist.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/courses-user.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/courses-user.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/courses.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/courses.service.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/vwAccount/wishcourses.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/vwAccount/wishcourses.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/vwCourses/detail.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/vwCourses/detail.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/vwCourses/byCat.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/vwCourses/byCat.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +116,7 @@
       <workItem from="1672937074427" duration="3853000" />
       <workItem from="1672972695349" duration="7957000" />
       <workItem from="1672988720996" duration="2964000" />
-      <workItem from="1673065822487" duration="12341000" />
+      <workItem from="1673065822487" duration="19253000" />
     </task>
     <task id="LOCAL-00001" summary="First setup for project">
       <created>1670819844717</created>
@@ -286,7 +286,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673073443708</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="delete wishcourses">
+      <created>1673078572945</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1673078572945</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -325,7 +332,8 @@
     <MESSAGE value="add courseslist" />
     <MESSAGE value="font-end wishcourses and courseslist" />
     <MESSAGE value="update wishcourses" />
-    <option name="LAST_COMMIT_MESSAGE" value="update wishcourses" />
+    <MESSAGE value="delete wishcourses" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete wishcourses" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -337,7 +345,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/routes/courses-user.route.js</url>
-          <line>84</line>
+          <line>82</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

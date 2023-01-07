@@ -12,7 +12,18 @@ export default {
     const list = await db("courses")
       .where("CatID", catId)
       .count({ amount: "CourID" });
-
+    return list[0].amount;
+  },
+  async countWish(id) {
+    const list = await db("wishcourses")
+        .where("StudentID", id)
+        .count({ amount: "CourID" });
+    return list[0].amount;
+  },
+  async countEnroll(id) {
+    const list = await db("enroll")
+        .where("StudentID", id)
+        .count({ amount: "CourID" });
     return list[0].amount;
   },
   async countByCourId(Courid) {
@@ -47,6 +58,19 @@ export default {
 
   findPageByCatId(catId, limit, offset) {
     return db("courses").where("CatID", catId).limit(limit).offset(offset);
+  },
+  async findPageByStudentID(id, limit, offset) {
+    const ret = await db.raw("select * from wishcourses as thamgia, courses as khoahoc where thamgia.CourID=khoahoc.CourID and thamgia.StudentID like ?? LIMIT ?? OFFSET  ??",[id,limit,offset]
+        );
+    return ret[0];
+  },
+  async findPageByStudentIDforenroll(id, limit, offset) {
+    const ret = await db.raw("select * from enroll as thamgia, courses as khoahoc where thamgia.CourID=khoahoc.CourID and thamgia.StudentID like ?? LIMIT ?? OFFSET  ??",[id,limit,offset]
+    );
+    return ret[0];
+  },
+  findPageByCourID(catId, limit, offset) {
+    return db("courses").where("CourID", catId).limit(limit).offset(offset);
   },
   findPageAll(limit, offset) {
     return db("courses").limit(limit).offset(offset);

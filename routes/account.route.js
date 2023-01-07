@@ -254,9 +254,35 @@ router.get("/wishcourses", async function (req, res) {
     if (product === null) {
       return res.redirect('/');
     }
+    const catId = req.params.id || 0;
+
+    for (let c of res.locals.lcCategories) {
+      if (c.CatID === +catId) c.isActive = true;
+    }
+
+    const curPage = parseInt(req.query.page || 1);
+    const limit = 6;
+    const offset = (curPage - 1) * limit;
+
+    const total = await coursesService.countWish(user_id);
+    const nPages = Math.ceil(total / limit);
+    const pageNumbers = [];
+    for (let i = 1; i <= nPages; i++) {
+      pageNumbers.push({
+        value: i,
+        isCurrent: i === +curPage,
+        isCurPage:curPage,
+        nPages,
+      });
+    }
+
+    const list = await coursesService.findPageByStudentID(user_id, limit, offset);
+
     res.render('vwAccount/wishcourses', {
-      product: product,
-      CourCount:CourCount
+      product: list,
+      CourCount:CourCount,
+      empty: list.length === 0,
+      pageNumbers: pageNumbers
     });
 
   }});
@@ -270,19 +296,41 @@ router.get("/courseslist", async function (req, res) {
   }
   else{
     const user_id = req.session.authUser.id;
-
     const product =  await coursesService.enrollcourses(user_id);
     console.log(product);
     const CourCount= await coursesService.countByCourId(user_id);
-
-
-console.log(user_id);
     if (product === null) {
       return res.redirect('/');
     }
+    const catId = req.params.id || 0;
+
+    for (let c of res.locals.lcCategories) {
+      if (c.CatID === +catId) c.isActive = true;
+    }
+
+    const curPage = parseInt(req.query.page || 1);
+    const limit = 6;
+    const offset = (curPage - 1) * limit;
+
+    const total = await coursesService.countEnroll(user_id);
+    const nPages = Math.ceil(total / limit);
+    const pageNumbers = [];
+    for (let i = 1; i <= nPages; i++) {
+      pageNumbers.push({
+        value: i,
+        isCurrent: i === +curPage,
+        isCurPage:curPage,
+        nPages,
+      });
+    }
+
+    const list = await coursesService.findPageByStudentIDforenroll(user_id, limit, offset);
+
     res.render('vwAccount/courseslist', {
-      product: product,
-      CourCount:CourCount
+      product: list,
+      CourCount:CourCount,
+      empty: list.length === 0,
+      pageNumbers: pageNumbers
     });
 
   }});

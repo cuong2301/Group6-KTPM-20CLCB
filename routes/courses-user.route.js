@@ -42,10 +42,8 @@ router.get("/byCat/:id", async function (req, res) {
   const curPage = parseInt(req.query.page || 1);
   const limit = 6;
   const offset = (curPage - 1) * limit;
-
   const total = await coursesService.countByCatId(catId);
   const nPages = Math.ceil(total / limit);
-  
   const pageNumbers = [];
   for (let i = 1; i <= nPages; i++) {
     pageNumbers.push({
@@ -55,8 +53,8 @@ router.get("/byCat/:id", async function (req, res) {
       nPages,
     });
   }
-
   const list = await coursesService.findPageByCatId(catId, limit, offset);
+  console.log(list);
   res.render("vwCourses/byCat", {
     courses: list,
     empty: list.length === 0,
