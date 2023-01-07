@@ -98,6 +98,7 @@ app.get("/", async function (req, res) {
   res.render("home", {
     newest: newest,
     popular: popula,
+    mostenroll: MostEnroll
   });
 });
 
