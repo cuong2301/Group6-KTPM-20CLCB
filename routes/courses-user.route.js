@@ -120,11 +120,20 @@ router.get('/detail/:id', async function (req, res) {
 });
 
 router.post('/add', async function (req, res) {
-  
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  let mm = today.getMonth() + 1; // Months start at 0!
+  let dd = today.getDate();
+
+  if (dd < 10) dd = '0' + dd;
+  if (mm < 10) mm = '0' + mm;
+
+  const formattedToday = yyyy + '-' + mm + '-' + dd;
  
   const user = req.session.auth;
   let ret=null;
-  //console.log(req.body);
+  
+  req.body.dob=formattedToday;
   if(user){
    ret= await coursesService.addEnroll(req.body);
   res.render('vwCourses/add',{
