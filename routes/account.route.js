@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 import userService from "../services/user.service.js";
 import adminRole from "../middlewares/adminRole.mdw.js";
 import isLogin from "../middlewares/isLogin.mdw.js";
-
+import coursesService from "../services/courses.service.js";
 
 import passport from 'passport'
 const router = express.Router();
@@ -216,6 +216,53 @@ router.post("/logout", async function (req, res) {
 router.get("/register/verify", function (req, res) {
   res.render("vwAccount/otp");
 });
+
+router.get("/wishcourses", async function (req, res) {
+  if (req.session.authUser==null){
+    res.redirect("/");
+  }
+  else{
+    const user_id = req.session.authUser.id;
+    const product =  await coursesService.wishcourses(user_id);
+    const CourCount= await coursesService.countByCourId(user_id);
+
+    if (product === null) {
+      return res.redirect('/');
+    }
+    res.render('vwAccount/wishcourses', {
+      product: product,
+      CourCount:CourCount
+    });
+
+  }});
+
+
+
+
+router.get("/courseslist", async function (req, res) {
+  if (req.session.authUser==null){
+    res.redirect("/");
+  }
+  else{
+    const user_id = req.session.authUser.id;
+
+    const product =  await coursesService.enrollcourses(user_id);
+    console.log(product);
+    const CourCount= await coursesService.countByCourId(user_id);
+
+
+console.log(user_id);
+    if (product === null) {
+      return res.redirect('/');
+    }
+    res.render('vwAccount/courseslist', {
+      product: product,
+      CourCount:CourCount
+    });
+
+  }});
+
+
 
 router.post("/register/verify", async function (req, res) {
   const otpIn = [

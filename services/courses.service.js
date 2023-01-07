@@ -92,12 +92,18 @@ export default {
     return ret[0];
   },
 
-  async wishcourses(CourID){
-    const ret = await db.raw(
-        "select *from courses as course, wishcourses as wishlist where course.CourID=wishlist.CourID");
-    return ret[0];
-  },
+  async wishcourses(Id){
+    const ret = await db.raw("select * from wishcourses as thamgia, courses as khoahoc where thamgia.CourID=khoahoc.CourID and thamgia.StudentID like ?  ",
+        Id);
 
+    return  ret[0];
+  },
+  async enrollcourses(Id){
+    const ret = await db.raw("select * from enroll as thamgia, courses as khoahoc where thamgia.CourID=khoahoc.CourID and thamgia.StudentID like ?  ",
+        Id);
+
+    return  ret[0];
+  },
   async increaseView(id) {
     const list = await db("courses").where("CourID", id);
     return db("courses")

@@ -73,7 +73,12 @@ export default {
 
     return db("users").where("id", id).update(user);
   },
-
+  findwishcourses(id) {
+    return db("wishcourses").where("StudentID", id);
+  },
+  findenroll(id) {
+    return db("enroll").where("StudentID", id);
+  },
   update(name, id) {
     return db("users").where("id", id).update({ username: name });
   },

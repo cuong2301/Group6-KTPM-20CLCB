@@ -25,35 +25,35 @@
     <nav class="nav nav-borders">
         <a class="nav-link " href="http://localhost:3000/account/profile" target="__blank">Profile</a>
         <a class="nav-link " href="http://localhost:3000/account/wishcourses" target="__blank">Wish Courses</a>
-        <a class="nav-link active ms-0"  href="http://localhost:3000/account/courseslist" target="__blank">Course List</a>
+        <a class="nav-link active ms-0" href="http://localhost:3000/account/courseslist" target="__blank">Course List</a>
     </nav>
 
-    <div class ="col-sm-7 justify-content-center"  style="margin-left: 250px">
+    <div class ="col-sm-10 justify-content-center "  style="margin-left: 50px">
         <div class="card text-white bg-warning ">
             <h4 class="card-header">
                 Khóa học
             </h4>
-            {{#if this.empty}}
+            {{#if this.product.empty}}
                 <div class="card-body">
                     Không có dữ liệu!
                 </div>
             {{else}}
                 <div class="card-body text-black">
                     <div class="row">
-                        {{#each this.courses}}
+                        {{#each this.product}}
 
                             <div class="col-sm-4 mb-3">
                                 <div class="card h-100">
-                                    <img src="/public/img/5/main.jpg" alt="{{CourName}}" title="{{CourName}}">
+                                    <img src="/public/img/5/main.jpg" alt="{{this.CourName}}" title="{{this.CourName}}">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{CourName}}</h5>
-                                        <h5 class="text-danger">{{format_number Price}}</h5>
+                                        <h5 class="card-title">{{this.CourName}}</h5>
+                                        <h5 class="text-danger">{{format_number this.Price}}</h5>
                                         <h6 class="card-title">Lượt xem: {{Views}}</h6>
                                     </div>
-                                    <div class="card-footer">
+                                    <div class="card-footer d-flex justify-content-between" >
                                         <a
                                                 class="btn btn-outline-primary"
-                                                href="/courses/detail/{{CourID}}"
+                                                href="/courses/detail/{{this.CourID}}"
                                                 role="button"
                                         >
 
@@ -61,7 +61,7 @@
                                         </a>
                                         <a class="btn btn-outline-success" href="#" role="button">
 
-                                            Mua khóa học
+                                            xóa yêu thích
                                         </a>
                                     </div>
                                 </div>
