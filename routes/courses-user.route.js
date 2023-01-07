@@ -122,14 +122,19 @@ router.get('/detail/:id', async function (req, res) {
 router.post('/add', async function (req, res) {
   
  
-  // console.log(req.body);
-  const ret= await coursesService.addEnroll(req.body);
-  console.log(ret);
-  
+  const user = req.session.auth;
+  let ret=null;
+  //console.log(req.body);
+  if(user){
+   ret= await coursesService.addEnroll(req.body);
   res.render('vwCourses/add',{
-    ret,
+    ret:ret,
     layout: false,
-});
+  });
+
+  }else{
+    res.redirect("/account/login");
+  }
 });
 
 router.post('/comment', async function (req, res) {
