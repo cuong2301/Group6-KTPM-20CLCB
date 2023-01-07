@@ -4,10 +4,12 @@ import router from "./account.route.js";
 import bcrypt from "bcryptjs";
 import categoryService from "../services/category.service.js";
 import coursesService from "../services/courses.service.js";
+import isLogin from "../middlewares/isLogin.mdw.js";
 
 
 
-router.get("/admin-login", function (req, res) {
+
+router.get("/admin-login", isLogin, function (req, res) {
     res.render("vwAccount/loginAdmin",{
         layout: "bs5.hbs",
     });
@@ -62,6 +64,7 @@ router.post("/teachers/add", async function (req, res) {
         password: hash,
         email: req.body.tkuser,
         permission: 1,
+        blocked: false,
     };
     const temp = await userService.findByEmail(req.body.tkuser);
     if(temp == null) {
@@ -76,7 +79,7 @@ router.post("/teachers/add", async function (req, res) {
 });
 
 router.get("/users", adminRole, async function (req, res) {
-    const list = await userService.findAll();
+    const list = await userService.findStudent();
     res.render("vwAccount/admin", {
         users: list,
         empty: list.length === 0,
@@ -108,6 +111,36 @@ router.post("/teachers/del", adminRole, async function (req, res) {
     const id = req.query.id || 0;
     const affected_rows = await userService.del(id);
     res.redirect("/admin/teachers");
+});
+
+router.post("/users/del", adminRole, async function (req, res) {
+    const id = req.query.id || 0;
+    const affected_rows = await userService.del(id);
+    res.redirect("/admin/users");
+});
+
+router.post("/teachers/disable", adminRole, async function (req, res) {
+    const id = req.query.id || 0;
+    const affected_rows = await userService.disable(id);
+    res.redirect("/admin/teachers");
+});
+
+router.post("/teachers/enable", adminRole, async function (req, res) {
+    const id = req.query.id || 0;
+    const affected_rows = await userService.enable(id);
+    res.redirect("/admin/teachers");
+});
+
+router.post("/users/disable", adminRole, async function (req, res) {
+    const id = req.query.id || 0;
+    const affected_rows = await userService.disable(id);
+    res.redirect("/admin/users");
+});
+
+router.post("/users/enable", adminRole, async function (req, res) {
+    const id = req.query.id || 0;
+    const affected_rows = await userService.enable(id);
+    res.redirect("/admin/users");
 });
 
 export default router;

@@ -24,6 +24,16 @@ export default {
     // if (list.length === 0) return null;
     // return list[0];
   },
+  async findStudent(){
+    const sql = `	SELECT *
+    From users u
+    Where u.permission =${2} `
+    const list = await db.raw(sql);
+    return list[0];
+    // const list = await db("users").where("permission", "1");
+    // if (list.length === 0) return null;
+    // return list[0];
+  },
   async addTeacher(user){
     return db("users").insert(user)
   },
@@ -70,9 +80,11 @@ export default {
 
   updateAll(id,user){
     return db("users").where("id", id).update(user);
-  }
-  ,
-  findwishcourses(id) {
-    return db("wishcourses").where("StudentID", id);
-  }
+  },
+  disable(id){
+    return db('users').where( "id", id ).update({ blocked: true })
+  },
+  enable(id){
+    return db('users').where( "id", id ).update({ blocked: false })
+  },
 };

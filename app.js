@@ -117,16 +117,16 @@ app.use("/courses", coursesUserService);
 app.use("/account", accountRoute);
 app.use("/teacher", teacherRoute);
 
-// app.use(function(req,res,next){
-//
-//   res.render('404',{layout:false});
-//
-// });
-// app.use(function(err,req,res,next){
-//     console.log(err.stack);
-//     res.status(500).render('500',{layout:false});
-//
-// });
+app.use(function(req,res,next){
+
+  res.render('404',{layout:false});
+
+});
+app.use(function(err,req,res,next){
+    console.log(err.stack);
+    res.status(500).render('500',{layout:false});
+
+});
 
 passport.serializeUser(function(user, done) {
   done(null, user);

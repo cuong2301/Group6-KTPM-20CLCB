@@ -25,6 +25,10 @@ export default {
     return db("courses").where("TeacherID",id);
   },
 
+  async findByTeacherIDAndByCat(CatID,id){
+    return db("courses").where("TeacherID",id).where("CatID",CatID);
+  },
+
   async findById(id) {
     const list = await db("courses").where("CourID", id);
     if (list.length === 0) return null;
@@ -62,12 +66,11 @@ export default {
   },
 
   async findPopularCourses() {
-    const sql = `SELECT rated.CourID, courses.CourName, CONVERT(AVG(rated.Rating), float) as score
-                 FROM coursesrating rated, courses
-                 WHERE rated.CourID = courses.CourID
-                 GROUP BY rated.CourID
-                 ORDER BY score DESC
-                 LIMIT 3`;
+    const sql = `SELECT c.CourName, CONVERT(AVG(e.Rating), float) as score
+                 FROM coursesrating e, courses c
+                 WHERE e.CourID = c.CourID and e.dob > DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())+6 DAY) AND e.dob <= DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())-1 DAY)
+                 GROUP BY c.CourID
+                 ORDER By score DESC`;
     const ret = await db.raw(sql);
     return ret[0];
   },
