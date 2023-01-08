@@ -60,6 +60,7 @@ router.get("/byCat/:id", async function (req, res) {
 });
 
 router.get('/search', async function (req, res){
+  console.log(req.session.Array.Array);
 const ret= req.session.Search.Search;
   if(ret!=""){
     const product = await coursesService.searchByName(ret);
@@ -86,7 +87,13 @@ const ret= req.session.Search.Search;
         nPages,
       });
     }
-    const list = await coursesService.findPageByNameCourses(ret, limit, offset);
+    let list = await coursesService.findPageByNameCourses(ret, limit, offset);
+    if(req.session.Array.Array=="Price"){
+       list = await coursesService.PriceArragerment(ret, limit, offset);
+    }
+    if(req.session.Array.Array=="Rating"){
+       list = await coursesService.RateArragerment(ret, limit, offset);
+    }
     res.render('vwCourses/search', {
       product: list,
       CourCount:CourCount,
@@ -99,9 +106,14 @@ const ret= req.session.Search.Search;
 });
 
 router.post('/search', async function (req, res) {
-  const ret=req.body.Search;
-  req.session.Search=req.body;
+  let ret=req.body.Search;
+  req.session.Array={"Array":""};
+  if(typeof ret === "undefined"){
+    req.session.Array.Array=req.body.Array;
+  }
+  console.log(ret);
  if(ret!=null){
+   req.session.Search=req.body;
   const product = await coursesService.searchByName(ret);
  const CourCount= await coursesService.countsearch(ret);
   if (product === null) {
@@ -133,6 +145,46 @@ router.post('/search', async function (req, res) {
     empty: list.length === 0,
     pageNumbers: pageNumbers
   });
+ }
+ else{
+   const product = await coursesService.searchByName(req.session.Search.Search);
+   const CourCount= await coursesService.countsearch(req.session.Search.Search);
+   const catId = req.params.id || 0;
+   for (let c of res.locals.lcCategories) {
+     if (c.CatID === +catId) c.isActive = true;
+   }
+   const curPage = parseInt(req.query.page || 1);
+   const limit = 6;
+   const offset = (curPage - 1) * limit;
+   const temp = await coursesService.counttotalsearch(req.session.Search.Search);
+   const total = temp[0].CourCount;
+   const nPages = Math.ceil(total / limit);
+   const pageNumbers = [];
+   for (let i = 1; i <= nPages; i++) {
+     pageNumbers.push({
+       value: i,
+       isCurrent: i === +curPage,
+       isCurPage:curPage,
+       nPages,
+     });
+   }
+   let list = await coursesService.findPageByNameCourses(req.session.Search.Search, limit, offset);
+   if(req.session.Array.Array=="Price"){
+      list = await coursesService.PriceArragerment(req.session.Search.Search, limit, offset);
+     console.log(list);
+   }
+   if(req.session.Array.Array=="Rating"){
+      list = await coursesService.RateArragerment(req.session.Search.Search, limit, offset);
+     console.log(list);
+   }
+   console.log(req.session.Array.Array);
+
+   res.render('vwCourses/search', {
+     product: list,
+     CourCount:CourCount,
+     empty: list.length === 0,
+     pageNumbers: pageNumbers
+   });
  }
 });
 

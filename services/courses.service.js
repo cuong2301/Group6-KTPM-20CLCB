@@ -65,6 +65,18 @@ export default {
     );
     return ret[0];
   },
+  async PriceArragerment(name, limit, offset) {
+    const ret = await db.raw("select  linhvuc.CatName , khoahoc.*  from categories as linhvuc, courses as khoahoc where linhvuc.CatID=khoahoc.CatID and match(linhvuc.CatName,khoahoc.CourName) against(? IN BOOLEAN MODE ) ORDER BY  khoahoc.Price LIMIT ?? OFFSET ?? ",
+        [name,limit,offset]
+    );
+    return ret[0];
+  },
+  async RateArragerment(name, limit, offset) {
+    const ret = await db.raw("select  linhvuc.CatName , khoahoc.*  from categories as linhvuc, courses as khoahoc where linhvuc.CatID=khoahoc.CatID and match(linhvuc.CatName,khoahoc.CourName) against(? IN BOOLEAN MODE ) ORDER BY  khoahoc.score DESC  LIMIT ?? OFFSET ??",
+        [name,limit,offset]
+    );
+    return ret[0];
+  },
   async findPageByStudentID(id, limit, offset) {
     const ret = await db.raw("select * from wishcourses as thamgia, courses as khoahoc where thamgia.CourID=khoahoc.CourID and thamgia.StudentID like ?? LIMIT ?? OFFSET  ??",[id,limit,offset]
         );

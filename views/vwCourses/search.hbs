@@ -5,17 +5,43 @@
                 <h4 class="card-header ">
                     Lĩnh vực
                 </h4>
-                <div class="list-group list-group-flush">
-                    {{#each this.CourCount}}
-                        <a href="/courses/byCat/{{this.CatID}}" class = "list-group-item list-group-item-action list-group-item list-group-item-action {{#if isActive }} active {{/if}}">
-                            <i class="fa fa-caret-right" aria-hidden="true"></i>
-                            {{this.CatName}}
-                            {{#if this.CourCount}}
-                                <span class="badge badge-pill badge-primary text-danger float-right">{{this.CourCount}}</span>
-                            {{/if}}
-                        </a>
-                    {{/each}}
+                <div class="just-padding">
+                    <div class="list-group list-group-root well">
+                        {{#each lcCatParent}}
+                            <a href="#" class="list-group-item" data-bs-toggle="collapse" data-bs-target="#item-{{CatID}}"
+                               aria-expanded="true" aria-controls="collapseOne"></i>{{CatName}}
+                            </a>
+                            <div class="list-group collapse" id="item-{{CatID}}">
+                                {{#each ../lcCat}}
+                                    {{#if (eq CatParent ../CatID) }}
+                                        <a href="/courses/byCat/{{CatID}}" class="list-group-item" data-toggle="collapse">
+                                            <i class="glyphicon glyphicon-chevron-right"></i>{{CatName}}
+                                        </a>
+                                    {{/if}}
+                                {{/each}}
+                            </div>
+                        {{/each}}
+                    </div>
                 </div>
+            </div>
+            <div class="card mb-3  d-flex flex-column bd-highlight mb-3">
+                <h4 class="card-header ">
+                    Xếp Hạng
+                </h4>
+                <form method="post" class=" d-flex flex-column bd-highlight mb-3" >
+                    <div class="d-grid gap-2">
+                        <button class=" p-2 w-100 bd-highlight btn btn-outline-secondary" style="padding-left: 0px ; margin-top: 10px" value="Price" type="submit"
+                                name="Array" href="#" role="button"
+                                style="justify-content: left ; margin-left: 1rem ;margin-bottom: 1rem ">
+                            <i aria-hidden="true" style="color: #1b1b1b">ORDER PRICE</i>
+                        </button>
+                        <button class=" p-2 w-100 bd-highlight btn btn-outline-secondary " style="padding-left: 0px " value="Rating" type="submit"
+                                name="Array" href="#" role="button"
+                                style="justify-content: left ; margin-left: 1rem ;margin-bottom: 1rem ">
+                            <i  aria-hidden="true" style="color: #1b1b1b"> ORDER RATING</i>
+                        </button>
+                   </div>
+                </form>
                 <ul class="list-group list-group-flush">
 
                 </ul>
