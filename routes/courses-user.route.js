@@ -114,6 +114,7 @@ router.get('/detail/:id', async function (req, res) {
     teacher,
     rev,
     flag,
+    CourID: proId
   });
 });
 

@@ -105,7 +105,9 @@
                             <div id="collapse{{ChapOrder}}" class="accordion-collapse collapse show"
                                  aria-labelledby="heading{{ChapOrder}}" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <strong>{{{Link}}}</strong>
+                                    <video width="620" height="340" controls>
+                                        <source src="/./public/img/{{this.CourID}}/video/{{ChapID}}.mp4">
+                                    </video>
 
                                 </div>
                             </div>
@@ -121,11 +123,13 @@
                                     <strong>{{ChapName}}</strong>
                                 </button>
                             </h2>
-                            {{#if (eqString ChapOrder "One")}}
+                            {{#if (eq ChapOrder 1)}}
                                 <div id="collapse{{ChapOrder}}" class="accordion-collapse collapse show"
                                      aria-labelledby="heading{{ChapOrder}}" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <strong>{{{Link}}}</strong>
+                                        <video width="320" height="240" controls>
+                                            <source src="/./public/img/{{this.CourID}}/video/{{ChapID}}.mp4">
+                                        </video>
 
                                     </div>
                                 </div>
@@ -145,11 +149,13 @@
                                 <strong>{{ChapName}}</strong>
                             </button>
                         </h2>
-                        {{#if (eqString ChapOrder "One")}}
+                        {{#if (eq ChapOrder 1)}}
                             <div id="collapse{{ChapOrder}}" class="accordion-collapse collapse show"
                                  aria-labelledby="heading{{ChapOrder}}" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <strong>{{{Link}}}</strong>
+                                    <video width="520" height="240" controls>
+                                        <source src="/./public/img/{{this.CourID}}/video/{{ChapID}}.mp4">
+                                    </video>
 
                                 </div>
                             </div>
@@ -273,7 +279,11 @@
                 </div>
             {{/if}}
         {{/if}}
-
+    <div>
+        <video width="320" height="240" controls>
+            <source src="/./public/img/33/video/{{ChapID}}.mp4">
+        </video>
+    </div>
     </div>
 
 

@@ -11,6 +11,11 @@ export default {
     async editChap(chapter,id){
         return db("chapter").where("ChapID",id).update(chapter);
     },
+    async getNextID(){
+        const sql = `SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'chapter' and table_schema = 'sus';`
+        const ret = await db.raw(sql);
+        return ret[0];
+    },
     async addNew(chapter){
         return db("chapter").insert(chapter);
     },

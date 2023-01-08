@@ -4,8 +4,8 @@ import categoryService from "../services/category.service.js";
 import chapterService from "../services/chapter.service.js";
 import multer from 'multer';
 import bcrypt from "bcryptjs";
+import fs from 'fs'
 import userService from "../services/user.service.js";
-
 const router = express.Router();
 
 let errormessage = "";
@@ -98,16 +98,26 @@ router.post('/courses/add', async function (req, res) {
     const next = await coursesService.getNextID();
     const nextID = next[0].AUTO_INCREMENT;
     const user = req.session.authUser
+    let dir = './public/img/' + nextID;    //name of the directory/folder
+
+    if (!fs.existsSync(dir)){    //check if folder already exists
+        fs.mkdirSync(dir);    //creating folder
+    }
+    dir = './public/img/' + nextID + '/video';
+    if (!fs.existsSync(dir)){    //check if folder already exists
+        fs.mkdirSync(dir);    //creating folder
+    }
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, './public/img');
+            cb(null, './public/img/' + nextID);
         },
         filename: function (req, file, cb) {
-            cb(null, nextID + ".jpg");
+            cb(null, "main.jpg");
         }
     });
     const upload = multer({ storage: storage });
     upload.array('fuMain', 5)(req, res, async function (err) {
+
         const today = new Date();
         const yyyy = today.getFullYear();
         let mm = today.getMonth() + 1; // Months start at 0!
@@ -150,7 +160,7 @@ router.post("/courses/edit", async function (req, res) {
             cb(null, './public/img');
         },
         filename: function (req, file, cb) {
-            cb(null, id + ".jpg");
+            cb(null, id + ".mkv");
         }
     });
     const upload = multer({ storage: storage });
@@ -164,6 +174,7 @@ router.post("/courses/edit", async function (req, res) {
 
         const formattedToday = yyyy + '-' + mm + '-' + dd;
         let course = req.body;
+        console.log(course);
         course.update = formattedToday;
         course.CourID = id;
         await coursesService.patch(course);
@@ -206,21 +217,33 @@ router.get("/courses/chapter/edit",requireRole(), async function (req, res) {
 router.post("/courses/chapter/edit", async function (req, res) {
     const id = req.query.id || 0;
     const CourID = req.query.CourID || 0;
-    let chapter = req.body;
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    let mm = today.getMonth() + 1; // Months start at 0!
-    let dd = today.getDate();
-    if (dd < 10) dd = '0' + dd;
-    if (mm < 10) mm = '0' + mm;
 
-    const formattedToday = yyyy + '-' + mm + '-' + dd;
-    let course = {};
-    course.CourID = id;
-    course.update = formattedToday;
-    await coursesService.patch(course);
-    await chapterService.editChap(chapter,id);
-    res.redirect("/teacher/courses/chapter?id=" + CourID);
+    const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, './public/img/' + CourID + '/video');
+        },
+        filename: function (req, file, cb) {
+            cb(null, id +  ".mp4");
+        }
+    });
+    const upload = multer({storage: storage});
+    upload.array('fuMain', 5)(req, res, async function (err) {
+        let chapter = req.body;
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        let mm = today.getMonth() + 1; // Months start at 0!
+        let dd = today.getDate();
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
+
+        const formattedToday = yyyy + '-' + mm + '-' + dd;
+        let course = {};
+        course.CourID = id;
+        course.update = formattedToday;
+        await coursesService.patch(course);
+        await chapterService.editChap(chapter, id);
+        res.redirect("/teacher/courses/chapter?id=" + CourID);
+    })
 });
 router.get("/courses/chapter/add", requireRole(),async function (req, res) {
     const id = req.query.id || 0;
@@ -231,28 +254,41 @@ router.get("/courses/chapter/add", requireRole(),async function (req, res) {
 });
 router.post("/courses/chapter/add", async function (req, res) {
     const id = req.query.id || 0;
-    let chapter = req.body;
-    chapter.CourID = id;
+    const next = await chapterService.getNextID();
+    const nextID = next[0].AUTO_INCREMENT;
+    const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, './public/img/' + id + '/video');
+        },
+        filename: function (req, file, cb) {
+            cb(null, nextID +  ".mp4");
+        }
+    });
+    const upload = multer({storage: storage});
+    upload.array('fuMain', 5)(req, res, async function (err) {
 
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    let mm = today.getMonth() + 1; // Months start at 0!
-    let dd = today.getDate();
-    if (dd < 10) dd = '0' + dd;
-    if (mm < 10) mm = '0' + mm;
-    const formattedToday = yyyy + '-' + mm + '-' + dd;
-    let course = {};
-    course.CourID = id;
-    course.update = formattedToday;
-
-    await coursesService.patch(course);
-    await chapterService.addNew(chapter);
-    res.redirect("/teacher/courses/chapter?id=" + id);
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        let mm = today.getMonth() + 1; // Months start at 0!
+        let dd = today.getDate();
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
+        const formattedToday = yyyy + '-' + mm + '-' + dd;
+        let course = {};
+        course.CourID = id;
+        course.update = formattedToday;
+        let chapter = req.body;
+        chapter.CourID = id;
+        await coursesService.patch(course);
+        await chapterService.addNew(chapter);
+        res.redirect("/teacher/courses/chapter?id=" + id);
+    });
 });
 router.post("/courses/chapter/del", async function (req, res) {
     const id = req.query.id || 0;
     const CourID = req.query.CourID || 0;
-
+    let dir = "./public/img/" + CourID + "/video/" + id + ".mp4";
+    if(fs.existsSync(dir)) fs.unlinkSync(dir);
     const today = new Date();
     const yyyy = today.getFullYear();
     let mm = today.getMonth() + 1; // Months start at 0!
