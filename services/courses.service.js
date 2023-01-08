@@ -204,7 +204,7 @@ export default {
   },
 
   async chapter(id){
-    return await db('chapter').where('CourID',id);
+    return await db('chapter').where('CourID',id).orderBy("ChapOrder","asc");
 
   },
   async ratingCourses(id){
