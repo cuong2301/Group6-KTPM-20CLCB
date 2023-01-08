@@ -1,6 +1,7 @@
 import express from "express";
 import coursesService from "../services/courses.service.js";
 import adminRole from "../middlewares/adminRole.mdw.js";
+import fs from 'fs'
 const router = express.Router();
 
 router.get("/byCat/:id", async function (req, res) {
@@ -48,6 +49,7 @@ router.get("/",adminRole, async function (req, res) {
   } else {
     list = await coursesService.findAll();
   }
+  console.log(list);
   res.render("vwCourses/index", {
     courses: list,
     empty: list.length === 0,
@@ -87,17 +89,19 @@ router.get("/teacher/:id", adminRole, async function (req, res) {
 
 router.post("/del", adminRole, async function (req, res) {
   const id = req.query.id || 0;
-  const affected_rows = await coursesService.del(id);
+  let dir = "./public/img/" + 35;
+  // const affected_rows = await coursesService.del(id);
+  if(fs.existsSync(dir)) fs.rmSync(dir, { recursive: true, force: true });
   res.redirect("/admin/Courses");
 });
 
 router.post("/block", adminRole, async function (req, res) {
   const id = req.query.id || 0;
   let affected = await coursesService.findById(id);
-  if(affected.block == 0){
-    affected.block = 1;
+  if(affected.Block == 0){
+    affected.Block = 1;
   } else {
-    affected.block = 0;
+    affected.Block = 0;
   }
   console.log(affected);
   await  coursesService.patch(affected);
