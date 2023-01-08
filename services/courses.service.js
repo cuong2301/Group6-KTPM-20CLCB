@@ -60,13 +60,13 @@ export default {
     return db("courses").where("CatID", catId).limit(limit).offset(offset);
   },
   async findPageByNameCourses(name, limit, offset) {
-    const ret = await db.raw("select  linhvuc.CatName , khoahoc.*  from categories as linhvuc, courses as khoahoc where linhvuc.CatID=khoahoc.CatID and match(linhvuc.CatName,khoahoc.CourName) against(? IN BOOLEAN MODE ) LIMIT ?? OFFSET ??",
+    const ret = await db.raw("select  linhvuc.CatName , khoahoc.*  from categories as linhvuc, courses as khoahoc where linhvuc.CatID=khoahoc.CatID and khoahoc.Block =0 and match(linhvuc.CatName,khoahoc.CourName) against(? IN BOOLEAN MODE ) LIMIT ?? OFFSET ??",
         [name,limit,offset]
     );
     return ret[0];
   },
   async PriceArragerment(name, limit, offset) {
-    const ret = await db.raw("select  linhvuc.CatName , khoahoc.*  from categories as linhvuc, courses as khoahoc where linhvuc.CatID=khoahoc.CatID and match(linhvuc.CatName,khoahoc.CourName) against(? IN BOOLEAN MODE ) ORDER BY  khoahoc.Price LIMIT ?? OFFSET ?? ",
+    const ret = await db.raw("select  linhvuc.CatName , khoahoc.*  from categories as linhvuc, courses as khoahoc where linhvuc.CatID=khoahoc.CatID and khoahoc.Block =0 and match(linhvuc.CatName,khoahoc.CourName) against(? IN BOOLEAN MODE ) ORDER BY  khoahoc.Price LIMIT ?? OFFSET ?? ",
         [name,limit,offset]
     );
     return ret[0];
@@ -118,7 +118,7 @@ export default {
   },
   async searchByName(name) {
     const ret = await db.raw(
-      "select  linhvuc.CatName , khoahoc.*  from categories as linhvuc, courses as khoahoc where linhvuc.CatID=khoahoc.CatID and match(linhvuc.CatName,khoahoc.CourName) against(? IN BOOLEAN MODE )",
+      "select  linhvuc.CatName , khoahoc.*  from categories as linhvuc, courses as khoahoc where linhvuc.CatID=khoahoc.CatID and khoahoc.Block =0 and match(linhvuc.CatName,khoahoc.CourName) against(? IN BOOLEAN MODE )",
       name
     );
 

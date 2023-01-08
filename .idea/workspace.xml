@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c9a9cdb6-0928-4361-802a-4edde72deaad" name="Changes" comment="complete wishcourses and listcourses">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/aa79cfd1-46f2-4e9e-9c30-2f0b85d26ff5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/aa79cfd1-46f2-4e9e-9c30-2f0b85d26ff5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+    <list default="true" id="c9a9cdb6-0928-4361-802a-4edde72deaad" name="Changes" comment="ORDER PRICE AND ORDER RATING">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/courses-user.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/courses-user.route.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/courses.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/courses.service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/vwCourses/detail.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/vwCourses/detail.hbs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/vwCourses/search.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/vwCourses/search.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -121,7 +117,7 @@
       <workItem from="1673113920717" duration="5219000" />
       <workItem from="1673146700605" duration="6059000" />
       <workItem from="1673172700827" duration="219000" />
-      <workItem from="1673173231077" duration="5474000" />
+      <workItem from="1673173231077" duration="7262000" />
     </task>
     <task id="LOCAL-00001" summary="First setup for project">
       <created>1670819844717</created>
@@ -305,7 +301,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673085577442</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="ORDER PRICE AND ORDER RATING">
+      <created>1673178959598</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1673178959598</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -346,7 +349,8 @@
     <MESSAGE value="update wishcourses" />
     <MESSAGE value="delete wishcourses" />
     <MESSAGE value="complete wishcourses and listcourses" />
-    <option name="LAST_COMMIT_MESSAGE" value="complete wishcourses and listcourses" />
+    <MESSAGE value="ORDER PRICE AND ORDER RATING" />
+    <option name="LAST_COMMIT_MESSAGE" value="ORDER PRICE AND ORDER RATING" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -358,7 +362,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/routes/courses-user.route.js</url>
-          <line>186</line>
+          <line>188</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
