@@ -200,10 +200,17 @@ router.get('/detail/:id', async function (req, res) {
   const teacher=await userService.findById(teacherId);
   const rev=await coursesService.review(proId);
   let flag;
+  let loveFlag;
   if(user == null){
 
   } else {
    flag = await coursesService.checkEnroll(proId,user.id);
+   let lisst = await userService.checkWishCourse(user.id,proId);
+   if(lisst.length === 0){
+     loveFlag = false;
+   } else {
+     loveFlag = true;
+   }
   }
   console.log(req.session.auth);
   
@@ -220,6 +227,7 @@ router.get('/detail/:id', async function (req, res) {
     teacher,
     rev,
     flag,
+    loveFlag,
     CourID: proId
   });
 });
@@ -283,6 +291,8 @@ router.post('/detail/:id', async function (req, res) {
     let check = await coursesService.findwishcourses(req.body.like);
       if(check==""){
         await coursesService.addwishcourses(wishlist);
+      } else {
+        await userService.deleteWish(req.session.authUser.id,req.params.id);
       }
   }
 
@@ -298,9 +308,7 @@ router.post('/detail/:id', async function (req, res) {
     return res.redirect('/');
   }
 
-  res.render('vwCourses/detail', {
-    product: product
-  });
+  res.redirect("/courses/detail/" + proId)
 
 });
 

@@ -50,17 +50,30 @@
         <br>
         <div class="d-flex align-items-baseline" style="space-between">
             <form method="post" class="d-flex align-items-baseline" style="space-between">
+                {{#if this.loveFlag}}
                 <button class="btn btn-outline-danger btn-lg align-middle" value={{this.product.CourID}} type="submit"
                         name="like" href="#" role="button"
                         style="justify-content: left ; margin-left: 1rem ;margin-bottom: 1rem ">
                     <i class="fa fa-heart-o" aria-hidden="true"></i>
-                    Like
+                    Unlike
                 </button>
+                {{else}}
+                    <button class="btn btn-outline-danger btn-lg align-middle" value={{this.product.CourID}} type="submit"
+                            name="like" href="#" role="button"
+                            style="justify-content: left ; margin-left: 1rem ;margin-bottom: 1rem ">
+                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                        Like
+                    </button>
+                {{/if}}
+                {{#if this.flag}}
+
+                {{else}}
                 <button class="btn btn-outline-success btn-lg align-middle" formaction="/courses/add" type="submit"
                         style="justify-content: right ; margin-left: 3rem ;margin-right: 1rem ">
                     <i class="fa fa-cart-plus " aria-hidden="true"></i>
                     Buy
                 </button>
+                {{/if}}
         </div>
         {{!-- {{format_number this.product.Price}}đ --}}
 
@@ -127,7 +140,7 @@
                                 <div id="collapse{{ChapOrder}}" class="accordion-collapse collapse show"
                                      aria-labelledby="heading{{ChapOrder}}" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <video width="320" height="240" controls>
+                                        <video width="620" height="340" controls>
                                             <source src="/./public/img/{{this.CourID}}/video/{{ChapID}}.mp4">
                                         </video>
 
@@ -153,7 +166,7 @@
                             <div id="collapse{{ChapOrder}}" class="accordion-collapse collapse show"
                                  aria-labelledby="heading{{ChapOrder}}" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <video width="520" height="240" controls>
+                                    <video width="620" height="340" controls>
                                         <source src="/./public/img/{{this.CourID}}/video/{{ChapID}}.mp4">
                                     </video>
 

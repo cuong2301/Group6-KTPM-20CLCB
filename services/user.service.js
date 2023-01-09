@@ -76,8 +76,9 @@ export default {
   findwishcourses(id) {
     return db("wishcourses").where("StudentID", id);
   },
-  findenroll(id) {
-    return db("enroll").where("StudentID", id);
+  checkWishCourse(id,CourID){
+    return db("wishcourses").where("StudentID", id).where("CourID", CourID);
+
   },
   update(name, id) {
     return db("users").where("id", id).update({ username: name });

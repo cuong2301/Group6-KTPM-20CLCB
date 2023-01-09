@@ -32,11 +32,9 @@ router.post("/admin-login", async function (req, res) {
     // 0 is admin
     req.session.auth = true;
     req.session.authUser = user;
-    res.redirect("/admin/users");
+    return res.redirect("/admin/users");
   } else {
-    return res.render("vwAccount/login", {
-      err_message: "Your account is not admin",
-    });
+    return res.redirect("/account/login")
   }
 });
 router.get("/courses/:id", adminRole, async function (req, res) {
