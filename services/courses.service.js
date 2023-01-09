@@ -108,11 +108,11 @@ export default {
   },
 
   async findPopularCourses() {
-    const sql = `SELECT c.CourName, CONVERT(AVG(e.Rating), float) as score
+    const sql = `SELECT c.CourID,c.CourName, CONVERT(AVG(e.Rating), float) as score
                  FROM coursesrating e, courses c
                  WHERE e.CourID = c.CourID and e.dob > DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())+6 DAY) AND e.dob <= DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())-1 DAY)
-                 GROUP BY c.CourID
-                 ORDER By score DESC`;
+                 GROUP BY c.CourID, c.CourName
+                 ORDER By score DESC LIMIT 3`;
     const ret = await db.raw(sql);
     return ret[0];
   },

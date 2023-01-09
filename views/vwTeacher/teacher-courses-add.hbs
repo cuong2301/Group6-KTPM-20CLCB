@@ -38,9 +38,6 @@
             } else if($('#mytextarea_ifr').contents().find('body').text().trim().length == 0){
                 alert("Empty for Description")
                 return false;
-            } else if($('#mytextarea2_ifr').contents().find('body').text().trim().length == 0){
-                alert("Empty for Description")
-                return false;
             } else if( $('#inputPrice').val().trim() == ''){
                 alert("Empty for Price")
                 return false;
@@ -80,7 +77,7 @@
                     <label class="small mb-1" for="fuMain"><strong style="font-size: 20px">Small description</strong></label>
                     <input class="form-control" id="inputUsername" type="text"
                            placeholder="{{this.courses.CourName}}"
-                           name="CourName">
+                           name="TinyDes">
                 </div>
             </div>
             <div style="padding-top: 10px; font-size: large ">

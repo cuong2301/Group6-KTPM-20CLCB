@@ -89,11 +89,13 @@ activate_locals(app);
 
 app.get("/", async function (req, res) {
   const newest = await coursesService.findNewestCourses();
-  const popula = await coursesService.findPopularCourses();
+  let popula = await coursesService.findPopularCourses();
   const MostEnroll = await categoryService.findMostEnrollCat();
   //const listP = await categoryService.findCatParent();
-
-  console.log(popula);
+  if(popula.length == 0){
+    popula = [newest[0], newest[1], newest[2] ];
+  }
+  console.log(popula)
   //console.log(req.session.auth);
   res.render("home", {
     newest: newest,

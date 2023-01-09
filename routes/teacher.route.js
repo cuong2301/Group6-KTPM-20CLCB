@@ -47,8 +47,8 @@ router.post('/profile', async function (req, res) {
             delete newUser.email;
         } else {
             const uuser = await userService.findByEmail(email);
-            if(newUser.email === user.email) errormessage = "This email not change";
-            else if (uuser === null) {
+
+             if (uuser !== null) {
                 const user = await userService.findByEmail(email);
                 errormessage = "This email has been taken";
             }
@@ -130,7 +130,10 @@ router.post('/courses/add', async function (req, res) {
         let course = req.body;
         course.dob = formattedToday;
         course.update = formattedToday;
+        course.Block = 0;
+        course.Views = 0;
         course.TeacherID = user.id;
+        console.log(course);
         await coursesService.addNew(course);
         if (err) {
             console.error(err);
@@ -157,10 +160,10 @@ router.post("/courses/edit", async function (req, res) {
     const id = req.query.id || 0;
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, './public/img');
+            cb(null, './public/img/' + id);
         },
         filename: function (req, file, cb) {
-            cb(null, id + ".mkv");
+            cb(null,"main.jpg");
         }
     });
     const upload = multer({ storage: storage });
@@ -188,10 +191,14 @@ router.post("/courses/edit", async function (req, res) {
 router.get("/courses/chapter",requireRole(), async function (req, res) {
     const id = req.query.id || 0;
     const chap = await chapterService.findByCourID(id);
-    const count = await chapterService.checkChapNull(id);
     let flag = false;
-    if(count[0].quantity >= 1){
-        flag = true;
+    let dir = "./public/img/" + id + "/video/";
+    fs.existsSync(dir)
+    for(let i = 0 ; i < chap.length;i++){
+        if(!fs.existsSync(dir + chap[i].ChapID + ".mp4")){
+            flag = true;
+            break;
+        }
     }
     console.log(flag);
     res.render("vwTeacher/teacher-courses-chapter",{
