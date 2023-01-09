@@ -90,7 +90,7 @@ activate_locals(app);
 app.get("/", async function (req, res) {
   const newest = await coursesService.findNewestCourses();
   let popula = await coursesService.findPopularCourses();
-  const MostEnroll = await categoryService.findMostEnrollCat();
+  let MostEnroll = await categoryService.findMostEnrollCat();
   //const listP = await categoryService.findCatParent();
   if(popula.length == 0){
     popula = [newest[0], newest[1], newest[2] ];

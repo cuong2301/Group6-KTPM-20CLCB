@@ -30,7 +30,7 @@ export default {
     WHERE e.CourID = c.CourID and c.CatID = ca.CatID and  e.dob > DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())+6 DAY) AND e.dob <= DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())-1 DAY)
     GROUP BY ca.CatName
     ORDER By quantity DESC
-    LIMIT 3`;
+    LIMIT 5`;
     const ret = await db.raw(sql);
     return ret[0];
   },
