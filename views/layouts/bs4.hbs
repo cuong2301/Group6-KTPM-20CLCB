@@ -1,167 +1,174 @@
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <title>E-Commerce Application (20KTPMB)</title>
-    <link rel="stylesheet" href="/public/style/layouts.css" />
+    <link rel="stylesheet" href="/public/style/layouts.css"/>
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-      crossorigin="anonymous"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+            crossorigin="anonymous"
     />
     <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-      crossorigin="anonymous"
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"
     ></script>
     <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-      crossorigin="anonymous"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"
     ></script>
     <script
-      src="https://kit.fontawesome.com/7e82bd001e.js"
-      crossorigin="anonymous"
+            src="https://kit.fontawesome.com/7e82bd001e.js"
+            crossorigin="anonymous"
     ></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     {{{_sections.css}}}
     <style>
-      * { font-size: 14px; }
+        * {
+            font-size: 14px;
+        }
     </style>
-  </head>
-  <body>
-    <nav
-      class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm"
-    >
-      <div class="container">
+</head>
+<body>
+<nav
+        class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm"
+>
+    <div class="container">
         <a class="navbar-brand" href="/"><i class="fa-solid fa-shop me-2"></i>
-          <strong>ONLINE ACADEMY GROUP 6</strong></a>
+            <strong>ONLINE ACADEMY GROUP 6</strong></a>
         <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
-          <div class="input-group">
+            <div class="input-group">
             <span
-              class="border-warning input-group-text bg-warning text-white"
+                    class="border-warning input-group-text bg-warning text-white"
             ><i class="fa-solid fa-magnifying-glass"></i></span>
-            <input
-              type="text"
-              class="form-control border-warning"
-              style="color:#7a7a7a"
-            />
-            <button class="btn btn-warning text-white">Search</button>
-          </div>
+                <input
+                        type="text"
+                        class="form-control border-warning"
+                        style="color:#7a7a7a"
+                />
+                <button class="btn btn-warning text-white">Search</button>
+            </div>
         </div>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <form
-            class="ms-auto d-none d-lg-block"
-            method="post"
-            action="/courses/search"
-          >
-            <div class="input-group">
-              <button
-                class="border-warning input-group-text bg-warning text-white"
-              ><i class="fa-solid fa-magnifying-glass"></i></button>
-              <input
-                name="Search"
-                type="text"
-                class="form-control border-warning"
-                style="color:#7a7a7a"
-              />
-              <button
-                type="submit"
-                class="border-warning input-group-text bg-warning text-white"
-              >Search</button>
-            </div>
-          </form>
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle mx-2 text-uppercase"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >Categories</a>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                 {{#each lcCatParent}}
-                 {{!-- {{#if CatParent}}
-                 {{else}}
-                 <li> <a href="/courses/byCat/{{CatID}}">{{CatName}}</a></li>
-                 {{/if}} --}}
-                      <li><a class="dropdown-item" href="/courses/byCat/{{CatID}}" style="text-decoration: none; color:black ; font-weight:100, ">
-                      {{CatName}} &raquo;
-                      </a>
-                        <ul class="dropdown-menu dropdown-submenu">
-                        {{#each ../lcCat}}
-                            {{#if (eq CatParent ../CatID)}}
-                          <li>
-                            <a class="dropdown-item" href="/courses/byCat/{{CatID}}">{{CatName}}</a>
-                          </li>
-                            {{/if}}
-                        {{/each}}
-                        </ul>
-                  {{/each}}
-
-                      </li>
-
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link mx-2 text-uppercase" href="#">Catalog</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link mx-2 text-uppercase" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link mx-2 text-uppercase" href="#">About</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav ms-auto">
-            {{#if auth}}
-                <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                              {{authUser.username}}
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-dark">
-                                <li><a class="dropdown-item" href="/account/profile">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <form action="/account/logout" id="frmLogout" method="post"></form>
-                                <li><a class="dropdown-item" href="javascript: $('#frmLogout').submit();">Log out</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+            <form
+                    class="ms-auto d-none d-lg-block"
+                    method="post"
+                    action="/courses/search"
+            >
+                <div class="input-group">
+                    <button
+                            class="border-warning input-group-text bg-warning text-white"
+                    ><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <input
+                            name="Search"
+                            type="text"
+                            class="form-control border-warning"
+                            style="color:#7a7a7a"
+                    />
+                    <button
+                            type="submit"
+                            class="border-warning input-group-text bg-warning text-white"
+                    >Search
+                    </button>
                 </div>
-            {{else}}
+            </form>
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link mx-2 text-uppercase" href="/account/login">Sign in</a>
+                    <a class="nav-link mx-2 text-uppercase" href="/courses">Course</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link mx-2 text-uppercase" href="/account/register">Register</a>
-                </li>
-            {{/if}}
+                <li class="nav-item dropdown">
+                    <a
+                            class="nav-link dropdown-toggle mx-2 text-uppercase"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                    >Categories</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {{#each lcCatParent}}
+                        {{!-- {{#if CatParent}}
+                        {{else}}
+                        <li> <a href="/courses/byCat/{{CatID}}">{{CatName}}</a></li>
+                        {{/if}} --}}
+                        <li><a class="dropdown-item" href="/courses/byCat/{{CatID}}"
+                               style="text-decoration: none; color:black ; font-weight:100, ">
+                            {{CatName}} &raquo;
+                        </a>
+                            <ul class="dropdown-menu dropdown-submenu">
+                                {{#each ../lcCat}}
+                                    {{#if (eq CatParent ../CatID)}}
+                                        <li>
+                                            <a class="dropdown-item" href="/courses/byCat/{{CatID}}">{{CatName}}</a>
+                                        </li>
+                                    {{/if}}
+                                {{/each}}
+                            </ul>
+                        {{/each}}
 
-          </ul>
+                    </li>
+
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                {{#if auth}}
+                    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    {{authUser.username}}
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    {{#if (eq authUser.permission 2)}}
+                                    <li><a class="dropdown-item" href="/account/profile">Profile</a></li>
+                                        {{else if (eq authUser.permission 1)}}
+                                            <li><a class="dropdown-item" href="/teacher/profile">Profile</a></li>
+                                    {{else if (eq authUser.permission 0)}}
+                                        <li><a class="dropdown-item" href="/admin/categories">Admin page</a></li>
+                                        {{/if}}
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <form action="/account/logout" id="frmLogout" method="post"></form>
+                                    <li><a class="dropdown-item" href="javascript: $('#frmLogout').submit();">Log
+                                        out</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                {{else}}
+                    <li class="nav-item">
+                        <a class="nav-link mx-2 text-uppercase" href="/account/login">Sign in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2 text-uppercase" href="/account/register">Register</a>
+                    </li>
+                {{/if}}
+
+            </ul>
         </div>
-      </div>
-    </nav>
-
-    <div class="boddy">
-      {{{body}}}
     </div>
-    <script src="/public/JS/nav.js"></script>
-    {{{_sections.js}}}
-  </body>
+</nav>
+
+<div class="boddy">
+    {{{body}}}
+</div>
+<script src="/public/JS/nav.js"></script>
+{{{_sections.js}}}
+</body>
 </html>

@@ -152,7 +152,7 @@ router.post("/profile", async function (req, res) {
           username: req.session.authUser.username,
           password: hash,
           email: req.session.authUser.email,
-          permission: 0,
+          permission: 2,
         };
         req.session.authUser = usernew;
         await userService.updateAll(user.id, req.session.authUser);
