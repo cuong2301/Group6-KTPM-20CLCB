@@ -176,12 +176,12 @@
             <h1>TOP MOST BUY COURSES</h1>
             <div class="row">
                 <div class="col-12 m-auto">
-                    <div class="owl-carousel owl-theme d-flex">
+                    <div class="owl-carousel owl-theme">
                         {{#each this.listMost}}
-                            <div style="margin-right: 5px;" class="item mb-4">
-                                <div class="card text-center border-0 shadow">
+                            <div style="margin-right: 5px;" class="item mb-1">
+                                <div class="card text-center border-0 shadow" style=" margin-left: 130px;width: 321.2px">
                                     <img src="/public/img/{{CourID}}/main.jpg" alt="" class="card-img-top"
-                                         style="width: 50%px;height:50%px">
+                                         style="">
                                     <div class="card-body">
                                         <div class="card-title text-center">
                                             <h4>{{CourName}}</h4>
@@ -340,12 +340,6 @@
                 0: {
                     items: 1,
 
-                },
-                600: {
-                    items: 2
-                },
-                1000: {
-                    items: 3
                 }
             }
         })
